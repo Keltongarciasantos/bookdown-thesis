@@ -17,6 +17,7 @@ bookdown::pdf_book:
   citation_package: none
   pandoc_args: [ "--csl", "default.csl" ]
   keep_tex: yes
-bookdown::html:
+bookdown::html_book:
+  css: "style.css"
     # keep_tex: true # uncomment to keep merged tex file
 # bookdown::word_document2: default # uncomment for word document

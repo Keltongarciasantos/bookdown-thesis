@@ -8,6 +8,7 @@ bookdown::gitbook:
       link: https://github.com/remlapmot/bookdown-thesis/blob/master/%s
 bookdown::pdf_book:
   geometry: [left=3cm, right=3cm, top=4cm, bottom=4cm] 
+  linestretch: 1.5
   includes:
     in_header: latex/preamble.tex
     before_body: latex/before_body.tex
@@ -16,5 +17,6 @@ bookdown::pdf_book:
   citation_package: none
   pandoc_args: [ "--csl", "default.csl" ]
   keep_tex: yes
+bookdown::html:
     # keep_tex: true # uncomment to keep merged tex file
 # bookdown::word_document2: default # uncomment for word document

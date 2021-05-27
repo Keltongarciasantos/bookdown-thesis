@@ -1,7 +1,7 @@
 ---
 #title: "MSc Data Science Thesis"
 #author: "Kelton Santos"
-#date: "`r format(Sys.Date(), '%d %B %Y')`"
+#date: "22 maio 2021"
 documentclass: book
 geometry: margin=1in
 bibliography: [bibliography.bib]
@@ -15,17 +15,7 @@ classoption: openany
 linestretch: 1.5
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, tidy = FALSE)
-def.chunk.hook <- knitr::knit_hooks$get("chunk")
-knitr::knit_hooks$set(chunk = function(x, options) {
-  x <- def.chunk.hook(x, options)
-  ifelse(options$size != "normalsize", 
-         paste0("\n \\", options$size,"\n\n", x, "\n\n \\normalsize \n"), x)
-})
-require(broom)
-library(tidyverse)
-```
+
 
 # Agradecimentos{-}
 

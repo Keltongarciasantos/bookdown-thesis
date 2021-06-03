@@ -1,4 +1,4 @@
-# Introdução
+# Introduction
 
 ## Background information
 
@@ -10,4 +10,3 @@
 
 ## Literature review
 
-One important development was made by @Abrams2005.

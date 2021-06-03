@@ -1,18 +1,19 @@
 ---
-#title: "MSc Data Science Thesis"
-#author: "Kelton Santos"
-#date: "`r format(Sys.Date(), '%d %B %Y')`"
+bibliography: bibliography.bib
+classoption: openany
+colorlinks: yes
+csl: default.csl
 documentclass: book
 geometry: margin=1in
-bibliography: [bibliography.bib]
+linestretch: 1.5
 link-citations: yes
-csl: default.csl
-colorlinks: yes
 lof: yes
 lot: yes
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
 site: bookdown::bookdown_site
-classoption: openany
-linestretch: 1.5
 ---
 
 ```{r setup, include=FALSE}

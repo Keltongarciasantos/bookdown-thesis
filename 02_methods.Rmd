@@ -1,6 +1,13 @@
+---
+output:
+  html_document: default
+  pdf_document: 
+    toc: yes
+---
 # Séries Temporais
 
 ## Introdução
+
 \justify
 As previsões são necessárias em várias situações para servir como suporte na tomada de decisões e muitas vezes com vários anos de antecedência. Por exemplo, para uma empresa decidir se vai investir na construção de uma  nova unidade de produção, nos próximos cinco anos, requer previsões da procura dos produtos e do retorno do investimento no futuro. Para se decidir sobre a implementação de determinada política económica-financeira, as autoridades de um determinado país precisam de previsões para análise da viabilidade da implementação dessa política.
 
@@ -186,5 +193,195 @@ Um processo estocástico $X = \{X_t, t \in T\}$ diz-se *fracamente estacionária
 Daqui em diante usaremos o termo **estacionário** em vez de **fracamente estacionário**. Se um processo for fortemente estacionário, usaremos o termo **estritamente estacionário** ou **fortemente estacionária**
 Os processos estacionários são apropriados para modelar fenómenos aleatórios cujo comportamento parece não mudar muito com o tempo [@shumway2000time].
 
-Existem vários tipos de não estacionaridade, mas nos próximos capítulos veremos que tais processos podem ser transformados e processos estacionários através de diferenças sucessivas.
+Existem vários tipos de não estacionaridade, mas nos próximos capítulos veremos que tais processos podem ser transformados em processos estacionários através de diferenças sucessivas.
 
+```{definition, name="Função de covariança"}
+
+Uma função real 
+\begin{equation*}
+\Gamma:T\times T\rightarrow \mathbb{R}\\
+(s,t) \rightarrow \Gamma(s,t)
+\end{equation*}
+
+é uma função de covariança de um processo estocástico real de segunda ordem sse $\Gamma$ é uma função simétrica e definida positiva.  
+```
+Por outras palavras, $\Gamma$ é uma função de autocorrelação se satisfazer as seguintes condições:
+
+* $\gamma(0) >0$;
+* $\gamma(-h) = \gamma(h)$;
+* $\left | \gamma(t) \right | \leq \gamma(0)$
+* $\gamma(t)$ é **positiva definida**, no sentido que 
+
+\begin{equation}
+\sum_{j=1}^{n}\sum_{k=1}^{n}a_ja_k\gamma(t_j-t_k) \geq 0, \forall n\in \mathbb{N}, \forall a_j \in \mathbb{R}, j=1,...,n
+\end{equation}
+
+
+```{definition, name="Função de autocorrelação"}
+
+A função de autocorrelação é definida por
+
+\begin{equation}
+\rho = Corr(X_t,X_{t+h}) = \frac{Cov(X_t,X_{t+h})}{\sqrt{V(X_t)}\sqrt{V(X_{t+h})}} = \frac{\gamma(h)}{\gamma(0)}
+(\#eq:autocorrelacao)
+\end{equation}
+```
+Como usualmente é quase impossível obter uma descrição completa de um processo estocástico ( isto é, especificar a função distribuição de probabilidade correspondente), a função de autocorrelação demonstra-se muito útil porque ela fornece uma descrição parcial do processo para efeito de modelação. A função autocorrelação indica o nível de correlação existente entre pontos vizinhos de uma série e ela é usada normalmente para identificar um modelo adequado para a série temporal $X_t$ [@pindyck2008econometric].
+
+## Tendência e sazonalidade das séries temporais
+
+Dois dos principais motivos por detrás das variações da maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando um série apresenta constante crescimento ou declínio, em sucessivos períodos de tempo [@xavier2016analise].
+
+Se considerarmos que a série temporal não apresenta a componente sazonal, poderemos escrever o modelo
+
+\begin{equation}
+X_t = T_t + \epsilon_t
+(\#eq:tendencia)
+\end{equation}
+onde $\epsilon_t$ é um ruído branco (uma variável aleatória com média zero e variância $\sigma^{2}$) e $T_t$ o estimador da tendência. Existem vários métodos de se estimar $T_t$. Segundo [@morettin1981modelos] os mais utilizados são:
+
+1. Ajustar uma função do tempo, como um polinómio, uma exponencial ou outra função suave de $t$;
+2. Suavizar (ou filtrar) os valores da série ao redor de um ponto, para estimar a tendência naquele ponto.
+
+Depois de estimada a tendência $\hat{T}_t$, podemos considerar a série ajustada para a tendência ou livre da tendência,
+
+\begin{equation}
+Y_t = X_t - \hat{T}_t
+(\#eq:tendencias)
+\end{equation}
+
+Outro procedimento que é também utilizado para eliminar a tendência de uma série, consiste em tomar sucessivas diferenças da série original até encontrar uma série estacionária. Segundo [@morettin1981modelos], para séries económicas, a primeira diferença já é estacionária
+\begin{equation}
+\Delta X_t = X_t - X_{t-1}
+(\#eq:tendenciass)
+\end{equation}
+
+O testes mais utilizados para identificar tendências são:
+
+1. *Teste de Sequências* (Wald-Wolfowitz)
+2. *Teste do Sinal* (Cox - Stuart)
+3. *Teste baseado do coeficiente de correlação de Spearaman*
+
+A **Sazanolidade** é um tipo de variação onde fenômenos que ocorrem durante o tempo se repete a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
+A sazonalidade pode ser devidida em dois tipos, *sazonalidade determinista*, quando o padrão sazonal é regular e estável no tempo, ou *sazonalidade estocástica* quando o padrão sazonal varia como tempo [@xavier2016analise].
+
+
+Existem vários procedimentos para se estimar a sazonalidade, sendo que as mais utilizadas são os *métodos de regressão* e os *métodos de médias móveis*. Os métodos de regressão são mais apropriados para séries que apresentam sazonalidade determinística, ou seja, pode ser prevista normalmente a partir de comportamento dos dados em períodos anteriores [@morettin1981modelos]. Já o método de médias móveis é mais apropriado para séries temporais cuja componente sazonal varia com o tempo, isto é, séries de sazonalidade estocástica.
+
+
+Os testes mais utilizados para estimar a sazonalidade são
+
+1. *Teste de Kruskal-Wallis*, para várias amostras independentes;
+2. *Teste de Friedman*, para amostras dependentes/emparelhadas
+3. *Teste F* para determinar sazonalidade determinística
+
+Uma outra abordagem seria incorporar a variação sazonal e a tendência em um modelo ARIMA (será estudado no próximo capítulo).
+
+## Modelos Matemáticos para previsão de séries temporais
+
+Um método de previsão, normalmente tem associado alguns procedimentos, que de acordo os dados históricos disponíveis, poder-se prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais tem como base a suposição que os dados passados contêm as informações sobre o padrão de comportamento da série.
+
+De acordo com [chatfield2000time], podemos classificar o métodos de previsão em três tipos
+
+* **As previsões Julgamentais** (*Judgemental*), que se baseia no julgamento subjectivo, intuição e na experiência sem qualquer outra informação revelante.
+* **Métodos univariados**, em que as previsões dependem apenas dos valores passados de uma única variável, podendo ser auxiliada por uma função de tempo ou por uma tendência linear. Nesse trabalho a ênfase será nesses métodos.
+* **Métodos multivariados**, onde as previsões de uma variável dependem dos valores de uma ou mais variáveis adiconais, chamados variáveis explicativas. Normalmente esses métodos são usados na econometria.
+
+
+Existem vários métodos dos mais simples aos mais complexos, mas nem sempre os mais complexos produzem os melhores resulados, por isso será necessário avaliar as vantagens dos métodos antes de se iniciar a previsão.
+Ao escolher os métodos, deve-se ter em atenção as seguintes medidas de erro.
+
+* Análise gráfica;
+* Diagrama de dispersão;
+* Coeficiente de correlação;
+* Erro quadrático acumulado;
+* Raíz do errro médio quadrático (RMSE);
+* Erro percentual absoluto (MAPE)
+* ...
+
+Pode-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@morettin1981modelos]:
+
+* Modelos paramétricos, onde o número de parâmetros é finito;
+* Modelos não paramétricos, o número de parâmetros é infinito.
+
+Nos modelos parmétricos, a análise é feita no domínio do tempo. Dentre esses modelos, os mais utilizados são os modelos de regressão (ou de erro), os modelos autoregressivos - médias móveis(ARMA) e os modelos autoregressivos-integrados-médias móveis (ARIMA). 
+Os modelos não paramétricos mais frequentemente usados são a função de auto-covariânça (ou auto-correlação) e sua transformada de Fourier, o *espectro*.
+
+
+Pode-se escrever a série temporal observada na forma
+\begin{equation}
+X_t = f(t) + \epsilon_t, t=1,...,n,
+(\#eq:sinal)
+\end{equation}
+onde $f(t)$ é denominado *sinal* e $\epsilon_t$ o *ruído*
+
+De acordo com as hipóteses estabelicidas para \@ref(eq:sinal), pode-se ter duas classes de modelos, os modelos de regressão  ou os modelos ARIMA.
+
+
+
+### Modelos de erros ou de regressão
+
+Esse são os modelos mais clássicos e provavelmente os primeiros a serem utilizados [@morettin1981modelos]. Nesses modelos, os sinal de $f(t)$ em \@ref(eq:sinal), é uma função completamente determinada(parte sistemática determinística) e $\epsilon_t$ é uma sequência aleatória, independente de $f(t)$ [@morettin1981modelos]. Supõe-se que as variáveis aleatórias $\epsilon_t$ não são correlacionadas, têm média zero e variância constante, isto é,
+
+\begin{equation}
+E(\epsilon_t) = 0,\\
+E(\epsilon^{2}_t) = \sigma^{2}_{\epsilon},\\
+E(\epsilon_t, \epsilon_s) = 0,  \text{  para  } s\neq s
+(\#eq:sistdeter)
+\end{equation}
+
+Nessas condições, a série $\epsilon_t$ é chamada de *ruído branco*.
+
+Desta maneira, qualquer efeito do tempo influência somente a parte determinística $f(t)$ e os modelos onde $X_t$ depende funcionalmente de $X_{t-1}, X_{t-2},...$ não estão incluídos em \@ref(eq:sinal) com estas suposições.
+Abaixo temos alguns exemplos desses métodos.
+
+#### Modelo de tendência linear
+
+\begin{equation}
+X_t = \alpha + \beta t + \epsilon_t,  \text{  com   } t = 1,...,n
+(\#eq:tlinear)
+\end{equation}
+com $f(t) = \alpha + \beta t$, que é uma função linear dos parâmetros.
+ 
+#### Modelo de regressão:
+
+\begin{equation}
+X_t = \alpha + \beta X_t + \epsilon_t,  \text{  com  }  t = 1,...,n
+(\#eq:regress)
+\end{equation}
+com $f(t) = \alpha + \beta X_t$, sendo $x_t$ uma quantidade observável e $f(t)$ um função linear de parâmetros.
+Nestes casos os parâmetros podem se estimados usando-se o método de mínimos quadrados.
+ 
+#### Modelos de curva de crescimento
+
+\begin{equation}
+X_t = \alpha + e^{\beta t + \epsilon_t}, \text{ ou } X_t=\log \alpha +\beta t+\epsilon_t  
+(\#eq:curvcresc)
+\end{equation}
+
+Neste caso, $f(t)$ não é uma função linear dos parâmetros, embora $log (X_t)$ o seja. Segundo [@morettin1981modelos] normalmente, ha dois tipos diferentes de funções para $f(t)$
+
+
+1. polinómio em $t$, em geral de grau baixo, da forma
+\begin{equation}
+f(t) = \beta_0 + \beta_1t+...+\beta_mt^m  
+(\#eq:polin1)
+\end{equation}
+de modo que a componente sistemática move-se lentamente, suavemente e progressivamente ao longo do tempo. a função $f(t)$ representa uma *tendência polinomial determinística de grau $m$*. Daí resulta que o processo $X_t$ será não estacionário, se $m >0$.
+
+2. polinômio harmônico, ou seja, uma combinação linear de senos e cossenos com coeficientes constantes, da forma
+\begin{equation}
+f(t) = \sum_{n=1}^{p}(\alpha_ncos\lambda_nt + \beta_nsen\lambda_nt)
+(\#eq:polin2)
+\end{equation}
+com $\lambda_n = \frac{2 \pi n}{p}$, se $f(t)$ tem período $p$.
+
+O modelo de erro é clássico para análise de séries econômicas, onde $f(t)$ é composta da adição ou multiplicação de ambos os tipos  de função: \@ref(eq:polin1)  representará a tendência e \@ref(eq:polin2) representará as variações sazonais. Isto é $f(t) = T_t + S_t$, donde
+
+\begin{equation}
+X_t = T_t + S_t + \epsilon_t
+(\#eq:sazon1)
+\end{equation}
+Normalmente, $T_t$ é a componente da tendência, enquanto que $S_t$ é a componente sazonl.
+
+### Modelos ARIMA

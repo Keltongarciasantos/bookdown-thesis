@@ -17,14 +17,14 @@ Alguns eventos são mais fáceis de se fazer previsões do que outras. Por exemp
 * Quantidade de dados disponíveis;
 * Efeito que o conhecimento da previsão poderá ter no próprio evento.
   
-Por exemplo a previsão do consumo de electricidade pode ser determinado com alto grau de precisão, pois as três condições acima normalmente são satisfeitas. Têm-se ideia dos factores que podem afetar o consumo de electricidade (temperatura, época do ano, e condições económicas da população etc.); normalmente têm-se dados do passado relativamente ao consumo de electricidade; a precisão determinada normalmente não influência o consumo de electricidade no futuro [@hyndman2018forecasting]. No caso de previsões de taxas de câmbio somente a segunda condição é satisfeita, visto que têm-se conhecimento limitado dos factores externos que podem afetar as taxas de câmbio e a previsão e publicação das taxas de câmbio podem afetar a taxa de câmbio no futuro.
+Por exemplo a previsão do consumo de electricidade pode ser determinado com alto grau de precisão, pois as três condições acima normalmente são satisfeitas. Têm-se ideia dos factores que podem afetar o consumo de electricidade (temperatura, época do ano, e condições económicas da população etc.); normalmente têm-se dados do passado relativamente ao consumo de electricidade; a previsão determinada normalmente não influência o consumo de electricidade no futuro [@hyndman2018forecasting]. No caso de previsões de taxas de câmbio somente a segunda condição é satisfeita, visto que têm-se conhecimento limitado dos factores externos que podem afetar as taxas de câmbio e a previsão e publicação das taxas de câmbio podem afetar a taxa de câmbio no futuro.
 
 Geralmente, os métodos usados nas previsões analisam dados do passado para tentar fazer previsões sobre valores futuros[@xavier2016analise]. O método apropriado a usar nas previsões depende muito dos dados disponíveis. Quando não existem dados disponíveis, ou se os dados não são muito relevantes para a previsão, usam-se **métodos de previsões qualitativas**, que são métodos bem desenvolvidos estruturados para obter previsões sem usar dados históricos[@hyndman2018forecasting].
 
 Os **métodos de previsão quantitativas** são aplicadas quando as seguintes condições são satisfeitas:
 
 1. Dados numéricos sobre o passado estão disponíveis;
-2. É razoável assumir que alguns padrões verificadas no passado continuarão no futuro.
+2. É razoável assumir que alguns padrões verificados no passado continuarão no futuro.
 
 Existem vários métodos de previsão quantitativas dos mais simples aos mais complexos, normalmente desenvolvidos para áreas e propósitos específicos. A maioria dos métodos quantitativos usam dados em forma de *séries temporais*(recolhidos em intervalos regulares ao longo do tempo) ou dados de *corte transversal*, também chamados *cross-sectional* (relativos a um dado instante ou período de tempo).
 
@@ -37,7 +37,7 @@ Y_i = \beta_0 + \beta_1X_{i1} +\beta_2X_{i2} + \varepsilon_i
 
 Em determinadas situações o uso de modelos económetricos pode ser difícil ou impossível. Por exemplo se não houver dados disponíveis para as variáveis explicativas $X_{i1}$ e $X_{i2}$ que permitam a determinação dos coeficientes $\beta_0$, $\beta_1$, $\beta_2$, ou se os dados disponíveis resultarem em erros $\varepsilon_i$ muito grandes.
 
-Dado a essas e outras razões muitas vezes recorre-se a outros tipos de modelos para previsão. contrariamente aos modelos econométricos que usam informações de outras varíaveis para a previsão de determinada variável, os métodos de *séries temporais* usam somente dados históricos da variável a ser estimada. Modelos de previsão de séries temporais são muitas vezes caracterizados como *método sofisticado de extrapolação* [@pindyck2008econometric]. O foco desse trabalho é justamente previsões com método de séries temporais. Para previsão usando métodos econométricos favor consultar [@pindyck2008econometric].
+Devido a essas e outras razões muitas vezes recorre-se a outros tipos de modelos para previsão. Contrariamente aos modelos econométricos que usam informações de outras varíaveis para a previsão de determinada variável, os métodos de *séries temporais* usam somente dados históricos da variável a ser estimada. Modelos de previsão de séries temporais são muitas vezes caracterizados como *método sofisticado de extrapolação* [@pindyck2008econometric]. O foco desse trabalho é justamente previsões com método de séries temporais. Para previsão usando métodos econométricos favor consultar [@pindyck2008econometric].
 
 
 ## Séries temporais
@@ -56,7 +56,7 @@ As séries dos exemplos i. - iv. são séries temporais *discretas*, enquanto qu
 
 Ao analisar uma série temporal, espera-se que exista uma causa relacionada com o tempo, que influenciou os dados no passado e que continuará a influencia-los futuramente [@xavier2016analise]. Segundo [@morettin1981modelos] o objectivo da análise de séries temporais é de construir modelos para as séries, com propósitos determinados.
 
-Podemos destacar os seguinte objectivos da análise de séries temporais segundo [xavier2016analise]:
+Podemos destacar os seguinte objectivos da análise de séries temporais segundo [@xavier2016analise]:
 
 1. Determinar as propriedades de uma série, como sazonalidades, estacionaridade padrão de tendência, etc.
 2. Desenvolver um modelo estatístico que permita explicar o comportamento da série no período observado;
@@ -69,13 +69,13 @@ Quer no domínio temporal ou no domínio de frequências, são construídos *mod
 
 ## Processos Estocásticos
 
-Os modelos que se utilizam para descrever séries temporais são processos estocásticos, ou seja, processos controlados por leis probabilísticas. Para [@chatfield2000time], a maioria das séries temporais são estocásticas, ou aleatórias ou seja, o futuro é apenas parcialmente determinado por valores passados, sendo o modelo para estas séries muitas vezes chamado de processo estocástico.
+Os modelos que se utilizam para descrever séries temporais são processos estocásticos, ou seja, processos controlados por leis probabilísticas. Para [@chatfield2000time], a maioria das séries temporais são estocásticas, ou aleatórias, isto é, o futuro é apenas parcialmente determinado por valores passados, sendo o modelo para estas séries muitas vezes chamado de processo estocástico.
 
 
 ```{definition, name="Fenómenos Aleatórios"}
 São Fenómenos naturais em que se supõe a intervenção do acaso no sentido em que não é possível, a partir do passado prever determinísticamente o futuro.
 ```
-Os fenómenos aleatórios que se desenrolam no tempo são objeto do estudo do *processos estocásticos*. Os processos estocásticos são os modelos matemáticos que descrevem os fenómenos aleatórios que evoluem ao longo do tempo.
+Os fenómenos aleatórios que se desenrolam no tempo são objeto de estudo de *processos estocásticos*. Os processos estocásticos são os modelos matemáticos que descrevem os fenómenos aleatórios que evoluem ao longo do tempo.
 
 ```{definition, name= "Processo Estocástico"}
 Dado um espaço de probabilidade $(\Omega, F, P)$ e um conjunto $T$, *processo estocástico* é uma função $X(t, w)$ definida no produto cartesiano $T\times \Omega$, que para cada $t \in T$ é uma variável aleatória. Simbólicamente escreve-se:

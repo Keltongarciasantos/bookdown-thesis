@@ -3,3 +3,24 @@ output_dir: "docs"
 delete_merged_file: true
 always_allow_html: yes
 new_session: true # required for kableExtra to play nicely with bookdown
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabela '
+    eq: 'Equação '
+    thm: 'Teorema '
+    lem: 'Lema '
+    cor: 'Corolário '
+    prp: 'Proposição '
+    cnj: 'Conjectura'
+    def: 'Definição '
+    exm: 'Exemplo '
+    exr: 'Exercício '
+    hyp: 'Hipótese '
+    proof: 'Prova. '
+    remark: 'Remark. '
+    solution: 'Solução. '
+  ui:
+    edit: Edit
+    chapter_name: ''
+    appendix_name: ''

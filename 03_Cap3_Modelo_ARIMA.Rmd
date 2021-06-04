@@ -36,4 +36,4 @@ knitr::include_graphics("img/mtcars-scatter.png")
 
 To figure code chunks add the chunk option `fig.pos="H"` to use the LaTeX float package to try and position the figure where the code appears.
 
-Also, this is how to reference a section, e.g. the Introduction was chapter \@ref(introduction) and the Literature Review was section \@ref(literature-review).
+Also, this is how to reference a section, e.g. the Introduction was chapter \@ref(introdução) and the Literature Review was section

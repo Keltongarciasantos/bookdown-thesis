@@ -9,6 +9,7 @@ bookdown::gitbook:
 bookdown::pdf_book:
   geometry: [left=3cm, right=3cm, top=4cm, bottom=4cm] 
   linestretch: 1.5
+  fontsize: 12pt
   includes:
     in_header: latex/preamble.tex
     before_body: latex/before_body.tex

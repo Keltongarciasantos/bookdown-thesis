@@ -1,4 +1,4 @@
-# Results
+# Modelos ARIMA
 
 
 
@@ -44,7 +44,7 @@ plot(pressure, pch = 19, type = "b")
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.75\linewidth]{03_results_files/figure-latex/pressure-1} 
+{\centering \includegraphics[width=0.75\linewidth]{03_Cap3_Modelo_ARIMA_files/figure-latex/pressure-1} 
 
 }
 
@@ -68,4 +68,4 @@ knitr::include_graphics("img/mtcars-scatter.png")
 
 To figure code chunks add the chunk option `fig.pos="H"` to use the LaTeX float package to try and position the figure where the code appears.
 
-Also, this is how to reference a section, e.g. the Introduction was chapter \@ref(introduction) and the Literature Review was section \@ref(literature-review).
+Also, this is how to reference a section, e.g. the Introduction was chapter  and the Literature Review was section

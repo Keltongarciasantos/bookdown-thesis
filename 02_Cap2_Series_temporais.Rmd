@@ -50,7 +50,12 @@ iii. Cotações diárias das ações  da Banco Comercial do Atlântico na Bolsa 
 iv. Valores mensais de vendas numa determinada empresa;
 v. Registo de marés na ilha de Santiago - Cabo Verde.
 
-As séries dos exemplos i. - iv. são séries temporais *discretas*, enquanto que a série do exemplo v. é *contínua* [@morettin1981modelos]. As séries temporais contínuas podem ser transformadas em discretas se for considerado uma amostragem em intervalos de tempos iguais $\Delta$. Dessa forma, para analisar a série v. será preciso usar uma amostra, por exemplo, em intervalos de um hora, convertendo a série contínua numa discreta com $N$ pontos.
+As séries dos exemplos i. - iv. são séries temporais *discretas*, enquanto que a série do exemplo v. é *contínua* [@morettin1981modelos]. As séries temporais contínuas podem ser transformadas em discretas se for considerado uma amostragem em intervalos de tempos iguais $\Delta$. Dessa forma, para analisar a série v. será preciso usar uma amostra, por exemplo, em intervalos de um hora, convertendo a série contínua numa discreta com $N$ pontos. 
+
+Podemos ver na figura \@ref(fig:serie1), a representação de dados em forma de série temporal, relativos ao PIB de Cabo Verde entre 2007 e 2020.
+```{r echo =FALSE, label = 'serie1',fig.cap='PIB de Cabo Verde a preços correntes entre 2007 – 2020 (Fonte: INE)', fig.align='center', out.width='75%'}
+knitr::include_graphics("img/Rplot1.png")
+```
 
 ### Objectivos da análise de séries temporais
 

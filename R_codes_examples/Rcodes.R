@@ -6,3 +6,11 @@ X_t <- mu + eps
 #ts.plot(X_t, main = "Exemplo of série temporal estacionária", xlab = "Tempo", ylab = expression(X[t]), col = "blue")
 ggplot(X_t, aes('Exemplo de série temporal estacionária','Tempo', colour = class)) + 
   geom_point( )
+
+attach(Pib_anual)
+library(ggplot2)
+library(psych)
+
+describe(Pib_anual)
+ggplot(Pib_anual, aes('Exemplo de série temporal estacionária','Tempo')) + 
+  geom_line( )

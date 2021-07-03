@@ -53,7 +53,7 @@ v. Registo de marés na ilha de Santiago - Cabo Verde.
 As séries dos exemplos i. - iv. são séries temporais *discretas*, enquanto que a série do exemplo v. é *contínua* [@morettin1981modelos]. As séries temporais contínuas podem ser transformadas em discretas se for considerado uma amostragem em intervalos de tempos iguais $\Delta$. Dessa forma, para analisar a série v. será preciso usar uma amostra, por exemplo, em intervalos de um hora, convertendo a série contínua numa discreta com $N$ pontos. 
 
 Podemos ver na figura \@ref(fig:serie1), a representação de dados em forma de série temporal, relativos ao PIB de Cabo Verde entre 2007 e 2020.
-```{r echo =FALSE, label = 'serie1',fig.cap='PIB de Cabo Verde a preços correntes entre 2007 – 2020 (Fonte: INE)', fig.align='center', out.width='75%'}
+```{r echo =FALSE, label = 'serie1',fig.cap='PIB de Cabo Verde a preços correntes entre 2007 – 2020 (Fonte: INE)', fig.align='center', out.width='65%'}
 knitr::include_graphics("img/Rplot1.png")
 ```
 
@@ -236,6 +236,16 @@ Como usualmente é quase impossível obter uma descrição completa de um proces
 
 Dois dos principais motivos por detrás das variações da maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando um série apresenta constante crescimento ou declínio, em sucessivos períodos de tempo [@xavier2016analise].
 
+Na figura \@ref(fig:serie2) temos a representação da entrada de turistas em Cabo Verde do ano 2000 ao ano 2020. Uma simples análise visual, pode-se observar uma tendência de crescimento até finais do ano 2019. Em 2020 pode-se ver uma grande queda na entrada de turistas, devido ao impacto do vírus da Covid-19 que assolou o mundo em 2020.
+
+Uma pequena anáilse gráfica, pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para conluir sobre determinado comportamento dos dados, nesse caso a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
+
+```{r echo =FALSE, label = 'serie2',fig.cap='Entrada de turistas em Cabo Verde de 2000 – 2020 (Fonte: INE)', fig.align='center', out.width='80%'}
+knitr::include_graphics("img/Rplot2.png")
+```
+
+
+\newpage
 Se considerarmos que a série temporal não apresenta a componente sazonal, poderemos escrever o modelo
 
 \begin{equation}
@@ -269,6 +279,11 @@ O testes mais utilizados para identificar tendências são:
 A **Sazanolidade** é um tipo de variação onde fenômenos que ocorrem durante o tempo se repete a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
 A sazonalidade pode ser devidida em dois tipos, *sazonalidade determinista*, quando o padrão sazonal é regular e estável no tempo, ou *sazonalidade estocástica* quando o padrão sazonal varia como tempo [@xavier2016analise].
 
+A figura \@ref(fig:serie3) representa o movimento de passageiros nos aeroportos de Cabo Verde entre o ano 2006 e o ano 2017. Pode-se observar que os meses de Julho normalmente têm maior tráfego de passageiros nos aeorportos de Cabo Verde, possivelmente devido ao período de férias escolares e também por coincidir com o início do verão, onde aumenta o fluxo de turistas que visitam Cabo Verde. Trata-se assim de dados que apresentam um padrão sazonal, pois tem comportamento semelhante em certos períodos de tempo (nesse caso nos meses de Julho).
+
+```{r echo =FALSE, label = 'serie3',fig.cap='Movimento de Passageiros nos aeroportos de Cabo Verde de 2006 – 2017 (Fonte: INE)', fig.align='center', out.width='90%'}
+knitr::include_graphics("img/Rplot3.png")
+```
 
 Existem vários procedimentos para se estimar a sazonalidade, sendo que as mais utilizadas são os *métodos de regressão* e os *métodos de médias móveis*. Os métodos de regressão são mais apropriados para séries que apresentam sazonalidade determinística, ou seja, pode ser prevista normalmente a partir de comportamento dos dados em períodos anteriores [@morettin1981modelos]. Já o método de médias móveis é mais apropriado para séries temporais cuja componente sazonal varia com o tempo, isto é, séries de sazonalidade estocástica.
 

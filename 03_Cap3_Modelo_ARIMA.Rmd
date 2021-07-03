@@ -1,39 +1,39 @@
 # Modelos ARIMA
 
-```{r include=FALSE}
-library(tidyverse)
-library(kableExtra)
+Os modelos *Autoregressivos Integrados Médias-Móveis* (ARIMA) é um modelo fundamental para séries univariáveis. O modelo ARIMA é composto por três componentes chaves:
+
+ - *Componente autoregressivo* que é a relação entre a variável dependente atual, a variável dependente em periodos de tempo defasados;
+ - *Componente integrado* que refere-se a transformação dos dados, subtraindo os valores anteriores de uma variável dos valors atuais da mesma variável a fim de tornar os dados estacionários;
+ - *Componente Média-Móvel* se refere à dependência entre a variável dependente e os valores anteriores de um termo estocástico.
+ 
+## Modelos Auto regressivos
+
+Num modelo autoregressivo, faz-se a previsão da varíavel de interesse usando combinação linear dos valores passados dessa variável. O termo *autoregressivo* indica que é uma regressão da variável contra ela mesma [@hyndman2018forecasting]. Assim um modelo autoregressivo de ordem *p* pode ser escrito como:
+
+\begin{equation}
+x_t = \phi_0 + \phi_1 x_{t-1} + \phi_2 x_{t-2} + ...+\phi_p x_{t-p} + \epsilon_t
+(\#eq:autoregress)
+\end{equation}
+com $\epsilon_t$ ruído branco e $\phi_0, \phi_1,...,\phi_p$ parâmetros reais. Refere-se a \@ref(eq:autoregress) como **modelo $AR(p)$** e lê-se *modelo autoregressivo de ordem p*.
+
+Para um modelo $AR(1)$, modelo autoregressivo de ordem $1$ temos os seguintes casos:
+
+- para $\phi_1 = 0$, $x_t$ é equivalente a um ruido branco;
+- para $\phi_1 = 1$ e $\phi_0 = 0$, $x_t$ é equivalente a um caminho aleatório (*Random Walk*).
+- para $\phi_1 = 1$ e $\phi_0 \neq 0$, $x_t$ é equivalente a um caminho aleatório  com deriva.
+- para $\phi_1 < 0$, $x_t$ tende a oscilar à volta da média.
+
+Normalmente restringe-se modelos autoregressivos aos dados estacionários, implicando algumas restrições nos valores dos parâmetros requeridos [@hyndman2018forecasting].
+
+- para um modelo $AR(1)$: $-1 < \phi_1 < 1$
+- para um modelo $AR(2)$: $-1 < \phi_2 < 1$, $\phi_1 + \phi_2 < 1$ e $\phi_2 + \phi_1 < 1$
+Quando $p\geq3$, as restrições tornam-se muito mais complexas. o *software* R normalmente cuida dessas restriçoes na estimação do modelo.
+
+
+```{r echo =FALSE, label = 'serieAR',fig.cap='Dados de modelos autoregressivos com parâmetros diferentes (Fonte: [@hyndman2018forecasting])', fig.align='center', out.width='80%'}
+knitr::include_graphics("img/AR1.JPG")
 ```
 
+A figura \@ref(fig:serieAR) representa séries de um modelo $AR(1)$ e $AR(2)$. Alterando os parâmetros $\phi_1,...,\phi_p$, altera o padrão da série. A variância do termo de erro $\epsilon_t$ somente irá mudar a escala das séries, não o padrão. No exemplo da figura \@ref(fig:serieAR) para $AR(1)$ têm-se $x_t = 18-0.8x_{t-1}+\epsilon_t$ enquanto que para o modelo $AR(2)$ têm-se $x_t = 8+1.3x_{t-1} -0.7x_{t-2} + \epsilon_t$. Em ambos os casos, $\epsilon_t$ é um ruído branco normalmente distribuído com média $0$ e variância $1$.
 
-## Main results
-
-And here is an example table of regression coefficients in Table \@ref(tab:mtreg).
-
-```{r mtreg}
-mod <- lm(mpg ~ wt, data = mtcars)
-coefcis <- cbind(coef(mod), confint.default(mod))
-colnames(coefcis) <-
-  c("Estimate", "95% CI lower limit", "95% CI upper limit")
-knitr::kable(coefcis,
-             digits = 2,
-             booktabs = TRUE,
-             caption = "Parameter estimates from regression of mpg on weight.") %>%
-  kable_styling(latex_options = c("HOLD_position"))
-```
-
-Example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text.
-
-An example of a figure is shown in Figure \@ref(fig:pressure).
-```{r pressure, fig.cap='An example figure.', fig.align='center', out.width='75%', fig.pos="H"}
-plot(pressure, pch = 19, type = "b")
-```
-
-And we can include image files directly, such as Figure \@ref(fig:knitlogo).
-```{r knitlogo, fig.cap='Another example figure.', fig.align='center', out.width='75%'}
-knitr::include_graphics("img/mtcars-scatter.png")
-```
-
-To figure code chunks add the chunk option `fig.pos="H"` to use the LaTeX float package to try and position the figure where the code appears.
-
-Also, this is how to reference a section, e.g. the Introduction was chapter  and the Literature Review was section
+## Modelos Médias Móveis

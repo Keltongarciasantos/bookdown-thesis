@@ -37,3 +37,34 @@ knitr::include_graphics("img/AR1.JPG")
 A figura \@ref(fig:serieAR) representa séries de um modelo $AR(1)$ e $AR(2)$. Alterando os parâmetros $\phi_1,...,\phi_p$, altera o padrão da série. A variância do termo de erro $\epsilon_t$ somente irá mudar a escala das séries, não o padrão. No exemplo da figura \@ref(fig:serieAR) para $AR(1)$ têm-se $x_t = 18-0.8x_{t-1}+\epsilon_t$ enquanto que para o modelo $AR(2)$ têm-se $x_t = 8+1.3x_{t-1} -0.7x_{t-2} + \epsilon_t$. Em ambos os casos, $\epsilon_t$ é um ruído branco normalmente distribuído com média $0$ e variância $1$.
 
 ## Modelos Médias Móveis
+
+Ao contrário dos modelos autoregressivos que usam valores passados da variável a ser determinada a previsão, os modelos médias móveis usam erro de previsões anteriores em um modelo semelhante a uma regressão
+
+\begin{equation}
+x_t = \phi_0 + \epsilon_t + \phi_1 \epsilon_{t-1} + \epsilon_2 x_{t-2} + ...+\epsilon_q x_{t-q}
+(\#eq:mediamovel)
+\end{equation}
+onde $\epsilon_t$ é um ruído branco. Denomina-se modelo $MA(q)$, ou seja, modelo média móvel de ordem $q$. Cada valor de $x_t$ pode ser pensado como uma média móvel ponderada dos últimos erros da previsão.
+
+```{r echo =FALSE, label = 'serieMA',fig.cap='Dados de modelos médias móveis com parâmetros diferentes (Fonte: [@hyndman2018forecasting])', fig.align='center', out.width='80%'}
+knitr::include_graphics("img/MA.JPG")
+```
+A figura \@ref(fig:serieMA), mostra dados de um modelo $MA(1)$ e de um modelo $MA(2)$. Alterando os parâmetros $\phi_1,...,\phi_q$ resulta em diferentes padrões da série. Semelhantemente aos modelos autoregressivos a variância do termo de erro $\epsilon_t$ somente mudará a escala das séries, não padrão.
+Na figura \@ref(fig:serieMA) para $MA(1)$ tem-se $x_t = 20 + \epsilon_t + 0.8\epsilon_{t-1}$, e para $MA(2)$ tem-se $x_t = \epsilon_t -\epsilon_{t-1}+ 0.8\epsilon_{t-2}$. Nos dois casos $\epsilon_t$ é um ruído branco normalmente distribuído com média zero e variância um.
+
+É possível escrever qualquer modelo estacionário $AR(p)$ como um modelo $MA(\infty)$ [@hyndman2018forecasting]. pode-se demonstrar isso para um modelo $AR(1)$ usando substituição.
+
+\begin{align*}
+x_t &= \phi_1 x{t-1} + \epsilon_t\\ 
+ &=\phi_1(\phi_1 x_{t-2} + \epsilon_{t-1}) + \epsilon_t \\ 
+ &= \phi^2_1x_{t-2} + \phi_{1}\epsilon_{t-1} + \epsilon_t\\ 
+ &= \phi^3_1 x_{t-3} + \phi^2_1x_{t-2} + \phi_{1}\epsilon_{t-1} + \epsilon_t\\ 
+etc...
+\end{align*}
+
+Dado $-1<\phi<1$, o valor de $\phi^k_1$ vai ficando mais pequeno quando $k$ for aumentando. finalmente teremos
+\begin{equation}
+x_t = \epsilon_t + \phi_1 \epsilon_{t-1} + \phi^2_1 \epsilon_{t-2} + \phi^3_1\epsilon{t-3} + ...
+(\#eq:MAinfity)
+\end{equation}
+um processo $MA(\infty)$.

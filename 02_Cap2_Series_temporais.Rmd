@@ -9,9 +9,9 @@ output:
 ## Introdução
 
 \justify
-As previsões são necessárias em várias situações para servir como suporte na tomada de decisões e muitas vezes com vários anos de antecedência. Por exemplo, para uma empresa decidir se vai investir na construção de uma  nova unidade de produção, nos próximos cinco anos, requer previsões da procura dos produtos e do retorno do investimento no futuro. Para se decidir sobre a implementação de determinada política económica-financeira, as autoridades de um determinado país precisam de previsões para análise da viabilidade da implementação dessa política.
+As previsões são necessárias em várias situações para servir como suporte na tomada de decisões e muitas vezes com vários anos de antecedência. Por exemplo, para uma empresa decidir se vai investir na construção de uma  nova unidade de produção, nos próximos cinco anos, requer previsões sobre a procura dos produtos e sobre o retorno do investimento no futuro. Para se decidir sobre a implementação de determinada política económica-financeira, as autoridades de um determinado país precisam de previsões para análise da viabilidade da implementação dessa política.
 
-Alguns eventos são mais fáceis de se fazer previsões do que outras. Por exemplo pode-se prever com alto grau de precisão a que horas será o pôr do sol daqui a uma semana, mas prever que equipa irá vencer o próximo campeonato do mundo de futebol não pode ser previsto com 100% de certeza. Segundo [@hyndman2018forecasting], a presibilidade  de um evento depende de vários factores como:
+Alguns eventos são mais fáceis de prever do que outros. Por exemplo, pode-se prever com alto grau de precisão, a que horas será o pôr do sol daqui a uma semana, mas a previsão de qual a equipaque irá vencer o próximo campeonato do mundo de futebol não pode ser feita com 100% de certeza. Segundo [@hyndman2018forecasting], a presibilidade  de um evento depende de vários factores, tais como:
 
 * Nível de conhecimento dos factores que afectam o evento;
 * Quantidade de dados disponíveis;
@@ -42,7 +42,7 @@ Devido a essas e outras razões muitas vezes recorre-se a outros tipos de modelo
 
 ## Séries temporais
 
-Uma série temporal é qualquer conjunto de observações ordenadas no tempo. Como exemplo de séries temporais temos:
+Uma série temporal é um conjunto de observações ordenadas no tempo de uma característica quantitativa e que usualmente são registadas em intervalos regulares. Como exemplo de séries temporais temos:
 
 i. Estimativas trimestrais do PIB de um país;
 ii. Valores diários de temperatura em Cabo Verde;
@@ -83,7 +83,7 @@ São Fenómenos naturais em que se supõe a intervenção do acaso no sentido em
 Os fenómenos aleatórios que se desenrolam no tempo são objeto de estudo dos *processos estocásticos*, isto é, os modelos matemáticos que descrevem os fenómenos aleatórios que evoluem ao longo do tempo.
 
 ```{definition, name= "Processo Estocástico"}
-Dado um espaço de probabilidade $(\Omega, F, P)$ e um conjunto $T$, *processo estocástico* é uma função $X(t, w)$ definida no produto cartesiano $T\times \Omega$, que para cada $t \in T$ é uma variável aleatória. Simbólicamente escreve-se:
+Dado um espaço de probabilidade $(\Omega, F, P)$ e um conjunto $T$, *processo estocástico* é uma função $X(t, w)$ definida no produto cartesiano $T\times \Omega$, que para cada $t \in T$ é uma variável aleatória. Simbolicamente escreve-se:
 ```
 \begin{equation}
 X = \{X_t, t \in T\}
@@ -123,7 +123,7 @@ O processo estocástico $X = \{X_t, t \in T\}$ diz-se *processo estocástico com
 
 ```
 
-A definição acima é importante do ponto de vista da modelação, uma vez que permite descrever fenómenos cujos resultados são independentes em intervalo de tempo disjuntos
+A definição acima é importante do ponto de vista da modelação, uma vez que permite descrever fenómenos cujos resultados são independentes em intervalos de tempo disjuntos
 
 ```{definition, name="Incrementos Estacionários"}
 
@@ -151,9 +151,9 @@ Exemplos clássicos de um processo de segunda ordem são:
 
 ### Processos estacionários
 
-Os modelos de séries temporais a serem desenvolvidos nos próximos capítulos são todos baseados na suposição de que as séries são geradas por um processo estocástico. Em outras palavras, assumimos que cada valor $X_{t_1}, X_{t_2},...,X_{t_n}$ é extraído aleatoriamente de uma distribuição de probabilidade. Ao modelar esses processos, tentamos descrever as características da sua aleatoriedade. Isso nos permite inferir, até certo ponto, sobre as probabilidades associados aos valores futuros alternativos da série.
+Os modelos de séries temporais a serem desenvolvidos nos próximos capítulos são todos baseados na suposição de que as séries são geradas por um processo estocástico. Por outras palavras, assumimos que cada valor $X_{t_1}, X_{t_2},...,X_{t_n}$ é extraído aleatoriamente de uma distribuição de probabilidade. Ao modelar esses processos, tentamos descrever as características da sua aleatoriedade. Isso nos permite inferir, até certo ponto, sobre as probabilidades associados aos valores futuros alternativos da série.
 
-Se pudéssemos numéricamente especificar a função distribuição de probabilidade das séries, poderíamos determinar resultados futuros. Infelizmente a determinação de tal função de distribuição é normalmente impossível. Entretanto, é possível construir um modelo simplificado de séries temporais que explicam a aleatoriedade, de maneira útil para previsões. O modelo simplificado construído não precisa (e normalmente não é) produzir obrigatoriamente os valores passados conhecidos, uma vez que a série e o modelo são estocásticos. Esse modelo deve simplesmente capturar as características da aleatoriedade da série analisada [@pindyck2008econometric].
+Se pudéssemos numericamente especificar a função de distribuição de probabilidade das séries, poderíamos determinar resultados futuros. Infelizmente a determinação de tal função de distribuição é, normalmente, impossível. Entretanto, é possível construir um modelo simplificado de séries temporais que explicam a aleatoriedade, de maneira útil para previsões. O modelo simplificado construído não precisa (e normalmente não é) produzir obrigatoriamente os valores passados conhecidos, uma vez que a série e o modelo são estocásticos. Esse modelo deve simplesmente capturar as características da aleatoriedade da série analisada [@pindyck2008econometric].
 
 Segundo [@morettin1981modelos], poderemos ter as seguintes classes de processos:
 
@@ -230,29 +230,27 @@ A função de autocorrelação é definida por
 (\#eq:autocorrelacao)
 \end{equation}
 ```
-Como usualmente é quase impossível obter uma descrição completa de um processo estocástico ( isto é, especificar a função distribuição de probabilidade correspondente), a função de autocorrelação demonstra-se muito útil porque ela fornece uma descrição parcial do processo para efeito de modelação. A função autocorrelação indica o nível de correlação existente entre pontos vizinhos de uma série e ela é usada normalmente para identificar um modelo adequado para a série temporal $X_t$ [@pindyck2008econometric].
+Como usualmente é quase impossível obter uma descrição completa de um processo estocástico (isto é, especificar a função de distribuição de probabilidade correspondente), a função de autocorrelação demonstra-se muito útil porque ela fornece uma descrição parcial do processo para efeito de modelação. A função autocorrelação indica o nível de correlação existente entre pontos vizinhos de uma série e ela é usada normalmente para identificar um modelo adequado para a série temporal $X_t$ [@pindyck2008econometric].
 
 ## Tendência e sazonalidade das séries temporais
 
-Dois dos principais motivos por detrás das variações da maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando um série apresenta constante crescimento ou declínio, em sucessivos períodos de tempo [@xavier2016analise].
+Dois dos principais motivos que causam variações na maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando um série apresenta constante crescimento ou declínio, em sucessivos períodos de tempo [@xavier2016analise].
 
 Na figura \@ref(fig:serie2) temos a representação da entrada de turistas em Cabo Verde do ano 2000 ao ano 2020. Uma simples análise visual, pode-se observar uma tendência de crescimento até finais do ano 2019. Em 2020 pode-se ver uma grande queda na entrada de turistas, devido ao impacto do vírus da Covid-19 que assolou o mundo em 2020.
 
-Uma pequena anáilse gráfica, pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para conluir sobre determinado comportamento dos dados, nesse caso a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
+Uma pequena análise gráfica, pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para conluir sobre determinado comportamento dos dados, nesse caso a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
 
 ```{r echo =FALSE, label = 'serie2',fig.cap='Entrada de turistas em Cabo Verde de 2000 – 2020 (Fonte: INE)', fig.align='center', out.width='80%'}
 knitr::include_graphics("img/Rplot2.png")
 ```
 
-
-\newpage
 Se considerarmos que a série temporal não apresenta a componente sazonal, poderemos escrever o modelo
 
 \begin{equation}
 X_t = T_t + \epsilon_t
 (\#eq:tendencia)
 \end{equation}
-onde $\epsilon_t$ é um ruído branco (uma variável aleatória com média zero e variância $\sigma^{2}$) e $T_t$ o estimador da tendência. Existem vários métodos de se estimar $T_t$. Segundo [@morettin1981modelos] os mais utilizados são:
+onde $\epsilon_t$ é um ruído branco (uma variável aleatória com média zero e variância $\sigma^{2}$) e $T_t$ o estimador da tendência. Existem vários métodos para estimar $T_t$. Segundo [@morettin1981modelos] os mais utilizados são:
 
 1. Ajustar uma função do tempo, como um polinómio, uma exponencial ou outra função suave de $t$;
 2. Suavizar (ou filtrar) os valores da série ao redor de um ponto, para estimar a tendência naquele ponto.
@@ -264,7 +262,7 @@ Y_t = X_t - \hat{T}_t
 (\#eq:tendencias)
 \end{equation}
 
-Outro procedimento que é também utilizado para eliminar a tendência de uma série, consiste em tomar sucessivas diferenças da série original até encontrar uma série estacionária. Segundo [@morettin1981modelos], para séries económicas, a primeira diferença já é estacionária
+Outro procedimento que é também utilizado para eliminar a tendência de uma série, consiste em tomar sucessivas diferenças da série original até encontrar uma série estacionária. Segundo [@morettin1981modelos], em séries económicas, é frequente conseguir a estacionaridade com as primeiras diferenças.
 \begin{equation}
 \Delta X_t = X_t - X_{t-1}
 (\#eq:tendenciass)
@@ -276,8 +274,8 @@ O testes mais utilizados para identificar tendências são:
 2. *Teste do Sinal* (Cox - Stuart)
 3. *Teste baseado do coeficiente de correlação de Spearaman*
 
-A **Sazanolidade** é um tipo de variação onde fenômenos que ocorrem durante o tempo se repete a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
-A sazonalidade pode ser devidida em dois tipos, *sazonalidade determinista*, quando o padrão sazonal é regular e estável no tempo, ou *sazonalidade estocástica* quando o padrão sazonal varia como tempo [@xavier2016analise].
+A **Sazonalidade** é um tipo de variação onde fenómenos que ocorrem durante o tempo se repete a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
+A sazonalidade pode ser dividida em dois tipos, *sazonalidade determinista*, quando o padrão sazonal é regular e estável no tempo, ou *sazonalidade estocástica* quando o padrão sazonal varia como tempo [@xavier2016analise].
 
 A figura \@ref(fig:serie3) representa o movimento de passageiros nos aeroportos de Cabo Verde entre o ano 2006 e o ano 2017. Pode-se observar que os meses de Julho normalmente têm maior tráfego de passageiros nos aeorportos de Cabo Verde, possivelmente devido ao período de férias escolares e também por coincidir com o início do verão, onde aumenta o fluxo de turistas que visitam Cabo Verde. Trata-se assim de dados que apresentam um padrão sazonal, pois tem comportamento semelhante em certos períodos de tempo (nesse caso nos meses de Julho).
 
@@ -298,7 +296,7 @@ Uma outra abordagem seria incorporar a variação sazonal e a tendência em um m
 
 ## Modelos Matemáticos para previsão de séries temporais
 
-Um método de previsão, normalmente tem associado alguns procedimentos, que de acordo com os dados históricos disponíveis, poder-se prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais tem como base a suposição que os dados passados contêm as informações sobre o padrão de comportamento da série.
+Um método de previsão, normalmente, tem associado alguns procedimentos que, de acordo com os dados históricos disponíveis, permite prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais tem como base a suposição de que os dados passados contêm as informações sobre o padrão de comportamento da série.
 
 De acordo com [@chatfield2000time], podemos classificar os métodos de previsão em três tipos
 
@@ -308,7 +306,7 @@ De acordo com [@chatfield2000time], podemos classificar os métodos de previsão
 
 
 Existem vários métodos dos mais simples aos mais complexos, mas nem sempre os mais complexos produzem os melhores resulados, por isso será necessário avaliar as vantagens dos métodos antes de se iniciar a previsão.
-Ao escolher o método, deve-se ter em atenção as seguintes medidas de erro.
+Ao escolher o método, deve-se ter em atenção alguns instrumentos para avaliação do erro.
 
 * Análise gráfica;
 * Diagrama de dispersão;
@@ -316,15 +314,14 @@ Ao escolher o método, deve-se ter em atenção as seguintes medidas de erro.
 * Erro quadrático acumulado;
 * Raíz do erro médio quadrático (RMSE);
 * Erro percentual absoluto (MAPE)
-* ...
 
-Pode-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@morettin1981modelos]:
+Podem-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@morettin1981modelos]:
 
 * **Modelos paramétricos**, onde o número de parâmetros é finito;
 * **Modelos não paramétricos**, o número de parâmetros é infinito.
 
-Nos modelos *parmétricos*, a análise é feita no domínio do tempo. Dentre esses modelos, os mais utilizados são os modelos de regressão (ou de erro), os modelos autoregressivos - médias móveis(ARMA) e os modelos autoregressivos-integrados-médias móveis (ARIMA). 
-Os modelos não paramétricos mais frequentemente usados são a função de auto-covariânça (ou auto-correlação) e sua transformada de Fourier, o *espectro*.
+Nos modelos *paramétricos*, a análise é feita no domínio do tempo. De entre esses modelos, os mais utilizados são os modelos de regressão (ou de erro), os modelos autoregressivos - médias móveis(ARMA) e os modelos autoregressivos-integrados-médias móveis (ARIMA). 
+Os modelos não paramétricos mais frequentemente usados são a função de auto-covariância (ou auto-correlação) e sua transformada de Fourier, o *espectro*.
 
 
 Pode-se escrever a série temporal observada na forma
@@ -334,7 +331,7 @@ X_t = f(t) + \epsilon_t, t=1,...,n,
 \end{equation}
 onde $f(t)$ é denominado *sinal* e $\epsilon_t$ o *ruído*
 
-De acordo com as hipóteses estabelicidas para \@ref(eq:sinal), pode-se ter duas classes de modelos, os modelos de regressão  ou os modelos ARIMA.
+De acordo com as hipóteses estabelicidas para \@ref(eq:sinal), podem-se ter duas classes de modelos, os modelos de regressão  ou os modelos ARIMA.
 
 
 
@@ -351,8 +348,7 @@ E(\epsilon_t, \epsilon_s) = 0,  \text{  para  } s\neq s
 
 Nessas condições, a série $\epsilon_t$ é chamada de *ruído branco*, como mencionado anteriormente.
 
-Desta maneira, qualquer efeito do tempo influência somente a parte determinística $f(t)$ e os modelos onde $X_t$ depende funcionalmente de $X_{t-1}, X_{t-2},...$ não estão incluídos em \@ref(eq:sinal) com estas suposições.
-Abaixo temos alguns exemplos desses métodos.
+Desta maneira, qualquer efeito do tempo influência somente a parte determinística $f(t)$ e os modelos onde $X_t$ depende funcionalmente de $X_{t-1}, X_{t-2},...$ não estão incluídos em \@ref(eq:sinal) com estas suposições.Seguem-se alguns exemplos desses métodos.
 
 #### Modelo de tendência linear
 
@@ -429,7 +425,7 @@ A partir de \@ref(eq:proclineaesta) pode-se identificar três casos particulares
   2. Processo de médias móveis de ordem $q$: $MA(q)$
   3. Processo auto - regressivo - médias móveis de ordem $p$ e $q$: $ARMA(p,q)$
 
-Nesse momento não vamos desenvolver muito esse tema, visto que é um assunto que será abordado com mais cuidado no próximo capítulo.
+Este é um assunto que será abordado com mais detalhe no próximo capítulo.
 
 #### Processos lineares não estacionários homogênios
 

@@ -11,7 +11,7 @@ output:
 \justify
 As previsões são necessárias em várias situações para servir como suporte na tomada de decisões e muitas vezes com vários anos de antecedência. Por exemplo, para uma empresa decidir se vai investir na construção de uma  nova unidade de produção, nos próximos cinco anos, requer previsões sobre a procura dos produtos e sobre o retorno do investimento no futuro. Para se decidir sobre a implementação de determinada política económica-financeira, as autoridades de um determinado país precisam de previsões para análise da viabilidade da implementação dessa política.
 
-Alguns eventos são mais fáceis de prever do que outros. Por exemplo, pode-se prever com alto grau de precisão, a que horas será o pôr do sol daqui a uma semana, mas a previsão de qual a equipaque irá vencer o próximo campeonato do mundo de futebol não pode ser feita com 100% de certeza. Segundo [@hyndman2018forecasting], a presibilidade  de um evento depende de vários factores, tais como:
+Alguns eventos são mais fáceis de prever do que outros. Por exemplo, pode-se prever com alto grau de precisão, a que horas será o pôr do sol daqui a uma semana, mas a previsão de qual a equipaque irá vencer o próximo campeonato do mundo de futebol não pode ser feita com 100% de certeza. Segundo Hyndman [-@hyndman2018forecasting], a presibilidade  de um evento depende de vários factores, tais como:
 
 * Nível de conhecimento dos factores que afectam o evento;
 * Quantidade de dados disponíveis;
@@ -37,7 +37,7 @@ Y_i = \beta_0 + \beta_1X_{i1} +\beta_2X_{i2} + \varepsilon_i
 
 Em determinadas situações o uso de modelos económetricos pode ser difícil ou impossível. Por exemplo se não houver dados disponíveis para as variáveis explicativas $X_{i1}$ e $X_{i2}$ que permitam a determinação dos coeficientes $\beta_0$, $\beta_1$, $\beta_2$, ou se os dados disponíveis resultarem em erros $\varepsilon_i$ muito grandes.
 
-Devido a essas e outras razões muitas vezes recorre-se a outros tipos de modelos para previsão. Contrariamente aos modelos econométricos que usam informações de outras varíaveis para a previsão de determinada variável, os métodos de *séries temporais* usam somente dados históricos da variável a ser estimada. Modelos de previsão de séries temporais são muitas vezes caracterizados como *método sofisticado de extrapolação* [@pindyck2008econometric]. O foco desse trabalho é justamente previsões com método de séries temporais. Para mais informação sobre previsão usando métodos econométricos favor consultar [@pindyck2008econometric].
+Outro método muito utilizado na previsão, são os métodos de *séries temporais* que usam dados históricos da variável a ser estimada (podem também utilizar dados de outras variáveis). Modelos de previsão de séries temporais são muitas vezes caracterizados como *método sofisticado de extrapolação* [@pindyck2008econometric]. O foco desse trabalho é justamente previsões com método de séries temporais. Para mais informação sobre previsão usando métodos econométricos favor consultar [@pindyck2008econometric].
 
 
 ## Séries temporais
@@ -59,22 +59,22 @@ knitr::include_graphics("img/Rplot1.png")
 
 ### Objectivos da análise de séries temporais
 
-Ao analisar uma série temporal, espera-se que exista uma causa relacionada com o tempo, que influenciou os dados no passado e que continuará a influencia-los futuramente [@xavier2016analise]. Segundo [@morettin1981modelos] o objectivo da análise de séries temporais é de construir modelos para as séries, com propósitos determinados.
+Ao analisar uma série temporal, espera-se que exista uma causa relacionada com o tempo, que influenciou os dados no passado e que continuará a influencia-los futuramente [@xavier2016analise]. Segundo Morettin [-@morettin1981modelos] o objectivo da análise de séries temporais é de construir modelos para as séries, com propósitos determinados.
 
-Podemos destacar os seguintes objetivos da análise de séries temporais segundo [@xavier2016analise]:
+Podemos destacar os seguintes objetivos da análise de séries temporais segundo Xavier[-@xavier2016analise]:
 
 1. Determinar as propriedades de uma série, como sazonalidades, estacionaridade padrão de tendência, etc.
 2. Desenvolver um modelo estatístico que permita explicar o comportamento da série no período observado;
 3. Estimar valores futuros de uma série temporal, com base em dados históricos;
 4. Tomar medidas de forma a controlar determinado processo.
 
-De acordo com [@morettin1981modelos] existem dois enfoques usados na análise de séries temporais para o alcance dos objectivos acima. No primeiro enfoque, a análise é feita no *domínio temporal* e os modelos propostos são *modelos paramétricos* (com número finito de parâmetros). Pode-se destacar dentro dos modelos paramétricos os modelos ARIMA. No segundo enfoque, a análise é conduzida no *domínio de frequências* e os modelos propostos são *modelos não paramétricos*. No domínio de frequências têm-se a *análise espectral*, que têm aplicações em ciências físicas e engenharia e que consiste em decompor a série inicial em componentes de frequência onde a existência de *espectro* é a característica fundamental. Para esse trabalho não será estudado este tipo de análise, podendo-se consultar [@box1994pages] para mais detalhes.
+De acordo com Morettin [-@morettin1981modelos] existem dois enfoques usados na análise de séries temporais para o alcance dos objectivos acima. No primeiro enfoque, a análise é feita no *domínio temporal* e os modelos propostos são *modelos paramétricos* (com número finito de parâmetros). Pode-se destacar dentro dos modelos paramétricos os modelos ARIMA. No segundo enfoque, a análise é conduzida no *domínio de frequências* e os modelos propostos são *modelos não paramétricos*. No domínio de frequências têm-se a *análise espectral*, que têm aplicações em ciências físicas e engenharia e que consiste em decompor a série inicial em componentes de frequência onde a existência de *espectro* é a característica fundamental. Para esse trabalho não será estudado este tipo de análise, podendo-se consultar [@box1994pages] para mais detalhes.
 
 Quer no domínio temporal ou no domínio de frequências, são construídos *modelos probabilísticos* ou *estocásticos* para atingir os objetivos acima. Os modelos construídos devem ser simples e parcimónicos, ou seja, deve-se ter o menor número possível de parâmetros, e sempre que possível, a utilização dos modelos não deve apresentar dificuldades às pessoas interessadas em manipulá-los [@morettin1981modelos].
 
 ## Processos Estocásticos
 
-Os modelos que se utilizam para descrever séries temporais são processos estocásticos, ou seja, processos controlados por leis probabilísticas. Para [@chatfield2000time], a maioria das séries temporais são estocásticas, ou aleatórias, isto é, o futuro é apenas parcialmente determinado por valores passados, sendo o modelo para estas séries muitas vezes chamado de processo estocástico.
+Os modelos que se utilizam para descrever séries temporais são processos estocásticos, ou seja, processos controlados por leis probabilísticas. Para Chatfield [-@chatfield2000time], a maioria das séries temporais são estocásticas, ou aleatórias, isto é, o futuro é apenas parcialmente determinado por valores passados, sendo o modelo para estas séries muitas vezes chamado de processo estocástico.
 
 
 ```{definition, name="Fenómenos Aleatórios"}
@@ -91,7 +91,7 @@ X = \{X_t, t \in T\}
 \end{equation}
 
 Assim, um processo estocástico é uma família de variáveis aleatórias $X = \{X_t, t \in T\}$ definidas num mesmo espaço de probabilidade $(\Omega, F, P)$. Normalmente $T$ é tomado como o conjunto $\mathbb{Z}$ ou o conjunto  dos números reais $\mathbb{R}$.
-Para cada $\omega _0 \in \Omega$, $X(w_0,t) = x(t)$ é uma função não aleatória de $t$ com domínio em $T$. Assim podemos identificar um *processo estocástico* como sendo um sistema que, a cada ponto $\omega_0 \in \Omega$ faz corresponder uma função de parâmetro $t$. Cada uma dessas funções chamam-se *realização* ou *trajetória* do processo, ou ainda, uma *série temporal* [@morettin1981modelos]. A totalidade das realizações $X^{(1)}_t,\ X^{(2)}_t, ...$ designa-se por *ensamble*.
+Para cada $\omega _0 \in \Omega$, $X(w_0,t) = x(t)$ é uma função não aleatória de $t$ com domínio em $T$. Assim podemos identificar um *processo estocástico* como sendo um sistema que, a cada ponto $\omega_0 \in \Omega$ faz corresponder uma função de parâmetro $t$. Cada uma dessas funções chamam-se *realização* ou *trajetória* do processo, ou ainda, uma *série temporal* [@hamilton2020time]. A totalidade das realizações $X^{(1)}_t,\ X^{(2)}_t, ...$ designa-se por *ensamble*.
 
 ### Classificação dos processos estocásticos
 O conjunto dos valores $X_t, t \in T$ é chamado *espaço dos estados*, *E*, do processo estocástico e os valores de $X_t$ são chamados *estados*, ou seja *E* é o conjunto dos possíveis valores das variáveis aleatórias $X_t, t\in T$.
@@ -116,7 +116,7 @@ O conjunto de todas as leis de probabilidade, definida por:
 F_{(X_{t_1}, X_{t_2},...,X_{t_n})}:(t_1, t_2,...,t_n \in T)
 \end{equation*}
 
-é conhecida como *família de distribuições de dimensão finita* do processo estocástico. Geralmente, quando $t$ é discreto, o conhecimento das funções de distribuição de dimensão finita permite a determinação da probabilidade de qualquer acontecimento associado ao respetivo acontecimento [@morettin1981modelos].
+é conhecida como *família de distribuições de dimensão finita* do processo estocástico. Geralmente, quando $t$ é discreto, o conhecimento das funções de distribuição de dimensão finita permite a determinação da probabilidade de qualquer acontecimento associado ao respetivo acontecimento [@hamilton2020time].
 
 ```{definition, name="Incrementos Independentes"}
 O processo estocástico $X = \{X_t, t \in T\}$ diz-se *processo estocástico com incrementos independentes* sse $\forall n, \forall t_1, t_2,...,t_n \in T : t_1<...<t_n$ as variáveis aleatórias $X_{t_1} - X_{t_2},...,X_{t_n} - X_{t_{n-1}}$ são independentes.
@@ -155,7 +155,7 @@ Os modelos de séries temporais a serem desenvolvidos nos próximos capítulos s
 
 Se pudéssemos numericamente especificar a função de distribuição de probabilidade das séries, poderíamos determinar resultados futuros. Infelizmente a determinação de tal função de distribuição é, normalmente, impossível. Entretanto, é possível construir um modelo simplificado de séries temporais que explicam a aleatoriedade, de maneira útil para previsões. O modelo simplificado construído não precisa (e normalmente não é) produzir obrigatoriamente os valores passados conhecidos, uma vez que a série e o modelo são estocásticos. Esse modelo deve simplesmente capturar as características da aleatoriedade da série analisada [@pindyck2008econometric].
 
-Segundo [@morettin1981modelos], poderemos ter as seguintes classes de processos:
+Segundo Hamilton [-@hamilton2020time], poderemos ter as seguintes classes de processos:
 
 * Processos estacionários ou não estacionários, de acordo com a independência, ou não, relativamente à origem dos tempos;
 * Processos normais (Gaussianos) ou não normais, de acordo com as fdp que caracterizam os processos;
@@ -182,7 +182,7 @@ P(X_{t_1}\leq x_1,...,X_{t_n} \leq x_n) = P(X_{t_{1+h}}\leq x_1,...,X_{t_{n+h}} 
 
 ```
 
-Segundo [@shumway2000time] a estacionaridade em \@ref(eq:estforte) é muito forte para a maioria das aplicações. Em vez de impor condições para todas as possíveis distribuições de uma série temporal, pode-se usar uma versão mais "mansa" que impõe condições somente nos primeiros dois momentos das séries (momentos de segunda ordem). Teremos então a seguinte definição:
+De acordo com Shumway [-@shumway2000time] a estacionaridade em \@ref(eq:estforte) é muito forte para a maioria das aplicações. Em vez de impor condições para todas as possíveis distribuições de uma série temporal, pode-se usar uma versão mais "mansa" que impõe condições somente nos primeiros dois momentos das séries (momentos de segunda ordem). Teremos então a seguinte definição:
 
 ```{definition, name="Estacionaridade fraca"}
 
@@ -250,7 +250,7 @@ Se considerarmos que a série temporal não apresenta a componente sazonal, pode
 X_t = T_t + \epsilon_t
 (\#eq:tendencia)
 \end{equation}
-onde $\epsilon_t$ é um ruído branco (uma variável aleatória com média zero e variância $\sigma^{2}$) e $T_t$ o estimador da tendência. Existem vários métodos para estimar $T_t$. Segundo [@morettin1981modelos] os mais utilizados são:
+onde $\epsilon_t$ é um ruído branco (uma variável aleatória com média zero e variância $\sigma^{2}$) e $T_t$ o estimador da tendência. Existem vários métodos para estimar $T_t$. Segundo Hamilton [-@hamilton2020time] os mais utilizados são:
 
 1. Ajustar uma função do tempo, como um polinómio, uma exponencial ou outra função suave de $t$;
 2. Suavizar (ou filtrar) os valores da série ao redor de um ponto, para estimar a tendência naquele ponto.
@@ -262,7 +262,7 @@ Y_t = X_t - \hat{T}_t
 (\#eq:tendencias)
 \end{equation}
 
-Outro procedimento que é também utilizado para eliminar a tendência de uma série, consiste em tomar sucessivas diferenças da série original até encontrar uma série estacionária. Segundo [@morettin1981modelos], em séries económicas, é frequente conseguir a estacionaridade com as primeiras diferenças.
+Outro procedimento que é também utilizado para eliminar a tendência de uma série, consiste em tomar sucessivas diferenças da série original até encontrar uma série estacionária. Segundo Morettin [@morettin1981modelos], em séries económicas, é frequente conseguir a estacionaridade com as primeiras diferenças.
 \begin{equation}
 \Delta X_t = X_t - X_{t-1}
 (\#eq:tendenciass)
@@ -283,7 +283,7 @@ A figura \@ref(fig:serie3) representa o movimento de passageiros nos aeroportos 
 knitr::include_graphics("img/Rplot3.png")
 ```
 
-Existem vários procedimentos para se estimar a sazonalidade, sendo que as mais utilizadas são os *métodos de regressão* e os *métodos de médias móveis*. Os métodos de regressão são mais apropriados para séries que apresentam sazonalidade determinística, ou seja, pode ser prevista normalmente a partir de comportamento dos dados em períodos anteriores [@morettin1981modelos]. Já o método de médias móveis é mais apropriado para séries temporais cuja componente sazonal varia com o tempo, isto é, séries de sazonalidade estocástica.
+Existem vários procedimentos para se estimar a sazonalidade, sendo que as mais utilizadas são os *métodos de regressão* e os *métodos de médias móveis*. Os métodos de regressão são mais apropriados para séries que apresentam sazonalidade determinística, ou seja, pode ser prevista normalmente a partir de comportamento dos dados em períodos anteriores [@hamilton2020time]. Já o método de médias móveis é mais apropriado para séries temporais cuja componente sazonal varia com o tempo, isto é, séries de sazonalidade estocástica.
 
 
 Os testes mais utilizados para estimar a sazonalidade são
@@ -298,7 +298,7 @@ Uma outra abordagem seria incorporar a variação sazonal e a tendência em um m
 
 Um método de previsão, normalmente, tem associado alguns procedimentos que, de acordo com os dados históricos disponíveis, permite prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais tem como base a suposição de que os dados passados contêm as informações sobre o padrão de comportamento da série.
 
-De acordo com [@chatfield2000time], podemos classificar os métodos de previsão em três tipos
+De acordo com Chatfield [@chatfield2000time], podemos classificar os métodos de previsão em três tipos
 
 * **As previsões julgamentais** (*Judgemental*), que se baseia no julgamento subjectivo, intuição e na experiência sem qualquer outra informação revelante.
 * **Métodos univariados**, em que as previsões dependem apenas dos valores passados de uma única variável, podendo ser auxiliada por uma função de tempo ou por uma tendência linear. Nesse trabalho a ênfase será nesses métodos.
@@ -315,7 +315,7 @@ Ao escolher o método, deve-se ter em atenção alguns instrumentos para avalia�
 * Raíz do erro médio quadrático (RMSE);
 * Erro percentual absoluto (MAPE)
 
-Podem-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@morettin1981modelos]:
+Podem-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@hamilton2020time]:
 
 * **Modelos paramétricos**, onde o número de parâmetros é finito;
 * **Modelos não paramétricos**, o número de parâmetros é infinito.
@@ -337,7 +337,7 @@ De acordo com as hipóteses estabelicidas para \@ref(eq:sinal), podem-se ter dua
 
 ### Modelos de erros ou de regressão
 
-Esse são os modelos mais clássicos e provavelmente os primeiros a serem utilizados [@morettin1981modelos]. Nesses modelos, o sinal de $f(t)$ em \@ref(eq:sinal), é uma função completamente determinada (parte sistemática determinística) e $\epsilon_t$ é uma sequência aleatória, independente de $f(t)$ [@morettin1981modelos]. Supõe-se que as variáveis aleatórias $\epsilon_t$ não são correlacionadas, têm média zero e variância constante, isto é,
+Esse são os modelos mais clássicos e provavelmente os primeiros a serem utilizados [@hamilton2020time]. Nesses modelos, o sinal de $f(t)$ em \@ref(eq:sinal), é uma função completamente determinada (parte sistemática determinística) e $\epsilon_t$ é uma sequência aleatória, independente de $f(t)$ [@hamilton2020time]. Supõe-se que as variáveis aleatórias $\epsilon_t$ não são correlacionadas, têm média zero e variância constante, isto é,
 
 \begin{equation}
 E(\epsilon_t) = 0,\\
@@ -374,7 +374,7 @@ X_t = \alpha + e^{\beta t + \epsilon_t}, \text{ ou } X_t=\log \alpha +\beta t+\e
 (\#eq:curvcresc)
 \end{equation}
 
-Neste caso, $f(t)$ não é uma função linear dos parâmetros, embora $log (X_t)$ o seja. Segundo [@morettin1981modelos] normalmente, há dois tipos diferentes de funções para $f(t)$
+Neste caso, $f(t)$ não é uma função linear dos parâmetros, embora $log (X_t)$ o seja. Segundo Hamilton [@hamilton2020time] normalmente, há dois tipos diferentes de funções para $f(t)$
 
 
 1. Polinómio em $t$, em geral de grau baixo, da forma
@@ -401,7 +401,7 @@ Normalmente, $T_t$ é a componente da tendência, enquanto que $S_t$ é a compon
 
 ### Modelos ARIMA
 
-Estabelecendo-se a hipótese de que os erros não são correlacionados, introduz limitações quanto a validade e aplicabilidade dos modelos do tipo \@ref(eq:sinal), para descrever comportamento de séries económicas, onde os erros normalmente são auto-correlacionados e influenciam a evolução do processo [@morettin1981modelos].
+Estabelecendo-se a hipótese de que os erros não são correlacionados, introduz limitações quanto a validade e aplicabilidade dos modelos do tipo \@ref(eq:sinal), para descrever comportamento de séries económicas, onde os erros normalmente são auto-correlacionados e influenciam a evolução do processo [@hamilton2020time].
 
 Nessas situações, os modelos ARIMA são muito úteis para a previsão. Pode-se descrever duas classes de processos pelo método ARIMA
 
@@ -433,7 +433,7 @@ Constituem uma generalização dos processos lineares estacionários, que pressu
 
 Esses processos são descritos de maneira adequada pelos métodos auto-regressivos-integrados-médias móveis de ordem $p$, $d$, e $q$: $ARIMA(p, d, q)$ que podem ser generalizados pela inclusão de um operador sazonal. O próximo capítulo será dedicado principalmente aos modelos $ARIMA$
 
-Segundo [@morettin1981modelos], algumas vezes, o sinal de $f(t)$ no modelo \@ref(eq:sinal), não pode ser aproximado por uma função simples do tempo, como em \@ref(eq:polin1). Nesse caso para a estimação da tendência tem de se utilizar procedimentos não paramétricos de suavização. **Suavização ou alisamento** é um processo que transforma a série $X_t$, no instante $t$ numa outra série dada por
+Segundo Morettin [@morettin1981modelos], algumas vezes, o sinal de $f(t)$ no modelo \@ref(eq:sinal), não pode ser aproximado por uma função simples do tempo, como em \@ref(eq:polin1). Nesse caso para a estimação da tendência tem de se utilizar procedimentos não paramétricos de suavização. **Suavização ou alisamento** é um processo que transforma a série $X_t$, no instante $t$ numa outra série dada por
 
 \begin{equation}
 X^*_t = \sum_{k = -n}^{n}b_kX_{t+k}, \text{ onde, } t = n+1,...,N-n

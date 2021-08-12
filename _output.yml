@@ -16,7 +16,7 @@ bookdown::pdf_book:
     after_body: latex/after_body.tex
     latex_engine: xelatex
   citation_package: default
-  pandoc_args: [ "--csl", "default.csl" ]
+  pandoc_args: [ "--csl", "computing-surveys.csl" ]
   keep_tex: yes
 #bookdown::html_book:
   #css: "style.css"

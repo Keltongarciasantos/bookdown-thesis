@@ -274,6 +274,47 @@ O testes mais utilizados para identificar tendências são:
 2. *Teste do Sinal* (Cox - Stuart)
 3. *Teste baseado do coeficiente de correlação de Spearaman*
 
+```{definition, name= "Operador de Diferenças"}
+Defini-se operador de diferenças por:
+```
+\begin{equation}
+Bx_t = x_{t-1}
+(\#eq:operdifer)
+\end{equation}
+
+e pode ser extendido para outros expoentes $B^2x_t = B(Bx_t) = Bx_{t-1} = x_{t-2}$, e assim por diante. Temos então:
+\begin{equation}
+B^kx_t = x_{t-k}
+(\#eq:operdifergeral)
+\end{equation}
+
+Dado a diferença de primeira ordem $\triangledown x_t = x_t-x_{t-1}$, a mesma pode ser escrita como:
+\begin{equation}
+\triangledown x_t = (1-B)x_t,
+(\#eq:operdifer1)
+\end{equation}
+
+Podemos então extender a notação para ordens superiores. Por exemplo, o operador de diferenças de segunda ordem será:
+
+\begin{equation}
+\begin{aligned} 
+\triangledown ^2x_t & = (1-B)^2x_t = (1-2B+B^2)x_t\\
+                    & =x_t-2x_{t-1}+x_{t-2}
+\end{aligned}
+(\#eq:operdifer2)
+\end{equation}
+
+```{definition, name= "Diferenças de ordem d"}
+São definidas como:
+```
+\begin{equation}
+\triangledown^d x_t = (1-B)^d
+(\#eq:operdiferD)
+\end{equation}
+onde pode-se expandir o operador $(1-B)^d$ algébricamente para avaliar o maior valor inteiro de $d$. Quando $d=1$ escreve-se simplesmente $(1-B)$.
+
+A primeira diferença, $\triangledown x_t = x_t-x_{t-1}$, é um exemplo de filtro linear que pode ser aplicado para eliminar a tendência da série. Outros filtros, formados pela média dos valores perto de $x_t$ podem produzir séries ajustadas que eliminam outros tipo de flutuações indesejáveis [@shumway2000time]. O método da diferença,foi desenvolvido por Box e Jenkins [@box1994pages] e é um componente importante na aplicação do modelo ARIMA.
+
 A **Sazonalidade** é um tipo de variação onde fenómenos que ocorrem durante o tempo se repete a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
 A sazonalidade pode ser dividida em dois tipos, *sazonalidade determinista*, quando o padrão sazonal é regular e estável no tempo, ou *sazonalidade estocástica* quando o padrão sazonal varia como tempo [@xavier2016analise].
 
@@ -294,150 +335,5 @@ Os testes mais utilizados para estimar a sazonalidade são
 
 Uma outra abordagem seria incorporar a variação sazonal e a tendência em um modelo ARIMA (será estudado no próximo capítulo).
 
-## Modelos Matemáticos para previsão de séries temporais
 
-Um método de previsão, normalmente, tem associado alguns procedimentos que, de acordo com os dados históricos disponíveis, permite prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais tem como base a suposição de que os dados passados contêm as informações sobre o padrão de comportamento da série.
-
-De acordo com Chatfield [@chatfield2000time], podemos classificar os métodos de previsão em três tipos
-
-* **As previsões julgamentais** (*Judgemental*), que se baseia no julgamento subjectivo, intuição e na experiência sem qualquer outra informação revelante.
-* **Métodos univariados**, em que as previsões dependem apenas dos valores passados de uma única variável, podendo ser auxiliada por uma função de tempo ou por uma tendência linear. Nesse trabalho a ênfase será nesses métodos.
-* **Métodos multivariados**, onde as previsões de uma variável dependem dos valores de uma ou mais variáveis adicionais, chamados variáveis explicativas.
-
-
-Existem vários métodos dos mais simples aos mais complexos, mas nem sempre os mais complexos produzem os melhores resulados, por isso será necessário avaliar as vantagens dos métodos antes de se iniciar a previsão.
-Ao escolher o método, deve-se ter em atenção alguns instrumentos para avaliação do erro.
-
-* Análise gráfica;
-* Diagrama de dispersão;
-* Coeficiente de correlação;
-* Erro quadrático acumulado;
-* Raíz do erro médio quadrático (RMSE);
-* Erro percentual absoluto (MAPE)
-
-Podem-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@hamilton2020time]:
-
-* **Modelos paramétricos**, onde o número de parâmetros é finito;
-* **Modelos não paramétricos**, o número de parâmetros é infinito.
-
-Nos modelos *paramétricos*, a análise é feita no domínio do tempo. De entre esses modelos, os mais utilizados são os modelos de regressão (ou de erro), os modelos autoregressivos - médias móveis(ARMA) e os modelos autoregressivos-integrados-médias móveis (ARIMA). 
-Os modelos não paramétricos mais frequentemente usados são a função de auto-covariância (ou auto-correlação) e sua transformada de Fourier, o *espectro*.
-
-
-Pode-se escrever a série temporal observada na forma
-\begin{equation}
-X_t = f(t) + \epsilon_t, t=1,...,n,
-(\#eq:sinal)
-\end{equation}
-onde $f(t)$ é denominado *sinal* e $\epsilon_t$ o *ruído*
-
-De acordo com as hipóteses estabelicidas para \@ref(eq:sinal), podem-se ter duas classes de modelos, os modelos de regressão  ou os modelos ARIMA.
-
-
-
-### Modelos de erros ou de regressão
-
-Esse são os modelos mais clássicos e provavelmente os primeiros a serem utilizados [@hamilton2020time]. Nesses modelos, o sinal de $f(t)$ em \@ref(eq:sinal), é uma função completamente determinada (parte sistemática determinística) e $\epsilon_t$ é uma sequência aleatória, independente de $f(t)$ [@hamilton2020time]. Supõe-se que as variáveis aleatórias $\epsilon_t$ não são correlacionadas, têm média zero e variância constante, isto é,
-
-\begin{equation}
-E(\epsilon_t) = 0,\\
-E(\epsilon^{2}_t) = \sigma^{2}_{\epsilon},\\
-E(\epsilon_t, \epsilon_s) = 0,  \text{  para  } s\neq s
-(\#eq:sistdeter)
-\end{equation}
-
-Nessas condições, a série $\epsilon_t$ é chamada de *ruído branco*, como mencionado anteriormente.
-
-Desta maneira, qualquer efeito do tempo influência somente a parte determinística $f(t)$ e os modelos onde $X_t$ depende funcionalmente de $X_{t-1}, X_{t-2},...$ não estão incluídos em \@ref(eq:sinal) com estas suposições.Seguem-se alguns exemplos desses métodos.
-
-#### Modelo de tendência linear
-
-\begin{equation}
-X_t = \alpha + \beta t + \epsilon_t,  \text{  com   } t = 1,...,n
-(\#eq:tlinear)
-\end{equation}
-com $f(t) = \alpha + \beta t$, que é uma função linear dos parâmetros.
- 
-#### Modelo de regressão:
-
-\begin{equation}
-X_t = \alpha + \beta X_t + \epsilon_t,  \text{  com  }  t = 1,...,n
-(\#eq:regress)
-\end{equation}
-com $f(t) = \alpha + \beta X_t$, sendo $x_t$ uma quantidade observável e $f(t)$ um função linear de parâmetros.
-Nestes casos os parâmetros podem ser estimados usando-se o método de mínimos quadrados.
- 
-#### Modelos de curva de crescimento
-
-\begin{equation}
-X_t = \alpha + e^{\beta t + \epsilon_t}, \text{ ou } X_t=\log \alpha +\beta t+\epsilon_t  
-(\#eq:curvcresc)
-\end{equation}
-
-Neste caso, $f(t)$ não é uma função linear dos parâmetros, embora $log (X_t)$ o seja. Segundo Hamilton [@hamilton2020time] normalmente, há dois tipos diferentes de funções para $f(t)$
-
-
-1. Polinómio em $t$, em geral de grau baixo, da forma
-\begin{equation}
-f(t) = \beta_0 + \beta_1t+...+\beta_mt^m  
-(\#eq:polin1)
-\end{equation}
-de modo que a componente sistemática move-se lentamente, suavemente e progressivamente ao longo do tempo. A função $f(t)$ representa uma *tendência polinomial determinística de grau $m$*. Daí resulta que o processo $X_t$ será não estacionário, se $m >0$.
-
-2. Polinômio harmônico, ou seja, uma combinação linear de senos e cossenos com coeficientes constantes, da forma
-\begin{equation}
-f(t) = \sum_{n=1}^{p}(\alpha_ncos\lambda_nt + \beta_nsen\lambda_nt)
-(\#eq:polin2)
-\end{equation}
-com $\lambda_n = \frac{2 \pi n}{p}$, se $f(t)$ tem período $p$.
-
-O modelo de erro é clássico para análise de séries econômicas, onde $f(t)$ é composta da adição ou multiplicação de ambos os tipos  de função, onde \@ref(eq:polin1)  representará a tendência e \@ref(eq:polin2) representará as variações sazonais. Isto é $f(t) = T_t + S_t$, donde
-
-\begin{equation}
-X_t = T_t + S_t + \epsilon_t
-(\#eq:sazon1)
-\end{equation}
-Normalmente, $T_t$ é a componente da tendência, enquanto que $S_t$ é a componente sazonal.
-
-### Modelos ARIMA
-
-Estabelecendo-se a hipótese de que os erros não são correlacionados, introduz limitações quanto a validade e aplicabilidade dos modelos do tipo \@ref(eq:sinal), para descrever comportamento de séries económicas, onde os erros normalmente são auto-correlacionados e influenciam a evolução do processo [@hamilton2020time].
-
-Nessas situações, os modelos ARIMA são muito úteis para a previsão. Pode-se descrever duas classes de processos pelo método ARIMA
-
-#### Processos lineares estacionários
-
-Podem ser representados na forma
-\begin{equation}
-X_t - m = \epsilon_t +\phi_1 \epsilon_{t-1} + \phi_2 \epsilon_{t-2} +... = \sum_{k = 0 }^{\infty}\phi_k\epsilon_{t-k}, \text{ com } \phi_0 = 1
-(\#eq:proclineaesta)
-\end{equation}
-
-Na expressão acima, como mencionado anteriormente, $\epsilon_t$ é ruído branco e $m = E(X_t)$; e $\phi_1, \phi_2,....$ a sequência de parâmetros tal que
-
-\begin{equation}
-\sum_{k = 0 }^{\infty}\phi^{2}_k < \infty
-\end{equation}
-
-A partir de \@ref(eq:proclineaesta) pode-se identificar três casos particulares que usaremos frequentemete nos próximos capítulos.
-
-  1. Processo Auto - regressivo de ordem $p$; $AR(p)$
-  2. Processo de médias móveis de ordem $q$: $MA(q)$
-  3. Processo auto - regressivo - médias móveis de ordem $p$ e $q$: $ARMA(p,q)$
-
-Este é um assunto que será abordado com mais detalhe no próximo capítulo.
-
-#### Processos lineares não estacionários homogênios
-
-Constituem uma generalização dos processos lineares estacionários, que pressupõem que o mecanismo gerador da série produz erros auto-correlacionados e que as séries são não estacionárias. Entretanto estas séries podem se tornar estacionárias através de um número finito de diferenças.
-
-Esses processos são descritos de maneira adequada pelos métodos auto-regressivos-integrados-médias móveis de ordem $p$, $d$, e $q$: $ARIMA(p, d, q)$ que podem ser generalizados pela inclusão de um operador sazonal. O próximo capítulo será dedicado principalmente aos modelos $ARIMA$
-
-Segundo Morettin [@morettin1981modelos], algumas vezes, o sinal de $f(t)$ no modelo \@ref(eq:sinal), não pode ser aproximado por uma função simples do tempo, como em \@ref(eq:polin1). Nesse caso para a estimação da tendência tem de se utilizar procedimentos não paramétricos de suavização. **Suavização ou alisamento** é um processo que transforma a série $X_t$, no instante $t$ numa outra série dada por
-
-\begin{equation}
-X^*_t = \sum_{k = -n}^{n}b_kX_{t+k}, \text{ onde, } t = n+1,...,N-n
-(\#eq:filtro)
-\end{equation}
-
-Usamos $2n+1$ observações ao redor do instante $t$ para estimar a tendência naquele instante. Nesse caso perdemos $n$ observações no início da série e outras $n$ no final da série. \@ref(eq:filtro) chama-se um *filtro linear* e normalmente tem-se que $\sum_{k = -n}^{n}b_k = 1$.
+## Análise de séries temporais

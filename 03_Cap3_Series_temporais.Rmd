@@ -234,11 +234,11 @@ Como usualmente é quase impossível obter uma descrição completa de um proces
 
 ## Tendência e sazonalidade das séries temporais
 
-Dois dos principais motivos que causam variações na maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando um série apresenta constante crescimento ou declínio, em sucessivos períodos de tempo [@xavier2016analise].
+Dois dos principais motivos que causam variações na maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando uma série apresenta constante crescimento ou declínio, em sucessivos períodos de tempo [@xavier2016analise].
 
 Na figura \@ref(fig:serie2) temos a representação da entrada de turistas em Cabo Verde do ano 2000 ao ano 2020. Uma simples análise visual, pode-se observar uma tendência de crescimento até finais do ano 2019. Em 2020 pode-se ver uma grande queda na entrada de turistas, devido ao impacto do vírus da Covid-19 que assolou o mundo em 2020.
 
-Uma pequena análise gráfica, pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para conluir sobre determinado comportamento dos dados, nesse caso a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
+Uma pequena análise gráfica, pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para concluir sobre determinado comportamento dos dados, nesse caso a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
 
 ```{r echo =FALSE, label = 'serie2',fig.cap='Entrada de turistas em Cabo Verde de 2000 – 2020 (Fonte: INE)', fig.align='center', out.width='80%'}
 knitr::include_graphics("img/Rplot2.png")
@@ -272,10 +272,10 @@ O testes mais utilizados para identificar tendências são:
 
 1. *Teste de Sequências* (Wald-Wolfowitz)
 2. *Teste do Sinal* (Cox - Stuart)
-3. *Teste baseado do coeficiente de correlação de Spearaman*
+3. *Teste baseado no coeficiente de correlação de Spearaman*
 
 ```{definition, name= "Operador de Diferenças"}
-Defini-se operador de diferenças por:
+Define-se operador de diferenças por:
 ```
 \begin{equation}
 Bx_t = x_{t-1}
@@ -315,7 +315,7 @@ onde pode-se expandir o operador $(1-B)^d$ algébricamente para avaliar o maior 
 
 A primeira diferença, $\triangledown x_t = x_t-x_{t-1}$, é um exemplo de filtro linear que pode ser aplicado para eliminar a tendência da série. Outros filtros, formados pela média dos valores perto de $x_t$ podem produzir séries ajustadas que eliminam outros tipo de flutuações indesejáveis [@shumway2000time]. O método da diferença,foi desenvolvido por Box e Jenkins [@box1994pages] e é um componente importante na aplicação do modelo ARIMA.
 
-A **Sazonalidade** é um tipo de variação onde fenómenos que ocorrem durante o tempo se repete a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
+A **Sazonalidade** é um tipo de variação onde fenómenos que ocorrem durante o tempo se repetem a cada período idêntico de tempo. Por exemplo o aumento de vendas de uma loja todos os anos no período de Natal.
 A sazonalidade pode ser dividida em dois tipos, *sazonalidade determinista*, quando o padrão sazonal é regular e estável no tempo, ou *sazonalidade estocástica* quando o padrão sazonal varia como tempo [@xavier2016analise].
 
 A figura \@ref(fig:serie3) representa o movimento de passageiros nos aeroportos de Cabo Verde entre o ano 2006 e o ano 2017. Pode-se observar que os meses de Julho normalmente têm maior tráfego de passageiros nos aeorportos de Cabo Verde, possivelmente devido ao período de férias escolares e também por coincidir com o início do verão, onde aumenta o fluxo de turistas que visitam Cabo Verde. Trata-se assim de dados que apresentam um padrão sazonal, pois tem comportamento semelhante em certos períodos de tempo (nesse caso nos meses de Julho).
@@ -337,3 +337,79 @@ Uma outra abordagem seria incorporar a variação sazonal e a tendência em um m
 
 
 ## Análise de séries temporais
+
+### Teste da normalidade
+
+Existem alguns testes utilizados para  verificar se os dados de uma série temporal são normalmente distribuidos. Entre esses testes podemos destacar o teste de Shapiro-Wilk, o teste de Doornik-Hansen, o teste de Lillefors e o teste de Jarque-Bera. Nesses testes, parte-se da hipótese nula de que os dados provêm de uma distribuição normal, e a hipótese alternativa é de que os dados não provêm de uma distribuição normal.
+
+### Teste da raiz unitária ou teste de estacionaridade
+
+Como explicado anteriormente, uma série temporal em que as suas propriedades não se alteram ao longo do tempo é chamada de série estacionária. Fazendo a análise de uma representação gráfica de uma série temporal, pode-se ter uma ideia se a série é estacionária ou não. Entretanto, somente a visualização gráfica é insuficiente para se ter a certeza sobre a estacionaridade da série. Assim como para a normalidade, existem alguns testes usados para se estudar a existência de estacionaridade duma série temporal, sendo que a maioria deles baseiam-se em encontrar uma raiz unitária.  Alguns testes mais utilizados são os testes de Dickley-Fuller Aumentado, o teste de Phillips-Perron e o teste KPSS [@xavier2016analise].
+
+#### Teste de Dickey-Fuller Aumentado
+
+Também é conhecido como teste ADF(Augmented Dickley-Fuller) e tem como base a seguinte regressão:
+
+\begin{equation}
+\Delta x_t = \beta_1 + \beta_2t + \delta x_{t-1}+\sum_{i=1}^{m}\alpha _i\Delta x_{t-1} + \varepsilon_t
+(\#eq:ADF)
+\end{equation}
+
+- $\beta_1$ é o ponto de intercepto ou *drift* da série;
+- $\beta_2$ é o coeficiente da tendência;
+- $\delta$ é o coeficiente de presença de raiz unitária;
+- $m$ é o número de desfasagens tomada na série;
+
+No teste  ADF,consideram-se as seguintes hipóteses
+
+- $H_0:\delta=0$ Existe pelo menos uma raís unitária.
+- $H_1:\delta \neq 0$ A série não é estacionária.
+
+Será feita então uma regressão de $\Delta x_t$ em $\Delta x_{t-1}$,...,$\Delta x_{t+p-1}$, e logo a seguir é calculada a estatística $T$, que é dada por:
+
+\begin{equation}
+T = \frac{\hat{\delta}}{se(\hat{\delta})}
+(\#eq:Tstatistic)
+\end{equation}
+
+onde $\hat{\delta}$ é o estimador para $\delta$ e $se(\hat{\delta)}$ o estimador para o desvio padrão do erro de $\delta$. Os valores críticos de $T$ são calculados por Dickley e Fuller através da simulação Monte Carlo [@xavier2016analise].
+
+#### Teste de Phillips-Perron
+
+Esse teste é a generalização do teste de Dickley-Fuller para os casos em que os erros {${\varepsilon_t}$}, $t \in \mathbb{Z}$ são correlacionados e, possívelmente, heterocedásticos. Baseando-se na regressão
+
+\begin{equation}
+\Delta x_t = \beta_1 + \beta_2t + \delta x_{t-1}+\sum_{i=1}^{m}\alpha _i\Delta x_{t-1} + \varepsilon_t
+(\#eq:PP)
+\end{equation}
+
+a estatística $Z$ é calculada por:
+
+\begin{equation}
+Z = n \hat{\delta}_n - \frac{n^2 \hat{\delta}^2}{2s_n^2}(\hat{\lambda_n^2}-\hat{\gamma_{0,n}}), onde:
+(\#eq:PP1)
+\end{equation}
+
+- $\hat{\gamma}_{j,n} = \frac{1}{n}\sum_{i=1+j}^{n}r_ir_{i-j}$
+- $\hat{\lambda}_n^2 = \hat{\gamma}_{0,n} + 2\sum_{j=1}^{q}\left ( 1-\frac{j}{q+1} \right )\hat{\gamma}_{j,n}$
+- $s_n^2 = \frac{1}{n-k} \sum_{j=1}^{n}r_i^2$
+
+Com, $r_i$ o resíduo de $x_i$ utilizando estimadores de mínimos quadrados, $k$ o número de covariáveis na regressão e $q$ o número de desfasagens utilizadas para calcular$\hat{\lambda}_n^2$
+
+Quando o processo for não correlacionado as covariâncias são nulas e então $\hat{\lambda}_n^2 = \hat{\gamma}_{0,n}$. Se o processo não for heterocedástico teremos $se(\delta) = \frac{1}{n}$ e $Z$ será dado por $Z= n\hat{\delta} = \frac{\hat{\delta}}{se(\hat{\delta})}$. Ou seja, $Z$ transforma-se numa estatística de Dickley-Fuller e portanto, terá a mesma distribuição do teste ADF.
+
+#### Teste KPSS
+
+Esse teste foi criado por Denis Kwiatkowski, Peter C. B. Phillips, Peter Schmidt e Youngcheol Shin, e tem por objetivo determinar a estacionaridade duma série temporal. As hipóteses para se determinar a estacionaridade são:
+
+- $H_0$: A série é não estacionária
+- $H_1$: A série apresenta raíz unitária
+
+A estatística do teste KPSS é definida por:
+
+\begin{equation}
+LM = \sum_{t=1}^{N}\frac{s_t^2}{N^2\hat{\sigma}_{\varepsilon}^2}
+(\#eq:KPSS)
+\end{equation}
+
+Onde $s_t$ é a soma parcial dos resíduos e $\hat{\sigma}_{\varepsilon}^2$ o estimador para a variância dos erros da regressão.

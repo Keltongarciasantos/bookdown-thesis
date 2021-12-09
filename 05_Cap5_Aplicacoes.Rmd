@@ -1,14 +1,158 @@
-# Discussion
+# Uma aplicação a dados da economia Cabo-Verdiana
 
-## What I found
+## Produto interno bruto de Cabo Verde 
 
-- text 1
-- text 2
-- text 3
-- more text
-- more text
+O Produto interno bruto (PIB) representa a soma em unidades monetárias de todos os bens e serviços produzidos num determinado país ou região, durante um determinado período de tempo. O PIB é um indicador macroeconómico muito utilizado na economia, para analisar a "saúde económica" de um país ou região. O PIB é composto de bens e serviços produzidos para venda no mercado e também inclui produção não destinada ao mercado, tais como educação ou serviços da defesa de um país fornecidos pelo governo. Um conceito alternativo é o produto nacional bruto (PNB), que soma toda a produção dos residentes de um país. Por exemplo, se uma empresa com dono Cabo-Verdiano tiver uma fábrica no Senegal, a produção dessa fábrica será contabilizada como PIB do Senegal e como PNB de Cabo Verde [@callen2012gross].
 
-## What it means
+### Breve enquadramento da economia cabo-verdiana
 
-- text 6
-- text 7
+A Economia Cabo-Verdiana é norteada pelo turismo, que representa cerca de 25% do PIB. Apesar dos desafios relacionados com a pequena economia insular, Cabo Verde tem tido um progresso económico notável desde 1990, influenciado principalmente pelo rápido desenvolvimento do turismo.
+
+Antes da pandemia da COVID-19, Cabo Verde experimentava um crescimento económico robusto direcionado por um forte setor turístico e por reformas estruturais firmes. Entre 2016 e 2019 o crescimento médio do PIB foi de 4.7%. Condições globais favoráveis e fortes reformas estruturais, principalmente no setor das empresas do estado, contribuíram para o crescimento. O crescimento robusto e sustentável levou a uma diminuição da pobreza de 24.5% em 2015 para 11.5% em 2019 [@TheWorldBank].
+
+Por causa da paralisação do turismo, o PIB contraiu 14,8% em 2020 (15,7% em termos per capita) - a maior redução já registada no país e uma das maiores de África. O país depende muito do turismo, setor que representa 25% do PIB e movimenta quase 40% de toda a actividade económica. A crise reverteu o progresso na redução da pobreza atingida desde 2015. A dívida global aumentou de 1.8% em 2019 para 2.9% em 2020, alavancada principalmente pelo impacto da crise na receita fiscal[@TheWorldBank].
+
+### Análise descritiva dos dados
+
+Neste trabalho, usaremos séries temporais com o PIB anual (em volume) de Cabo Verde de 1980 a 2020. Na Figura \@ref(fig:serie31) podemos verificar a tendência de crescimento e a queda de 2020 referida acima.
+
+```{r echo =FALSE, label = 'serie31',fig.cap='Evolução do PIB(em volume) de Cabo Verde de 1980–2020 (Fonte: INE)', fig.align='center', out.width='80%'}
+knitr::include_graphics("img/Rplot4.png")
+```
+
+No `R`, usando o *package* `fBasics`, podemos determinar rapidamente algumas estatísticas básicas dos dados. Na tabela \@ref(tab:tabela1) apresentam-se esses valores. A grande evolução nos valores do PIB durante os anos observados está patente nos valores da amplitude amostral e também da amplitude inter-quartis. O valor da mediana mostra que em metade dos anos observados o valor do PIB excedeu os $80516,40$ unidades e a assimetria negativa revela haver mais concentração de anos com valores de PIB mais elevados, comparativamente com valores mais baixos.
+
+
+```{r echo=FALSE, label = 'tabela1', strip.white = TRUE}
+library(readxl)
+suppressMessages(library(timeSeries))
+library(fBasics)
+pib <- read_excel("R_codes_examples/Dados/01_Produto_Interno_Bruto_ a_ Precos_ Correntes.xls", sheet = "PIB_em_volume", col_types = c("numeric"))
+pib_1 =pib[ ,2] 
+pib_ts <- ts(pib_1, frequency = 1, start = c(1980,1))
+Resumo_pib = data.frame(round(basicStats(pib_1), digits = 2))
+colnames(Resumo_pib)<- NULL
+knitr::kable(Resumo_pib, 'pipe',longtable = TRUE, booktabs = TRUE,
+  caption = ' Análise Descritiva dos Dados.'
+)
+```
+
+### Normalidade dos dados
+
+Tendo em atenção que muitos dos resultados na modelação de dados dependem das características distribucionais dos dados, é importante perceber o seu comportamento, nomeadamente, se são compatíveis com a proveniência de uma distribuição Normal.
+
+A representação dos dados num histograma (Figura \@ref(fig:serie4)) não está de acordo com aquilo que seria de esperar se os dados fossem oriundos de uma distribuição Normal. Desta feita vamos aplicar o teste de *Shapiro-Wilk* para análise da normalidade dos dados. Usando a função `shapiro.test` no `R` obtemos um *P-value* $p = 0.001814 < 0.05$, ou seja rejeitamos a hipótese inicial de que os dados são normalmente distribuídos, considerando um nível de significância  de $0.05$.
+
+```{r echo =FALSE, label = 'serie4',fig.cap='Histograma PIB(em volume) de Cabo Verde de 1980–2020 (Fonte: INE)',fig.align='center', out.width='80%'}
+knitr::include_graphics("img/Rplot5.png")
+```
+
+### Teste da Estacionaridade
+
+Neste trabalho, iremos utilizar os dados de 1980 a 2018, ajustando o modelo ARIMA e depois iremos utilizar o modelo para fazer previsão do crescimento do PIB de 2019 a 2020, comparando com os valores reais e analisar assim a eficácia do nosso modelo. 
+
+Antes de iniciar qualquer análise é necessário verificar a estacionaridade dos dados, para podermos aplicar o modelo ARIMA. Caso a série não seja estacionária, iremos aplicar a diferenciação para a transformar numa série estacionária.
+
+Na Figura \@ref(fig:serie3), pode-se identificar claramente uma tendência, o que traduz a não estacionaridade da série. Realizaremos ainda alguns testes para concluirmos sobre a estacionaridade ou não da série.
+
+Vamos primeiramente verificar se a série original é estacionária ou não, aplicando o teste *Augmented Dickey-Fuller* [@dickey1979distribution], através da função `adf.test` no *package* `tseries` (valores de 1980 a 2018). Ao aplicar o teste *adf* encontramos um *p-value* $p = 0.408 > 0.05$, ou seja, com um nível de significância de $0.05$ não rejeitamos a hipótese inicial de que a série é não estacionária, ou seja ela tem uma raiz unitária. 
+
+A *função de autocorrelação(ACF)* e *autocorrelação parcial (PACF)*, podem também nos ajudar na análise da estacionaridade. Como podemos verificar na Figura \@ref(fig:serie6), a ACF decresce lentamente para zero a cada passo (*lag*), enquanto que o PACF "cai" rapidamente para zero no primeiro lag, indicando que a série é não estacionária, ou seja precisa ser diferenciada pelo menos uma vez $(d=1)$.
+
+```{r echo =FALSE, label = 'serie6',fig.cap='ACF e PACF do PIB de Cabo Verde DE 1980 a 2018',fig.align= 'center', out.width='80%'}
+knitr::include_graphics("img/Rplot07.png")
+```
+
+
+Sendo que a nossa série não é estacionária, teremos de aplicar a diferenciação para a transformar numa série estacionária.
+
+Para séries económicas e financeiras, como é o caso da nossa série, é comum o uso do **retorno**, ou **taxa de crescimento** em vez dos valores "brutos" [@shumway2000time]. Dada uma série $X_t$, a taxa de crescimento é aproximadamente $ln(x_t)-ln(x_{t-1})$, onde $x_t$ é um ponto qualquer da série e $x_{t-1}$ o ponto anterior. Normalmente usando a taxa de crescimento em vez dos dados brutos pode-se transformar a série numa série estacionária, sendo que $ln(X_t)$ estabiliza a variância e a diferença elimina a tendência [@shumway2000time]. No `R`, usando o comando `diff(log())`pode-se determinar facilmente essa diferenciação.
+
+Na Figura \@ref(fig:serie5), encontra-se a representação gráfica da diferença do logaritmo natural da nossa série. Vamos aplicar o *Augmented Dickey-Fuller test*, para verificarmos se nossa nova série é ou não estacionária.
+
+```{r echo =FALSE, label = 'serie5',fig.cap='serie log(PIB) aplicado a diferença de ordem 1',fig.align= 'center', out.width='80%'}
+knitr::include_graphics("img/Rplot08.png")
+```
+
+Aplicando o teste *adf*, encontramos um *p-value* $p = 0.48 > 0.05$, ou seja, com um nível de significância de $0.05$ continuamos a não rejeitar a hipótese inicial de que a série é não estacionária, ou seja a primeira diferença não foi suficiente para transformar a série numa série estacionária. 
+
+Ao aplicar mais uma diferença à nossa série $(d=2)$, e repetir o teste *adf* encontramos um *p-value* $p = 0.01 < 0.05$, ou seja, com um nível de significância de $0.05$, rejeitamos a hipótese inicial de que nossa série é não estacionária. 
+
+No `R`, o *package* `forecast` dispõe da função `ndiffs()` que permite identificar qual a ordem de diferenciação precisa-se aplicar numa determinada série, para a transformar numa série estacionária. No nosso caso ao aplicar o `ndiffs()` encontramos $2$, ou seja, a nossa série precisa de duas diferenciações para ser transformada numa série estacionária.
+
+### Identificação do Modelo
+
+Uma vez que $d=2$, o nosso modelo será do tipo $ARIMA(p,2,q)$. Assim teremos de substituir valores para $p$ e $q$ e escolher o melhor modelo através do *critério de informação de Akaike(AIC)* e o *critério de informação Bayesiano(BIC)* [@fabozzi2014basics], onde o melhor modelo é o que apresentar menor valor de AIC e BIC.
+
+Na Tabela \@ref(tab:tabela2) temos os modelos para diferentes valores de $p$ e $q$. Podemos ver que o melhor modelo é o $ARIMA(1,2,1)$ que apresenta menores valores para o $AIC$, mesmo sendo o $BIC$ ligeiramente superior ao do modelo $ARIMA(0,2,0)$. No `R` esses valores são encontrados usando o *package* `astsa` e a função `Arima`. 
+
+A tarefa de experimentar vários modelos para determinar qual o melhor, com base nos valores de $AIC$ e $BIC$, fica facilitada no `R`, com a função `auto.arima` do *package* `forecast`. Encontramos o melhor modelo, neste caso, $ARIMA(1,2,1)$(ver Tabela \@ref(tab:tabela3)).
+
+```{r echo=FALSE, label = 'tabela2', strip.white = TRUE}
+library(readxl)
+modelo_selection <- read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/MestradoMatematica/Tese/Documentos/Dados/MODEL_SELECTON.xlsx")
+knitr::kable(modelo_selection, 'pipe',longtable = TRUE, booktabs = TRUE,
+  caption = ' Comparação dos modelos.'
+)
+```
+
+
+Assim o modelo $ARIMA(1,2,1)$ e seus respetivos parâmetros encontram-se resumidos na tabela abaixo. Podemos também observar que o $p-value$ dos coeficientes $AR(1)$ e $MA(1)$ são pequenos (menores que o nível de significância de $0.05$), ou seja, os coeficientes são significativamente diferentes de zero. 
+
+Assim sendo, teremos agora de analisar se os resíduos são correlacionados ou não antes de usar o modelo para fazer previsões.
+
+```{r echo=FALSE, label = 'tabela3', strip.white = TRUE}
+library(readxl)
+modeloarima <- read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/MestradoMatematica/Tese/Documentos/Dados/MODEL_SELECTON.xlsx", sheet = "arima(1,1,0)")
+knitr::kable(modeloarima, 'pipe',longtable = TRUE, booktabs = TRUE,
+  caption = ' Estimativa do modelo ARIMA(1,1,0).'
+)
+```
+
+### Análise dos resíduos
+
+Uma vez identificado o melhor modelo, o próximo passo será a verificação das funções $ACF$ e $PACF$ dos resíduos. Na Figura \@ref(fig:serie7), encontra-se a representação gráfica dos resíduos. Para que o modelo produza bons resultados, temos de confirmar que os resíduos são não correlacionados, ou seja, que não existe informação útil nos resíduos que poderiam ser usados para melhorar o modelo.
+
+```{r echo =FALSE, label = 'serie7',fig.cap='Representação gráfica dos resíduos',fig.align= 'center', out.width='80%'}
+knitr::include_graphics("img/Rplot09.png")
+```
+
+Na Figura \@ref(fig:serie8) encontra-se a representação das funções $ACF$ e $PACF$ dos resíduos. Pode-se ver que não existe autocorrelação dos resíduos, uma vez que, se encontram dentro dos limites de confiabilidade (linha tracejada azul). Além disso, aplicando o teste de *Box-Pierce* ou *Ljung-Box* encontrou-se um $p-value$ muito alto, o que indica que os resíduos comportam-se como ruído branco. Conclui-se então que o nosso modelo é apropriado para fazer as previsões.
+
+
+```{r echo =FALSE, label = 'serie8',fig.cap='Funções ACF e PACF dos resíduos',fig.align= 'center', out.width='80%'}
+knitr::include_graphics("img/Rplot10.png")
+```
+
+
+### Previsão
+
+Uma vez que a análise dos resíduos mostrou-se adequada a validação do modelo, pode-se agora realizar previsões com base na amostra. Na Figura \@ref(fig:serie9) estão representados os valores efetivos de 1980 a 2018 e os valores obtidos através do nosso modelo no mesmo período de tempo. Pode-se observar que o modelo ajustado converge para a série original.
+
+```{r echo =FALSE, label = 'serie9',fig.cap='Representação gráfica da série original e série ajustada',fig.align= 'center', out.width='80%'}
+knitr::include_graphics("img/Rplot11.png")
+```
+
+A Figura \@ref(fig:serie10) apresenta os dados reais de 1980 a 2020  e as previsões de 2018 a 2028, usando o nosso modelo $ARIMA$. Nas previsões, podemos ainda ver os limites de confiança máximo e mínimo dos valores previstos.
+
+```{r echo =FALSE, label = 'serie10',fig.cap='Representação gráfica da série original e série ajustada',fig.align= 'center', out.width='80%'}
+knitr::include_graphics("img/Rplot12.png")
+```
+
+Na Tabela \@ref(tab:tabela4), está representada a variação entre o valor previsto e o valor real. Podemos observar que para todos os anos apresentados, os valores previstos estão próximos dos valores reais com exceção do ano 2020, que como explicado anteriormente, foi um ano atípico devido a pandemia da COVID-19 que afetou todas a projeções de crescimento das economias mundiais desafiando praticamente todos os métodos de previsão.
+
+```{r echo=FALSE, label = 'tabela4', strip.white = TRUE}
+suppressMessages(library(readxl))
+modeloarima <-  read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/MestradoMatematica/Tese/Documentos/Dados/MODEL_SELECTON.xlsx", 
+    sheet = "tabela", col_types = c("numeric", 
+        "numeric", "numeric", "text"))
+knitr::kable(modeloarima, 'pipe',longtable = TRUE, booktabs = TRUE,
+  caption = ' Previsão do modelo ARIMA(1,2,1).'
+)
+```
+
+### Considerações finais
+
+Dos resultados obtidos, podemos ver que o modelo $ARIMA$ é muito potente na análise e previsão de séries temporais, obtendo valores muito próximos dos valores reais. Também identificamos uma das fraquezas no modelo ARIMA que é a previsão de *outliers*, principalmente quando não houver um histórico frequente de *outliers* nos dados. Na nossa aplicação notamos que o modelo não foi capaz de prever a queda do PIB que aconteceu em 2020, devido a pandemia da COVID-19. No geral o modelo é muito potente e capaz de oferecer boas previsões para dados em forma de séries temporais, quando não ocorrerem acontecimentos raros que podem afetar significativamente os *outcomes* futuros.
+
+Acrescentar um parágrafo com intenção do trabalho futuro. Por exemplo, explorar outros modelos que possam adaptar-se melhor com a ocorrência de outliers ou estudar novas abordagens que permitam lidar com esse problema, modelos mais robustos...

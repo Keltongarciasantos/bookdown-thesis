@@ -1,8 +1,65 @@
 # (APPENDIX) Appendix {-}
 
-# Appendix of R code {-}
+# Apêndice  {-}
 
-```{r, eval=FALSE, echo=TRUE}
-model <- lm(y ~ x1 + x2, data = df)
-summary(model)
+
+## Códigos Utilizados {-}
+
+#### 1. PIB  de Cabo Verde a preços correntes entre 2007 - 2020 (Figura \@ref(fig:serie1)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+library(ggplot2)
+library(readxl)
+pib <- read_excel("dados.xls")
+ggplot(pib, aes(x = pib$Ano, y = pib$`Milhões de CVE`)) +
+geom_line() + 
+scale_x_continuous(labels=as.character(pib$Ano), breaks= pib$Ano) +
+labs(y= "Produto Interno Bruto (PIB)- em Milhões de escudos", x = "Ano")
+
 ```
+
+#### 2. Entrada de Turistas em Cabo Verde de 2000 a 2020 (Figura \@ref(fig:serie2)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+library(ggplot2)
+library(readxl)
+turi <- read_excel("dados.xlsx")
+ggplot(turi, aes(x = turi$ano, y = turi$`entrada_de_turistas`)) +
+geom_line(size = 1L, colour = "#CC6666") + 
+scale_x_continuous(labels=as.character(turi$ano),breaks= turi$ano) +
+scale_y_continuous(labels=function(n){format(n, scientific = FALSE)}) +
+labs(y= "Entrada de Turistas em Cabo Verde de 2000 a 2020", x = "Ano")
+```
+
+#### 3. Movimento de Passageiros mensais 2006 a 2017 (Figura \@ref(fig:serie3)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+library(ggplot2)
+library(scales)
+library(lubridate)
+library(readxl)
+entrada<- read_excel("dados.xlsx")
+ggplot(entrada, aes(x = entrada$`mes_ano`, 
+y = entrada$`movimento_de_passageiros`)) +
+geom_line( colour = "#0c4c8a") + 
+scale_x_date(date_breaks = "6 months",
+labels = date_format("%b-%Y"),limits = c(as.Date("2006-08-01"),NA)) +
+scale_y_continuous(labels=function(n){format(n, scientific = FALSE)}) +
+labs(y= "Movimento de Passageiros mensais 2006 a 2017 ", x = "Mês/Ano") +
+xlab("") + theme(axis.text.x=element_text(angle=60, hjust=1))
+```
+
+#### 4. 
+```{r echo=TRUE, eval=FALSE}
+suppressMessages(library(readxl))
+suppressMessages(library(ggfortify))
+suppressMessages(require(ggfortify))
+suppressMessages(library(xts))
+pib <- read_excel("R_codes_examples/Dados/01_Produto_Interno_Bruto_ a_ Precos_ Correntes.xls", sheet = "PIB_em_volume")
+pib_1 =pib[ ,2] 
+pib_ts1 <- ts(pib_1, frequency = 1, start = c(1980))
+pib_ts_diff <-diff(log(pib_ts))
+autoplot(as.xts(pib_ts_diff), ts.colour = 'blue', xlab = "Ano",ylab = "Montante em Milhões de CVE")
+pib_ts_diff
+```
+

@@ -7,7 +7,7 @@ bookdown::gitbook:
     view:
       link: https://github.com/remlapmot/bookdown-thesis/blob/master/%s
 bookdown::pdf_book:
-  geometry: [left=3cm, right=3cm, top=4cm, bottom=4cm] 
+  geometry: [left=3cm, right=3cm, top=4cm, bottom=4cm]
   linestretch: 1.5
   fontsize: 12pt
   includes:

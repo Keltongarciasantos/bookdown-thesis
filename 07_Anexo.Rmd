@@ -5,7 +5,7 @@
 
 ## Códigos Utilizados {-}
 
-#### 1. PIB  de Cabo Verde a preços correntes entre 2007 - 2020 (Figura \@ref(fig:serie1)) {-}
+#### PIB  de Cabo Verde a preços correntes entre 2007 - 2020 (Figura \@ref(fig:serie1)) {-}
 
 ```{r echo=TRUE, eval=FALSE}
 library(ggplot2)
@@ -18,7 +18,7 @@ labs(y= "Produto Interno Bruto (PIB)- em Milhões de escudos", x = "Ano")
 
 ```
 
-#### 2. Entrada de Turistas em Cabo Verde de 2000 a 2020 (Figura \@ref(fig:serie2)) {-}
+#### Entrada de Turistas em Cabo Verde de 2000 a 2020 (Figura \@ref(fig:serie2)) {-}
 
 ```{r echo=TRUE, eval=FALSE}
 library(ggplot2)
@@ -31,35 +31,146 @@ scale_y_continuous(labels=function(n){format(n, scientific = FALSE)}) +
 labs(y= "Entrada de Turistas em Cabo Verde de 2000 a 2020", x = "Ano")
 ```
 
-#### 3. Movimento de Passageiros mensais 2006 a 2017 (Figura \@ref(fig:serie3)) {-}
+#### Movimento de Passageiros mensais 2006 a 2017 (Figura \@ref(fig:serie3)) {-}
 
 ```{r echo=TRUE, eval=FALSE}
 library(ggplot2)
 library(scales)
 library(lubridate)
 library(readxl)
-entrada<- read_excel("dados.xlsx")
-ggplot(entrada, aes(x = entrada$`mes_ano`, 
-y = entrada$`movimento_de_passageiros`)) +
-geom_line( colour = "#0c4c8a") + 
-scale_x_date(date_breaks = "6 months",
-labels = date_format("%b-%Y"),limits = c(as.Date("2006-08-01"),NA)) +
+entrada<- read_excel("R_codes_examples/entrada_turistas.xlsx",
+sheet = "mensal", col_types = c("date", "numeric"))
+ggplot(entrada, aes(x =`mes_ano`, y = `movimento_de_passageiros`)) +
+geom_line(colour = "#0c4c8a") + 
+scale_x_datetime(date_breaks = "6 months",date_labels = "%b-%Y",
+limits = c(as.POSIXct("2006-08-01"), as.POSIXct("2017-12-01"))) +
 scale_y_continuous(labels=function(n){format(n, scientific = FALSE)}) +
 labs(y= "Movimento de Passageiros mensais 2006 a 2017 ", x = "Mês/Ano") +
-xlab("") + theme(axis.text.x=element_text(angle=60, hjust=1))
+xlab("") +
+theme(axis.text.x=element_text(angle=60, hjust=1))
 ```
 
-#### 4. 
+#### Evolução do PIB(em volume) de Cabo Verde de 1980-2020 (Figura \@ref(fig:serie31)). {-}
+
 ```{r echo=TRUE, eval=FALSE}
-suppressMessages(library(readxl))
-suppressMessages(library(ggfortify))
-suppressMessages(require(ggfortify))
-suppressMessages(library(xts))
-pib <- read_excel("R_codes_examples/Dados/01_Produto_Interno_Bruto_ a_ Precos_ Correntes.xls", sheet = "PIB_em_volume")
+library(readxl)
+library(ggfortify)
+require(ggfortify)
+library(xts)
+pib <- read_excel("dados.xls")
 pib_1 =pib[ ,2] 
 pib_ts1 <- ts(pib_1, frequency = 1, start = c(1980))
-pib_ts_diff <-diff(log(pib_ts))
-autoplot(as.xts(pib_ts_diff), ts.colour = 'blue', xlab = "Ano",ylab = "Montante em Milhões de CVE")
-pib_ts_diff
+autoplot(as.xts(pib_ts1), ts.colour = 'blue', 
+xlab = "Ano",ylab = "Montante em Milhões de CVE")
+
+```
+
+#### Análise descritiva dos dados (Tabela \@ref(tab:tabela1)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+library(readxl)
+suppressMessages(library(timeSeries))
+library(fBasics)
+pib <- read_excel("dados.xls")
+pib_1 =pib[ ,2] 
+pib_ts <- ts(pib_1, frequency = 1, start = c(1980,1))
+Resumo_pib = data.frame(round(basicStats(pib_1), digits = 2))
+colnames(Resumo_pib)<- NULL
+knitr::kable(Resumo_pib, 'pipe',longtable = TRUE, booktabs = TRUE,
+caption = ' Análise Descritiva dos Dados.')
+
+```
+
+#### Histograma do PIB(em volume) de 1980-2020 (Figura \@ref(fig:serie4)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+library(readxl)
+library(timeSeries)
+library(fBasics)
+library(gridExtra)
+pib <- read_excel("dados.xls")
+pib_1 =pib[ ,2] 
+pib_ts <- ts(pib_1, frequency = 1, start = c(1980))
+hist(pib_ts, main= "Histograma do PIB em Volume - Cabo Verde",
+xlab="PIB em volume", ylab = "Frequência",
+border="white", col="blue")
+
+```
+
+#### Teste de Shapiro-Wilk para a normalidade {-}
+
+```{r echo=TRUE, eval=FALSE}
+library(stats)
+SH=shapiro.test(pib_ts)
+```
+
+#### Teste Augmented Dickey-Fuller (ADF), ACF e PACF para a estacionaridade (Figura \@ref(fig:serie6)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+# Teste adf
+adf.test(pib_ts)
+
+# Teste ACF e PACF
+acf2(pib_ts, main = "Funções ACF e PACF")
+```
+
+#### Serie log(PIB) aplicado a diferença de ordem 1 (Figura \@ref(fig:serie5)) {-}
+
+```{r echo=TRUE, eval=FALSE}
+dif_log_pib_ts <- diff(log(pib_ts))
+autoplot(as.xts(dif_log_pib_ts), ts.colour = 'blue')
+```
+
+#### Identificação da ordem de diferenciação {-} 
+
+```{r echo=TRUE, eval=FALSE}
+library(forecast)
+ndiffs(pib_ts)
+```
+
+#### Identificação da modelo ARIMA {-} 
+
+```{r echo=TRUE, eval=FALSE}
+# Escolha do modelo com base nos valores de AIC e BIC
+library(astsa)
+a = Arima(pib_ts, c(1,2,1), include.constant = TRUE, include.mean = TRUE)
+
+# Escolha automática do modelo
+library(forecast)
+auto.arima(pib_ts, seasonal = FALSE)
+```
+
+#### Análise dos resíduos (Figura \@ref(fig:serie7)) {-} 
+
+```{r echo=TRUE, eval=FALSE}
+# Gráfico dos resíduos
+plot(a$residuals, ylab= "Resíduos")
+
+# Gráfico AIC e BIC dos resíduos
+acf2(a$residuals, main = "ACF e PACF dos resíduos")
+
+# Teste Ljung-Box para ruído branco
+Box.test(a$residuals)
+```
+
+#### Previsão usando modelo ARIMA(1,2,1) (Figura \@ref(fig:serie9)) {-} 
+
+```{r echo=TRUE, eval=FALSE}
+# Gráfico dos valors efetivos vs valores obtidos 
+# pelo através do modelo ARIMA (1,2,1)
+library(psych)
+ts.plot(fitted(a), type = "l", xlab = "Tempo", 
+ylab ="PIB em Milhões de CVE", lwd =2.5, col ="blue")
+lines(pib_ts, col="red", type = "l", lwd = 3)
+legend("topleft", c("Série prevista","Série original"),
+fill=c("blue","red"))
+
+# Previsões de 2019 a 2024
+library(forecast)
+forecast(a)
+
+# Representação gráficas das previsões
+plot(forecast(a, h= 10), include = 80)
+lines(pib_ts1, col=2)
 ```
 

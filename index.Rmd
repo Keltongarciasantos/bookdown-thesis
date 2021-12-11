@@ -30,7 +30,7 @@ library(tidyverse)
 ```
 
 # Agradecimentos{-}
-
+\justify 
 Agradeço a Deus e à minha família pela força que me deram durante essa jornada.
 Também deixo um voto de agradecimento a todos os professores e colegas que contribuíram de forma direta e indireta para que esse trabalho pudesse ser materializado.
 

@@ -20,7 +20,7 @@ Neste trabalho, usaremos séries temporais com o PIB anual (em volume) de Cabo V
 knitr::include_graphics("img/Rplot4.png")
 ```
 
-No `R`, usando o *package* `fBasics`, podemos determinar rapidamente algumas estatísticas básicas dos dados. Na tabela \@ref(tab:tabela1) apresentam-se esses valores. A grande evolução nos valores do PIB durante os anos observados está patente nos valores da amplitude amostral e também da amplitude inter-quartis. O valor da mediana mostra que em metade dos anos observados o valor do PIB excedeu os $80516,40$ unidades e a assimetria negativa revela haver mais concentração de anos com valores de PIB mais elevados, comparativamente com valores mais baixos.
+No `R`, usando o *package* `fBasics`, podemos determinar rapidamente algumas estatísticas básicas dos dados. Na Tabela \@ref(tab:tabela1) apresentam-se esses valores. A grande evolução nos valores do PIB durante os anos observados está patente nos valores da amplitude amostral e também da amplitude inter-quartis. O valor da mediana mostra que em metade dos anos observados o valor do PIB excedeu os $80516,40$ unidades e a assimetria negativa revela haver mais concentração de anos com valores de PIB mais elevados, comparativamente com valores mais baixos.
 
 
 ```{r echo=FALSE, label = 'tabela1', strip.white = TRUE}
@@ -53,7 +53,7 @@ Neste trabalho, iremos utilizar os dados de 1980 a 2018, ajustando o modelo ARIM
 
 Antes de iniciar qualquer análise é necessário verificar a estacionaridade dos dados, para podermos aplicar o modelo ARIMA. Caso a série não seja estacionária, iremos aplicar a diferenciação para a transformar numa série estacionária.
 
-Na Figura \@ref(fig:serie3), pode-se identificar claramente uma tendência, o que traduz a não estacionaridade da série. Realizaremos ainda alguns testes para concluirmos sobre a estacionaridade ou não da série.
+Na Figura \@ref(fig:serie31), pode-se identificar claramente uma tendência, o que traduz a não estacionaridade da série. Realizaremos ainda alguns testes para concluirmos sobre a estacionaridade ou não da série.
 
 Vamos primeiramente verificar se a série original é estacionária ou não, aplicando o teste *Augmented Dickey-Fuller* [@dickey1979distribution], através da função `adf.test` no *package* `tseries` (valores de 1980 a 2018). Ao aplicar o teste *adf* encontramos um *p-value* $p = 0.408 > 0.05$, ou seja, com um nível de significância de $0.05$ não rejeitamos a hipótese inicial de que a série é não estacionária, ou seja ela tem uma raiz unitária. 
 
@@ -70,11 +70,11 @@ Para séries económicas e financeiras, como é o caso da nossa série, é comum
 
 Na Figura \@ref(fig:serie5), encontra-se a representação gráfica da diferença do logaritmo natural da nossa série. Vamos aplicar o *Augmented Dickey-Fuller test*, para verificarmos se nossa nova série é ou não estacionária.
 
-```{r echo =FALSE, label = 'serie5',fig.cap='serie log(PIB) aplicado a diferença de ordem 1',fig.align= 'center', out.width='80%'}
+```{r echo =FALSE, label = 'serie5',fig.cap='Serie log(PIB) aplicado a diferença de ordem 1',fig.align= 'center', out.width='80%'}
 knitr::include_graphics("img/Rplot08.png")
 ```
 
-Aplicando o teste *adf*, encontramos um *p-value* $p = 0.48 > 0.05$, ou seja, com um nível de significância de $0.05$ continuamos a não rejeitar a hipótese inicial de que a série é não estacionária, ou seja a primeira diferença não foi suficiente para transformar a série numa série estacionária. 
+Aplicando o teste `adf`, encontramos um *p-value* $p = 0.48 > 0.05$, ou seja, com um nível de significância de $0.05$ continuamos a não rejeitar a hipótese inicial de que a série é não estacionária, ou seja a primeira diferença não foi suficiente para transformar a série numa série estacionária. 
 
 Ao aplicar mais uma diferença à nossa série $(d=2)$, e repetir o teste *adf* encontramos um *p-value* $p = 0.01 < 0.05$, ou seja, com um nível de significância de $0.05$, rejeitamos a hipótese inicial de que nossa série é não estacionária. 
 
@@ -92,8 +92,7 @@ A tarefa de experimentar vários modelos para determinar qual o melhor, com base
 library(readxl)
 modelo_selection <- read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/MestradoMatematica/Tese/Documentos/Dados/MODEL_SELECTON.xlsx")
 knitr::kable(modelo_selection, 'pipe',longtable = TRUE, booktabs = TRUE,
-  caption = ' Comparação dos modelos.'
-)
+  caption = ' Comparação dos modelos.')
 ```
 
 
@@ -105,8 +104,7 @@ Assim sendo, teremos agora de analisar se os resíduos são correlacionados ou n
 library(readxl)
 modeloarima <- read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/MestradoMatematica/Tese/Documentos/Dados/MODEL_SELECTON.xlsx", sheet = "arima(1,1,0)")
 knitr::kable(modeloarima, 'pipe',longtable = TRUE, booktabs = TRUE,
-  caption = ' Estimativa do modelo ARIMA(1,1,0).'
-)
+  caption = ' Estimativa do modelo ARIMA(1,2,1).')
 ```
 
 ### Análise dos resíduos
@@ -133,7 +131,7 @@ Uma vez que a análise dos resíduos mostrou-se adequada a validação do modelo
 knitr::include_graphics("img/Rplot11.png")
 ```
 
-A Figura \@ref(fig:serie10) apresenta os dados reais de 1980 a 2020  e as previsões de 2018 a 2028, usando o nosso modelo $ARIMA$. Nas previsões, podemos ainda ver os limites de confiança máximo e mínimo dos valores previstos.
+A Figura \@ref(fig:serie10) apresenta os dados reais de 1980 a 2020  e as previsões de 2019 a 2029, usando o nosso modelo $ARIMA$. Nas previsões, podemos ainda ver os limites de confiança máximo e mínimo dos valores previstos.
 
 ```{r echo =FALSE, label = 'serie10',fig.cap='Representação gráfica da série original e série ajustada',fig.align= 'center', out.width='80%'}
 knitr::include_graphics("img/Rplot12.png")
@@ -155,4 +153,16 @@ knitr::kable(modeloarima, 'pipe',longtable = TRUE, booktabs = TRUE,
 
 Dos resultados obtidos, podemos ver que o modelo $ARIMA$ é muito potente na análise e previsão de séries temporais, obtendo valores muito próximos dos valores reais. Também identificamos uma das fraquezas no modelo ARIMA que é a previsão de *outliers*, principalmente quando não houver um histórico frequente de *outliers* nos dados. Na nossa aplicação notamos que o modelo não foi capaz de prever a queda do PIB que aconteceu em 2020, devido a pandemia da COVID-19. No geral o modelo é muito potente e capaz de oferecer boas previsões para dados em forma de séries temporais, quando não ocorrerem acontecimentos raros que podem afetar significativamente os *outcomes* futuros.
 
-Acrescentar um parágrafo com intenção do trabalho futuro. Por exemplo, explorar outros modelos que possam adaptar-se melhor com a ocorrência de outliers ou estudar novas abordagens que permitam lidar com esse problema, modelos mais robustos...
+Por definição *outliers* são observações inesperadas que afasta significativamente das observações esperadas e normalmente correspondem a acontecimentos atípicos. A predição da ocorrência futura de *outliers* é muito desafiadora, pois são valores que não se observam frequentemente [@Reunanen2020].  Com o avanço da computacional, existem agora alguns métodos aplicados para o previsão de ocorrência de *outiliers*.  Modelos que usam o *Machine Learning*, têm sido aplicados com o objectivo de prever *outliers*, mas é desafiador também para esses modelos, pois normalmente não existem dados  suficientes para treinar desses modelos de forma a identificar os *ouliers*. Para mais informações sobre métodos de previsão de *outliers* consultar Reunanen [@Reunanen2020] ou Gerogiadis [@georgiadis2013continuous].
+
+# Conclusão
+
+Uma grande parte das observações de fenómenos económico-financeiros podem ser representados em forma de séries temporais. Essas séries, que são caracterizadas por pontos observados com igual espaçamento temporal podem ser analisadas e utilizadas para fazer previsões sobre valores futuros. Existem vários métodos usados na análise e previsão de séries temporais, sendo que a maioria usa valores passados da série para criar um modelo usado para representação e previsão da série.
+
+Dentre os métodos utilizados na análise de séries temporais, destaca-se o $ARIMA(p,d,q)$, que é a combinação dos modelos auto regressivos de ordem $p$ $(AR(p))$ e dos modelos médias-móveis de ordem $q$ $(MA(q))$ onde é aplicado a diferenciação de ordem $d$ na série original para a transformar numa série estacionária. Esse método é muito utilizado na análise de séries económicas e financeiras.
+
+Nesse trabalho, foi utilizado o modelo $ARIMA(1,2,1)$ na análise e previsão do Produto Interno Bruto (PIB) de Cabo Verde com dados de $1980$ a $2018$. A série ajustada obtido produziu valores muito próximos dos valores reais e conseguiu obter previsões muito próximos dos valores reais para o ano 2019. Entretanto a previsão obtida para o ano $2020$ ficou muito longe dos valores efectivos. O ano 2020 foi marcado pela queda da economia mundial devido a pandemia da COVID-19, fazendo com que o PIB da maioria dos países caíssem para valores nunca antes visto. Em 2019 a previsão feita pelo Fundo Monetário Internacional[@Internacional2020] era de que o PIB de Cabo Verde cresceria em torno dos 5% em 2020, entretanto houve uma recessão de 14,8% contrariando todas as previsões feitas, incluíndo as produzidas pelo $ARIMA$.
+
+Um dos pontos fracos do modelo ARIMA e da maioria dos métodos de previsão é justamente a previsão de *outliers* quando não forem frequentemente observadas outros *ouitliers* semelhantes nos dados históricos (como foi o caso do PIB de Cabo Verde em 2020). Para rmitigar esse problema, pode-se... 
+
+Pela aplicação prática, verifica-se que o modelo ARIMA ajusta-se de forma muito eficientes a dados económico-financeiras, produzindo previsões robustos e podendo ser aplicado a outros dados financeiros da economia Cabo-Verdiana, obtendo assim previsões úteis na tomada de decisão, mas com a ressalva de que a mesma não é muito eficiente na previsão de *outliers* que afastam muito dos valores históricos.

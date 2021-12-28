@@ -17,7 +17,7 @@ Alguns eventos são mais fáceis de prever do que outros. Por exemplo, pode-se p
 * Quantidade de dados disponíveis;
 * Efeito que o conhecimento da previsão poderá ter no próprio evento.
   
-Por exemplo, a previsão do consumo de eletricidade pode ser determinado com alto grau de precisão, pois as três condições acima são normalmente satisfeitas. Têm-se ideia dos fatores que podem afetar o consumo de eletricidade (temperatura, época do ano, condições económicas da população, etc.); normalmente têm-se dados do passado relativamente ao consumo de eletricidade; a previsão determinada normalmente não influencia o consumo de eletricidade no futuro [@hyndman2018forecasting]. No caso de previsões de taxas de câmbio somente a segunda condição é satisfeita, visto que se tem conhecimento limitado dos fatores externos que podem afetar as taxas de câmbio, a previsão e publicação das previsões das taxas de câmbio podem afetar a taxa de câmbio no futuro.
+Por exemplo, a previsão do consumo de eletricidade pode ser feita com alto grau de precisão, pois as três condições acima são normalmente satisfeitas. Têm-se ideia dos fatores que podem afetar o consumo de eletricidade (temperatura, época do ano, condições económicas da população, etc.); normalmente têm-se dados do passado relativamente ao consumo de eletricidade; a previsão determinada normalmente não influencia o consumo de eletricidade no futuro [@hyndman2018forecasting]. No caso de previsões de taxas de câmbio somente a segunda condição é satisfeita, visto que se tem conhecimento limitado dos fatores externos que podem afetar as taxas de câmbio, a previsão e publicação das previsões das taxas de câmbio podem afetar a taxa de câmbio no futuro.
 
 Geralmente, os métodos usados nas previsões analisam dados do passado para tentar fazer previsões sobre valores futuros [@xavier2016analise]. O método apropriado a usar nas previsões depende muito dos dados disponíveis. Quando não existem dados disponíveis, ou se os dados não são muito relevantes para a previsão, usam-se **métodos de previsões qualitativas**, que são métodos bem desenvolvidos estruturados para obter previsões sem usar dados históricos [@hyndman2018forecasting].
 
@@ -31,7 +31,7 @@ Existem vários métodos de previsões quantitativas dos mais simples aos mais c
 Em economia há dois procedimentos predominantes no processo de previsão: *modelos econométricos* e *modelos de séries temporais*.  *Métodos econométricos* são métodos de previsões que determinam futuros movimentos numa variável relacionando-a com um conjunto de outras variáveis de forma causal. Esses modelos aplicam teorias económicas para construir modelos que podem incluir várias variáveis. Por exemplo, um modelo econométrico para determinar a taxa de juros, pode utilizar  dados de variáveis como PIB, preços, dinheiro em circulação, etc., através dos métodos de regressão como na equação \@ref(eq:linreg), onde $X_{i1}$ e $X_{i2}$ são as variáveis explicativas, $\beta_0$, $\beta_1$, $\beta_2$ são os coeficientes da regressão, $\varepsilon_i$ o erro e $Y_i$ a variável a ser estimada.
 
 \begin{equation}
-Y_i = \beta_0 + \beta_1X_{i1} +\beta_2X_{i2} + \varepsilon_i
+Y_i = \beta_0 + \beta_1X_{i1} +\beta_2X_{i2} + \varepsilon_i.
 (\#eq:linreg)
 \end{equation}
 
@@ -72,7 +72,7 @@ De acordo com Morettin [-@morettin1981modelos] existem dois enfoques usados na a
 
 Quer no domínio temporal, quer no domínio de frequências, são construídos *modelos probabilísticos* ou *estocásticos* para atingir os objetivos acima. Os modelos construídos devem ser simples e parcimónicos, ou seja, deve-se ter o menor número possível de parâmetros, e sempre que possível, a utilização dos modelos não deve apresentar dificuldades às pessoas interessadas em aplicá-los [@morettin1981modelos].
 
-## Processos Estocásticos
+## Processos estocásticos
 
 Os modelos que se utilizam para descrever séries temporais são processos estocásticos, ou seja, processos controlados por leis probabilísticas. Para Chatfield [-@chatfield2000time], a maioria das séries temporais são estocásticas, ou aleatórias, isto é, o futuro é apenas parcialmente determinado por valores passados, sendo o modelo para estas séries muitas vezes chamado *processo estocástico*.
 
@@ -86,7 +86,7 @@ Os fenómenos aleatórios que se desenrolam no tempo são objeto de estudo dos *
 Dado um espaço de probabilidade $(\Omega, F, P)$ e um conjunto $T$, *processo estocástico* é uma função $X(t, w)$ definida no produto cartesiano $T\times \Omega$, que para cada $t \in T$ é uma variável aleatória. Simbolicamente escreve-se:
 ```
 \begin{equation}
-X = \{X_t, t \in T\}
+X = \{X_t, t \in T\}.
 (\#eq:procestoc)
 \end{equation}
 
@@ -99,14 +99,14 @@ O conjunto dos valores $X_t, t \in T$ é chamado *espaço dos estados*, *E*, do 
 
 * Se $T$ e $E$ forem conjuntos discretos diz-se  que $X$ é um processo estocástico de tempo discreto com espaço de estados discreto.
 * Se $T$ for discreto e $E$ contínuo, diz-se que $X$ é um processo estocástico de tempo discreto com espaço de estados contínuo.
-* Se $T$ contínuo e $E$ discreto, diz-se que $X$ um processo estocástico de tempo contínuo com espaço de estados discreto
+* Se $T$ contínuo e $E$ discreto, diz-se que $X$ um processo estocástico de tempo contínuo com espaço de estados discreto.
 * Se $T$ e $E$ são contínuos diz-se que $X$ um processo estocástico de tempo contínuo com espaço de estados contínuo.
 
 ### Lei de probabilidade de um processo estocástico
 
 Sejam $\{t_1, t_2,...,t_n\}$ elementos quaisquer do conjunto $T$ pode-se determinar a lei de probabilidade conjunta do vector aleatório $(X_{t_1}, X_{t_2},...,X_{t_n})$ de dimensão finita $n$, através da função de distribuição conjunta:
 \begin{equation}
-F_{(X_{t_1}, X_{t_2},...,X_{t_n})}(x_1, x_2,...,x_n) = P(X_{t_1}\leq x_1, X_{t_2}\leq x_2,..., X_{t_n}\leq x_n )
+F_{(X_{t_1}, X_{t_2},...,X_{t_n})}(x_1, x_2,...,x_n) = P(X_{t_1}\leq x_1, X_{t_2}\leq x_2,..., X_{t_n}\leq x_n ).
 \end{equation}
 
 O conjunto de todas as leis de probabilidade, definida por:
@@ -123,7 +123,7 @@ A definição acima é importante do ponto de vista da modelação, visto que qu
 
 ```{definition, name="Incrementos estacionários"}
 
-O processo estocástico $X = \{X_t, t \in T\}$ diz-se *processo estocástico com incrementos estacionários* sse $\forall s,t \in T(s < t)$ a distribuição de incrementos $X_{t} - X_{s}$ depende  apenas da amplitude $t-s$
+O processo estocástico $X = \{X_t, t \in T\}$ diz-se *processo estocástico com incrementos estacionários* sse $\forall s,t \in T(s < t)$ a distribuição de incrementos $X_{t} - X_{s}$ depende  apenas da amplitude $t-s$.
 ```
 Ou seja, a distribuição de resultados em qualquer intervalo de tempo depende unicamente da amplitude do intervalo. Quando um processo estocástico tem incrementos independentes e estacionários simultaneamente diz-se *processo com incrementos independentes e estacionários*.
 
@@ -131,15 +131,15 @@ Ou seja, a distribuição de resultados em qualquer intervalo de tempo depende u
 
 O processo estocástico $X = \{X_t, t \in T\}$ diz-se *processo real de segunda ordem* se
 \begin{equation*}
-\forall t \in T, E(X^{2}_t) < \infty
+\forall t \in T, E(X^{2}_t) < \infty.
 \end{equation*}
 ```
 Exemplos clássicos de um processo de segunda ordem são:
 
 1. **Ruído Branco** ou *white noise* $(X_t, t \in T)$ define-se por:
-  * $\forall t \in T, E(X_t)=0$
-  * $\forall t \in T, V(X_t)=\sigma^2$
-  * $\forall s,t \in T : s\neq t,Cov(X_s,X_t)=0$
+  * $\forall t \in T, E(X_t)=0$;
+  * $\forall t \in T, V(X_t)=\sigma^2$;
+  * $\forall s,t \in T : s\neq t,Cov(X_s,X_t)=0$.
 2. **Processo Gaussiano** $(X_t, t \in T)$  tal que $\forall n \in \mathbb{N}, \forall t_1,...,t_n \in T,$ $(X_{t_1}, X_{t_2},...,X_{t_n})$ é vector aleatório Gaussiano.
 
 ### Processos estacionários
@@ -152,7 +152,7 @@ Segundo Hamilton [-@hamilton2020time], poderemos ter as seguintes classes de pro
 
 * Processos estacionários ou não estacionários, consoante a independência relativamente à origem dos tempos;
 * Processos normais (Gaussianos) ou não normais, de acordo com as fdp que caracterizam os processos;
-* Processos Markovianos ou não Markovianos, consoante a independência dos valores em instantes precedentes
+* Processos Markovianos ou não Markovianos, consoante a independência dos valores em instantes precedentes.
 
 Assim um processo $X$ é estacionário se desenvolver no tempo de modo que a escolha de uma origem dos tempos não seja importante, ou seja, as características de $X_{t + \delta}$, para todo $\delta$, são as mesmas de $X_t$.
 
@@ -177,7 +177,7 @@ Por outras palavras, $\gamma$ é uma função de covariância se satisfazer as s
 * $\gamma(t)$ é **positiva definida**, no sentido que 
 
 \begin{equation}
-\sum_{j=1}^{n}\sum_{k=1}^{n}a_ja_k\gamma(t_j-t_k) \geq 0, \forall n\in \mathbb{N}, \forall a_j \in \mathbb{R}, j=1,...,n
+\sum_{j=1}^{n}\sum_{k=1}^{n}a_ja_k\gamma(t_j-t_k) \geq 0, \forall n\in \mathbb{N}, \forall a_j \in \mathbb{R}, j=1,...,n.
 \end{equation}
 
 
@@ -185,7 +185,7 @@ Por outras palavras, $\gamma$ é uma função de covariância se satisfazer as s
 A função de autocorrelação é definida por
 
 \begin{equation}
-\rho = Corr(X_t,X_{t+h}) = \frac{Cov(X_t,X_{t+h})}{\sqrt{V(X_t)}\sqrt{V(X_{t+h})}} = \frac{\gamma(h)}{\gamma(0)}
+\rho = Corr(X_t,X_{t+h}) = \frac{Cov(X_t,X_{t+h})}{\sqrt{V(X_t)}\sqrt{V(X_{t+h})}} = \frac{\gamma(h)}{\gamma(0)}.
 \end{equation}
 ```
 
@@ -195,13 +195,13 @@ Como usualmente é quase impossível obter uma descrição completa de um proces
 Um processo estocástico $X = \{X_t, t \in T\}$ diz-se *fortemente estacionário*, se $\forall n \in \mathbb{N}, t_1, t_2,...,t_n \in T : t_1<...<t_n$,
 
 \begin{equation}
-(X_{t_1},...,X_{t_n}) \overset{\mathrm{d}}{=} (X_{t_{1 + h}},...,X_{t_{n+h}}), (h > 0)
+(X_{t_1},...,X_{t_n}) \overset{\mathrm{d}}{=} (X_{t_{1 + h}},...,X_{t_{n+h}}) com h > 0,
 \end{equation}
 
 isto é,
 
 \begin{equation}
-P(X_{t_1}\leq x_1,...,X_{t_n} \leq x_n) = P(X_{t_{1+h}}\leq x_1,...,X_{t_{n+h}} \leq x_n)
+P(X_{t_1}\leq x_1,...,X_{t_n} \leq x_n) = P(X_{t_{1+h}}\leq x_1,...,X_{t_{n+h}} \leq x_n).
 (\#eq:estforte)
 \end{equation}
 ```
@@ -211,9 +211,9 @@ De acordo com Shumway [-@shumway2000time] a estacionaridade em \@ref(eq:estforte
 ```{definition, name="Estacionaridade fraca"}
 Um processo estocástico $X = \{X_t, t \in T\}$ diz-se *fracamente estacionária*, se 
 
-* $\forall t \in T, E(X^{2}_t) < \infty$ (processo de segunda ordem)
-* $\forall t \in T, E(X_t) = \mu$ (independente de $t$)
-* $\forall t, s \in T, \Gamma(s,t) = Cov(X_s, X_t) = \gamma(\left | t-s \right |)$
+* $\forall t \in T, E(X^{2}_t) < \infty$ (processo de segunda ordem);
+* $\forall t \in T, E(X_t) = \mu$ (independente de $t$);
+* $\forall t, s \in T, \Gamma(s,t) = Cov(X_s, X_t) = \gamma(\left | t-s \right |)$.
   
 ```
 
@@ -227,9 +227,9 @@ Existem vários tipos de não estacionaridade, mas nos próximos capítulos vere
 
 Dois dos principais motivos que causam variações na maioria das séries temporais são a *tendência* e a *sazonalidade*. Pode-se definir **tendência** como um comportamento de longo prazo da série temporal. Normalmente esse tipo de variação está presente quando uma série apresenta constante crescimento ou declínio, em sucessivos períodos [@xavier2016analise].
 
-Na figura \@ref(fig:serie2) temos a representação da entrada de turistas em Cabo Verde do ano 2000 ao ano 2020 (Fonte: INE). Uma simples análise visual, pode-se observar uma tendência de crescimento até finais do ano 2019. Em 2020 pode-se ver uma grande queda na entrada de turistas, devido ao impacto do da Covid-19 que assolou o mundo em 2020.
+Na figura \@ref(fig:serie2) temos a representação da entrada de turistas em Cabo Verde do ano 2000 ao ano 2020 (Fonte: INE). Uma simples análise visual permite observar uma tendência de crescimento até finais do ano 2019. Em 2020 pode-se ver uma grande queda na entrada de turistas, devido ao impacto do da Covid-19 que assolou o mundo em 2020.
 
-Uma pequena análise gráfica, pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para concluir sobre determinado comportamento dos dados, nesse caso a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
+Uma pequena análise gráfica pode dar uma ideia do comportamento dos dados, mas temos sempre que realizar testes estatísticos específicos para concluir sobre determinado comportamento dos dados, nesse caso, a tendência. Veremos mais adiante alguns métodos usados para detetar a existência de tendência em séries temporais.
 
 ```{r echo =FALSE, label = 'serie2',fig.cap='Entrada de turistas em Cabo Verde de 2000 – 2020', fig.align='center', out.width='80%'}
 knitr::include_graphics("img/Rplot2.png")
@@ -238,7 +238,7 @@ knitr::include_graphics("img/Rplot2.png")
 Se considerarmos que a série temporal não apresenta a componente sazonal, poderemos escrever o modelo
 
 \begin{equation}
-X_t = T_t + \varepsilon_t
+X_t = T_t + \varepsilon_t.
 (\#eq:tendencia)
 \end{equation}
 onde $\varepsilon_t$ é um ruído branco (uma variável aleatória com média zero e variância $\sigma^{2}$) e $T_t$ o estimador da tendência. Existem vários métodos para estimar $T_t$. Segundo Hamilton [-@hamilton2020time] os mais utilizados são:
@@ -249,19 +249,19 @@ onde $\varepsilon_t$ é um ruído branco (uma variável aleatória com média ze
 Após estimada a tendência $\hat{T}_t$, podemos considerar a série ajustada para a tendência ou livre da tendência,
 
 \begin{equation}
-Y_t = X_t - \hat{T}_t
+Y_t = X_t - \hat{T}_t.
 \end{equation}
 
 Outro procedimento que é também utilizado para eliminar a tendência de uma série, consiste em tomar sucessivas diferenças da série original até encontrar uma estacionária. Segundo Morettin [@morettin1981modelos], em séries económicas, é frequente conseguir a estacionaridade com as primeiras diferenças.
 \begin{equation}
-\Delta X_t = X_t - X_{t-1}
+\Delta X_t = X_t - X_{t-1}.
 \end{equation}
 
 O testes mais utilizados para identificar tendências são:
 
-1. *Teste de Sequências* (Wald-Wolfowitz)
-2. *Teste do Sinal* (Cox - Stuart)
-3. *Teste baseado no coeficiente de correlação de Spearaman*
+1. *Teste de Sequências* (Wald-Wolfowitz);
+2. *Teste do Sinal* (Cox - Stuart);
+3. *Teste baseado no coeficiente de correlação de Spearaman*.
 
 ```{definition, name= "Operador de Diferenças"}
 Define-se operador de diferenças por:
@@ -271,12 +271,12 @@ Bx_t = x_{t-1}
 ```
 e pode ser extendido para outros expoentes $B^2x_t = B(Bx_t) = Bx_{t-1} = x_{t-2}$, e assim por diante. Temos então:
 \begin{equation}
-B^kx_t = x_{t-k}
+B^kx_t = x_{t-k},
 \end{equation}
 
 Dado a diferença de primeira ordem $\triangledown x_t = x_t-x_{t-1}$, a mesma pode ser escrita como:
 \begin{equation}
-\triangledown x_t = (1-B)x_t,
+\triangledown x_t = (1-B)x_t.
 \end{equation}
 
 Podemos então estender a notação para ordens superiores. Por exemplo, o operador de diferenças de segunda ordem será:
@@ -284,7 +284,7 @@ Podemos então estender a notação para ordens superiores. Por exemplo, o opera
 \begin{equation}
 \begin{aligned} 
 \triangledown ^2x_t & = (1-B)^2x_t = (1-2B+B^2)x_t\\
-                    & =x_t-2x_{t-1}+x_{t-2}
+                    & =x_t-2x_{t-1}+x_{t-2}.
 \end{aligned}
 \end{equation}
 
@@ -303,7 +303,7 @@ A sazonalidade pode ser dividida em dois tipos, *sazonalidade determinista*, qua
 
 A Figura \@ref(fig:serie3) representa o movimento de passageiros nos aeroportos de Cabo Verde entre o ano 2006 e o ano 2017 (Fonte: INE). Pode-se observar que o mês de julho normalmente têm maior tráfego de passageiros nos aeroportos de Cabo Verde, possivelmente devido ao período de férias escolares e também por coincidir com o início do verão, onde aumenta o fluxo de turistas que visitam Cabo Verde. Trata-se assim de dados que apresentam um padrão sazonal, pois tem comportamento semelhante em certos períodos (nesse caso no mês de julho).
 
-```{r echo =FALSE, label = 'serie3',fig.cap='Movimento de Passageiros nos aeroportos de Cabo Verde de 2006 – 2017', fig.align='center', out.width='90%'}
+```{r echo =FALSE, label = 'serie3',fig.cap='Movimento de passageiros nos aeroportos de Cabo Verde de 2006 – 2017', fig.align='center', out.width='90%'}
 knitr::include_graphics("img/Rplot3.png")
 ```
 
@@ -313,8 +313,8 @@ Existem vários procedimentos para se estimar a sazonalidade, sendo que as mais 
 Os testes mais utilizados para estimar a sazonalidade são
 
 1. *Teste de Kruskal-Wallis*, para várias amostras independentes;
-2. *Teste de Friedman*, para amostras dependentes/emparelhadas
-3. *Teste F* para determinar sazonalidade determinística
+2. *Teste de Friedman*, para amostras dependentes/emparelhadas;
+3. *Teste F* para determinar sazonalidade determinística.
 
 Outra abordagem seria incorporar a variação sazonal e a tendência num modelo ARIMA (será estudado no próximo capítulo).
 
@@ -331,16 +331,16 @@ Como explicado anteriormente, numa série temporal em que as propriedades não s
 
 #### Teste de Dickey-Fuller Aumentado
 
-Também é conhecido como teste ADF(Augmented Dickley-Fuller) e tem como base a seguinte regressão:
+Também é conhecido como teste ADF (Augmented Dickley-Fuller) e tem como base a seguinte regressão:
 
 \begin{equation}
-\Delta x_t = \beta_1 + \beta_2t + \delta x_{t-1}+\sum_{i=1}^{m}\alpha _i\Delta x_{t-1} + \varepsilon_t
+\Delta x_t = \beta_1 + \beta_2t + \delta x_{t-1}+\sum_{i=1}^{m}\alpha _i\Delta x_{t-1} + \varepsilon_t;
 \end{equation}
 
 - $\beta_1$ é o ponto de interceto ou *drift* da série;
 - $\beta_2$ é o coeficiente da tendência;
 - $\delta$ é o coeficiente de presença de raiz unitária;
-- $m$ é o número de desfasagem tomada na série;
+- $m$ é o número de desfasagem tomada na série.
 
 No teste  ADF, consideram-se as seguintes hipóteses
 
@@ -350,7 +350,7 @@ No teste  ADF, consideram-se as seguintes hipóteses
 Será feita então uma regressão de $\Delta x_t$ em $\Delta x_{t-1}$,...,$\Delta x_{t+p-1}$, e logo a seguir é calculada a estatística $T$, que é dada por:
 
 \begin{equation}
-T = \frac{\hat{\delta}}{se(\hat{\delta})}
+T = \frac{\hat{\delta}}{se(\hat{\delta})},
 \end{equation}
 
 onde $\hat{\delta}$ é o estimador para $\delta$ e $se(\hat{\delta)}$ o estimador para o desvio padrão do erro de $\delta$. Os valores críticos de $T$ são calculados por Dickley e Fuller através da simulação Monte Carlo [@xavier2016analise].
@@ -360,7 +360,7 @@ onde $\hat{\delta}$ é o estimador para $\delta$ e $se(\hat{\delta)}$ o estimado
 Esse teste é a generalização do teste de Dickley-Fuller para os casos em que os erros {${\varepsilon_t}$}, $t \in \mathbb{Z}$ são correlacionados e, possivelmente, heterocedásticos. Baseando-se na regressão
 
 \begin{equation}
-\Delta x_t = \beta_1 + \beta_2t + \delta x_{t-1}+\sum_{i=1}^{m}\alpha _i\Delta x_{t-1} + \varepsilon_t
+\Delta x_t = \beta_1 + \beta_2t + \delta x_{t-1}+\sum_{i=1}^{m}\alpha _i\Delta x_{t-1} + \varepsilon_t,
 \end{equation}
 
 a estatística $Z$ é calculada por:
@@ -369,11 +369,11 @@ a estatística $Z$ é calculada por:
 Z = n \hat{\delta}_n - \frac{n^2 \hat{\delta}^2}{2s_n^2}(\hat{\lambda_n^2}-\hat{\gamma_{0,n}}), onde:
 \end{equation}
 
-- $\hat{\gamma}_{j,n} = \frac{1}{n}\sum_{i=1+j}^{n}r_ir_{i-j}$
-- $\hat{\lambda}_n^2 = \hat{\gamma}_{0,n} + 2\sum_{j=1}^{q}\left ( 1-\frac{j}{q+1} \right )\hat{\gamma}_{j,n}$
-- $s_n^2 = \frac{1}{n-k} \sum_{j=1}^{n}r_i^2$
+- $\hat{\gamma}_{j,n} = \frac{1}{n}\sum_{i=1+j}^{n}r_ir_{i-j}$;
+- $\hat{\lambda}_n^2 = \hat{\gamma}_{0,n} + 2\sum_{j=1}^{q}\left ( 1-\frac{j}{q+1} \right )\hat{\gamma}_{j,n}$;
+- $s_n^2 = \frac{1}{n-k} \sum_{j=1}^{n}r_i^2$.
 
-Com, $r_i$ o resíduo de $x_i$ utilizando estimadores de mínimos quadrados, $k$ o número de covariáveis na regressão e $q$ o número de desfasagem utilizadas para calcular$\hat{\lambda}_n^2$
+Com, $r_i$ o resíduo de $x_i$ utilizando estimadores de mínimos quadrados, $k$ o número de covariáveis na regressão e $q$ o número de desfasagem utilizadas para calcular$\hat{\lambda}_n^2$.
 
 Quando o processo for não correlacionado as covariâncias são nulas e então $\hat{\lambda}_n^2 = \hat{\gamma}_{0,n}$. Se o processo não for heterocedástico teremos $se(\delta) = \frac{1}{n}$ e $Z$ será dado por $Z= n\hat{\delta} = \frac{\hat{\delta}}{se(\hat{\delta})}$. Ou seja, $Z$ transforma-se numa estatística de Dickley-Fuller, portanto, terá a mesma distribuição do teste ADF.
 
@@ -381,13 +381,13 @@ Quando o processo for não correlacionado as covariâncias são nulas e então $
 
 Esse teste foi criado por Denis Kwiatkowski, Peter C. B. Phillips, Peter Schmidt e Youngcheol Shin, e tem por objetivo determinar a estacionaridade duma série temporal. As hipóteses para se determinar a estacionaridade são:
 
-- $H_0$: A série é estacionária
-- $H_1$: A série apresenta raiz unitária
+- $H_0$: A série é estacionária;
+- $H_1$: A série apresenta raiz unitária.
 
 A estatística do teste KPSS é definida por:
 
 \begin{equation}
-LM = \sum_{t=1}^{N}\frac{s_t^2}{N^2\hat{\sigma}_{\varepsilon}^2}
+LM = \sum_{t=1}^{N}\frac{s_t^2}{N^2\hat{\sigma}_{\varepsilon}^2},
 \end{equation}
 
-Onde $s_t$ é a soma parcial dos resíduos e $\hat{\sigma}_{\varepsilon}^2$ o estimador para a variância dos erros da regressão.
+onde $s_t$ é a soma parcial dos resíduos e $\hat{\sigma}_{\varepsilon}^2$ o estimador para a variância dos erros da regressão.

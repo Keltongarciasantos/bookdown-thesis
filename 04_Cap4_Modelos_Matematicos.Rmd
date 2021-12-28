@@ -1,11 +1,11 @@
 # Alguns modelos matemáticos para previsão de séries temporais
 
-Um método de previsão, normalmente, tem associado alguns procedimentos que, conforme os dados históricos disponíveis, permite prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais tem como base a suposição de que os dados passados contêm as informações sobre o padrão de comportamento da série.
+Um método de previsão, normalmente, tem associado alguns procedimentos que, conforme os dados históricos disponíveis, permite prever o comportamento dos mesmos no futuro. Os métodos de previsão de séries temporais têm como base a suposição de que os dados passados contêm as informações sobre o padrão de comportamento da série.
 
-De acordo com Chatfield [@chatfield2000time], podemos classificar os métodos de previsão em três tipos
+De acordo com Chatfield [@chatfield2000time], podemos classificar os métodos de previsão em três tipos:
 
-* **As previsões por julgamento** (*Judgemental*), que se baseia no julgamento subjetivo, intuição e na experiência sem qualquer outra informação relevante.
-* **Métodos univariados**, em que as previsões dependem apenas dos valores passados de uma única variável, podendo ser auxiliada por uma função de tempo ou por uma tendência linear.
+* **As previsões por julgamento** (*Judgemental*), que se baseia no julgamento subjetivo, intuição e na experiência sem qualquer outra informação relevante;
+* **Métodos univariados**, em que as previsões dependem apenas dos valores passados de uma única variável, podendo ser auxiliada por uma função de tempo ou por uma tendência linear;
 * **Métodos multivariados**, onde as previsões de uma variável dependem dos valores de uma ou mais variáveis adicionais, chamados variáveis explicativas.
 
 
@@ -17,15 +17,15 @@ Ao escolher o método, deve-se ter em atenção alguns instrumentos para avalia�
 * Coeficiente de correlação;
 * Erro quadrático acumulado;
 * Raiz do erro médio quadrático (RMSE);
-* Erro percentual absoluto (MAPE)
+* Erro percentual absoluto (MAPE).
 
 Podem-se classificar os modelos para séries temporais em duas classes, de acordo como o número de parâmetros envolvidos [@hamilton2020time]:
 
 * **Modelos paramétricos**, onde o número de parâmetros é finito;
 * **Modelos não paramétricos**, o número de parâmetros é infinito.
 
-Nos modelos *paramétricos*, a análise é feita no domínio do tempo. De entre esses modelos, os mais utilizados são os modelos de regressão (ou de erro), os modelos autoregressivos médias móveis(ARMA) e os modelos autoregressivos integrados médias móveis (ARIMA). 
-Os modelos não paramétricos mais frequentemente usados são a função de autocovariância(ou autocorrelação) e sua transformada de Fourier, o *espectro*.
+Nos modelos *paramétricos*, a análise é feita no domínio do tempo. De entre esses modelos, os mais utilizados são os modelos de regressão (ou de erro), os modelos autoregressivos de médias móveis (ARMA) e os modelos autoregressivos integrados médias móveis (ARIMA). 
+Os modelos não paramétricos mais frequentemente usados são a função de autocovariância (ou autocorrelação) e sua transformada de Fourier, o *espectro*.
 
 
 Pode-se escrever uma série temporal observada na forma
@@ -33,7 +33,7 @@ Pode-se escrever uma série temporal observada na forma
 X_t = f(t) + \varepsilon_t, t=1,...,n,
 (\#eq:sinal)
 \end{equation}
-onde $f(t)$ é denominado *sinal* e $\varepsilon_t$ o *ruído*
+onde $f(t)$ é denominado *sinal* e $\varepsilon_t$ o *ruído*.
 
 De acordo com as hipóteses estabelecidas para \@ref(eq:sinal), podem-se ter duas classes de modelos, os modelos de regressão ou os modelos ARIMA.
 
@@ -41,12 +41,12 @@ De acordo com as hipóteses estabelecidas para \@ref(eq:sinal), podem-se ter dua
 
 ## Modelos de erros ou de regressão
 
-Esse são os modelos mais clássicos e provavelmente os primeiros a serem utilizados [@hamilton2020time]. Nesses modelos, o sinal de $f(t)$ em \@ref(eq:sinal), é uma função completamente determinada (parte sistemática determinística) e $\varepsilon_t$ é uma sequência aleatória, independente de $f(t)$ [@hamilton2020time]. Supõe-se que as variáveis aleatórias $\varepsilon_t$ não são correlacionadas, têm média zero e variância constante, isto é,
+Os modelos de regressão são os mais clássicos e provavelmente os primeiros a serem utilizados [@hamilton2020time]. Nesses modelos, o sinal de $f(t)$ em \@ref(eq:sinal), é uma função completamente determinada (parte sistemática determinística) e $\varepsilon_t$ é uma sequência aleatória, independente de $f(t)$ [@hamilton2020time]. Supõe-se que as variáveis aleatórias $\varepsilon_t$ não são correlacionadas, têm média zero e variância constante, isto é,
 
 \begin{equation}
 E(\varepsilon_t) = 0,\\
 E(\varepsilon^{2}_t) = \sigma^{2}_{\varepsilon},\\
-E(\varepsilon_t, \varepsilon_s) = 0,  \text{  para  } s\neq t
+E(\varepsilon_t, \varepsilon_s) = 0,  \text{  para  } s\neq t.
 \end{equation}
 
 Nessas condições, a série $\varepsilon_t$ é chamada *ruído branco*, como mencionado anteriormente.
@@ -73,7 +73,7 @@ Nestes casos os parâmetros podem ser estimados usando o método de mínimos qua
 ### Modelos de curva de crescimento
 
 \begin{equation}
-X_t = \alpha + e^{\beta t + \varepsilon_t}, \text{ ou } X_t=\log \alpha +\beta t+\varepsilon_t  
+X_t = \alpha + e^{\beta t + \varepsilon_t}, \text{ ou } X_t=\log \alpha +\beta t+\varepsilon_t.
 (\#eq:curvcresc)
 \end{equation}
 
@@ -82,7 +82,7 @@ Neste caso, $f(t)$ não é uma função linear dos parâmetros, embora $log (X_t
 
 1. Polinómio em $t$, em geral, de grau baixo, da forma
 \begin{equation}
-f(t) = \beta_0 + \beta_1t+...+\beta_mt^m  
+f(t) = \beta_0 + \beta_1t+...+\beta_mt^m.  
 (\#eq:polin1)
 \end{equation}
 de modo que a componente sistemática move-se lentamente, suavemente e progressivamente ao longo do tempo. A função $f(t)$ representa uma *tendência polinomial determinística de grau $m$*. Daí resulta que o processo $X_t$ será não estacionário, se $m >0$.
@@ -94,10 +94,10 @@ f(t) = \sum_{n=1}^{p}(\alpha_ncos\lambda_nt + \beta_nsen\lambda_nt)
 \end{equation}
 com $\lambda_n = \frac{2 \pi n}{p}$, se $f(t)$ tem período $p$.
 
-O modelo de erro é clássico para análise de séries económicas, onde $f(t)$ é composta da adição ou multiplicação de ambos os tipos  de função, onde \@ref(eq:polin1)  representará a tendência e \@ref(eq:polin2) representará as variações sazonais. Isto é $f(t) = T_t + S_t$, donde
+O modelo de erro é clássico para análise de séries económicas, onde $f(t)$ é composta da adição ou multiplicação de ambos os tipos  de função, onde \@ref(eq:polin1)  representará a tendência e \@ref(eq:polin2) representará as variações sazonais, isto é, $f(t) = T_t + S_t$, donde
 
 \begin{equation}
-X_t = T_t + S_t + \varepsilon_t
+X_t = T_t + S_t + \varepsilon_t.
 (\#eq:sazon1)
 \end{equation}
 Normalmente, $T_t$ é a componente da tendência, enquanto $S_t$ é a componente sazonal.
@@ -105,11 +105,11 @@ Normalmente, $T_t$ é a componente da tendência, enquanto $S_t$ é a componente
 Segundo Morettin [@morettin1981modelos], algumas vezes, o sinal de $f(t)$ no modelo \@ref(eq:sinal), não pode ser aproximado por uma função simples do tempo, como em \@ref(eq:polin1). Nesse caso para a estimação da tendência tem de se utilizar procedimentos não paramétricos de suavização. **Suavização ou alisamento** é um processo que transforma a série $X_t$, no instante $t$ numa outra série dada por
 
 \begin{equation}
-X^*_t = \sum_{k = -n}^{n}b_kX_{t+k}, \text{ onde, } t = n+1,...,N-n
+X^*_t = \sum_{k = -n}^{n}b_kX_{t+k}, \text{ onde, } t = n+1,...,N-n.
 (\#eq:filtro)
 \end{equation}
 
-Usamos $2n+1$ observações ao redor do instante $t$ para estimar a tendência naquele instante. Nesse caso perdemos $n$ observações no início da série e outras $n$ no final da série. \@ref(eq:filtro) chama-se um *filtro linear* e normalmente tem-se que $\sum_{k = -n}^{n}b_k = 1$.
+Usamos $2n+1$ observações ao redor do instante $t$ para estimar a tendência naquele instante. Nesse caso perdemos $n$ observações no início da série e outras $n$ no final da série \@ref(eq:filtro) chama-se um *filtro linear* e normalmente tem-se que $\sum_{k = -n}^{n}b_k = 1$.
 
 ## Modelos ARIMA
 
@@ -121,24 +121,26 @@ Nessas situações, os modelos ARIMA são muito úteis para a previsão. Os mode
  - *Componente integrado* que se refere a transformação dos dados, subtraindo os valores anteriores de uma variável dos valores atuais da mesma variável de modo a tornar os dados estacionários;
  - *Componente Média Móvel*, que se refere à dependência entre a variável dependente e os valores anteriores de um termo estocástico.
 
-Podem-se descrever duas classes de processos pelo método ARIMA
+Podem-se descrever duas classes de processos pelo método ARIMA:
 
-- Processos lineares estacionários
+- Processos lineares estacionários.
 
-Podem ser representados na forma
-\begin{equation}
-X_t - m = \epsilon_t +\phi_1 \varepsilon_{t-1} + \phi_2 \varepsilon_{t-2} +... = \sum_{k = 0 }^{\infty}\phi_k\varepsilon_{t-k}, \text{ com } \phi_0 = 1
-\end{equation}
-
-Na expressão acima, como mencionado anteriormente, $\varepsilon_t$ é ruído branco e $m = E(X_t)$; e $\phi_1, \phi_2,....$ a sequência de parâmetros tal que
+Os processos lineares estacionários podem ser representados na forma
 
 \begin{equation}
-\sum_{k = 0 }^{\infty}\phi^{2}_k < \infty
+X_t - m = \epsilon_t +\phi_1 \varepsilon_{t-1} + \phi_2 \varepsilon_{t-2} +... = \sum_{k = 0 }^{\infty}\phi_k\varepsilon_{t-k}, \text{ com } \phi_0 = 1.
+(\#eq:eqacima)
 \end{equation}
 
-- Processos lineares não estacionários homogéneos
+Na expressão \@ref(eq:eqacima), como mencionado anteriormente, $\varepsilon_t$ é ruído branco e $m = E(X_t)$; e $\phi_1, \phi_2,....$ a sequência de parâmetros tal que
 
-Constituem uma generalização dos processos lineares estacionários, que pressupõem que o mecanismo gerador da série produz erros autocorrelacionados e que as séries são não estacionárias. Entretanto, estas séries podem se tornar estacionárias através de um número finito de diferenças.
+\begin{equation}
+\sum_{k = 0 }^{\infty}\phi^{2}_k < \infty.
+\end{equation}
+
+- Processos lineares não estacionários homogéneos.
+
+Os processos lineares não estacionários constituem uma generalização dos processos lineares estacionários, que pressupõem que o mecanismo gerador da série produz erros autocorrelacionados e que as séries são não estacionárias. Entretanto, estas séries podem se tornar estacionárias através de um número finito de diferenças.
 
 Esses processos são descritos de maneira adequada pelos métodos autoregressivos integrados médias móveis de ordem $p$, $d$, e $q$ $ARIMA(p, d, q)$ que podem ser generalizados pela inclusão de um operador sazonal.
  
@@ -155,15 +157,15 @@ com $\varepsilon_t$ ruído branco e $\phi_0, \phi_1,...,\phi_p$ parâmetros reai
 Para um modelo $AR(1)$, modelo autoregressivo de ordem $1$ temos os seguintes casos:
 
 - para $\phi_1 = 0$, $x_t$ é equivalente a um **ruído branco**;
-- para $\phi_1 = 1$ e $\phi_0 = 0$, $x_t$ é equivalente a um **caminho aleatório**(*Random Walk*).
-- para $\phi_1 = 1$ e $\phi_0 \neq 0$, $x_t$ é equivalente a um caminho aleatório  com deriva.
+- para $\phi_1 = 1$ e $\phi_0 = 0$, $x_t$ é equivalente a um **caminho aleatório**(*Random Walk*);
+- para $\phi_1 = 1$ e $\phi_0 \neq 0$, $x_t$ é equivalente a um caminho aleatório  com deriva;
 - para $\phi_1 < 0$, $x_t$ tende a oscilar à volta da média.
 
 Normalmente restringem-se modelos autoregressivos aos dados estacionários, implicando algumas restrições nos valores dos parâmetros requeridos [@hyndman2018forecasting].
 
-- para um modelo $AR(1)$: $-1 < \phi_1 < 1$
+- para um modelo $AR(1)$: $-1 < \phi_1 < 1$;
 - para um modelo $AR(2)$: $-1 < \phi_2 < 1$, $\phi_1 + \phi_2 < 1$ e $\phi_2 + \phi_1 < 1$,
-quando $p\geq 3$, as restrições tornam-se muito mais complexas. O *software R* normalmente cuida dessas restrições na estimação do modelo.
+quando $p\geq 3$, as restrições tornam-se muito mais complexas.
 
 
 ```{r echo =FALSE, label = 'serieAR',fig.cap='Dados de modelos autoregressivos com parâmetros diferentes', fig.align='center', out.width='80%'}
@@ -206,22 +208,22 @@ um processo $MA(\infty)$.
 
 ### Função de autocorrelação parcial (FACP)
 
-Um dos problemas na construção de modelos autoregressivos é a identificação da ordem do respetivo processo. Para modelos $MA(q)$ isso não é um problema relevante, pois se o processo for de ordem $q$, as funções de autocorrelação devem estar todos perto de zero para desfasagem maior que $q$. Embora algumas informações sobre a ordem de um processo autoregressivo possam ser obtidas a partir do comportamento oscilatório das funções de autocorrelação, mais informações podem ser obtidas a partir da *função de autocorrelação parcial (FACP)* [@pindyck2008econometric]
+Um dos problemas na construção de modelos autoregressivos é a identificação da ordem do respetivo processo. Para modelos $MA(q)$ isso não é um problema relevante pois, se o processo for de ordem $q$, as funções de autocorrelação apresentarão valores próximos de zero para desfasamentos superiores a $q$. Embora algumas informações sobre a ordem de um processo autoregressivo possam ser obtidas a partir do comportamento oscilatório das funções de autocorrelação, mais informações podem ser obtidas a partir da *função de autocorrelação parcial (FACP)* [@pindyck2008econometric]
 
-Para entender o que é uma função de autorrelação parcial e como pode ser usada, vamos primeiro considerar as funções de covariância e autocorrelação para o processo autoregressivo de ordem $p$. Primeiro notamos que a covariância com deslocamento $k$ é determinado de:
+Para entender o que é uma função de autorrelação parcial e como pode ser usada, vamos primeiro considerar as funções de covariância e autocorrelação para o processo autoregressivo de ordem $p$. Primeiro notamos que a covariância com deslocamento $k$ é determinado por:
 
 \begin{equation}
-\gamma_k = E[y_{t-k}(\phi_1y_{t-1} + \phi_2y_{t-2}+...+\phi_py_{t-p} +\varepsilon_t)]
+\gamma_k = E[y_{t-k}(\phi_1y_{t-1} + \phi_2y_{t-2}+...+\phi_py_{t-p} +\varepsilon_t)].
 \end{equation}
 
-Seja $k = 0, 1, ...,p$, obtém-se as seguintes $p+1$ equações de diferenças que podem ser resolvidos simultaneamente para $\gamma_0, \gamma_1,...,\gamma_p$:
+Seja $k = 0, 1, ...,p$, obtém-se as seguintes $p+1$ equações de diferenças que podem ser resolvidas simultaneamente para $\gamma_0, \gamma_1,...,\gamma_p$:
 
 \begin{equation}
 \begin{matrix}
   \gamma_0 =\phi_1\gamma_1 + \phi_2\gamma_2+...+\phi_p\gamma_p +\sigma^2_{\varepsilon}   \\ 
 \\ \gamma_1 =\phi_1\gamma_0 + \phi_2\gamma_1+...+\phi_p\gamma_{p-1}
 \\ ..........................................................
-\\\gamma_p =\phi_1\gamma_{p-1} + \phi_2\gamma_{p-2}+...+\phi_p\gamma_0 
+\\\gamma_p =\phi_1\gamma_{p-1} + \phi_2\gamma_{p-2}+...+\phi_p\gamma_0. 
 \end{matrix}
 (\#eq:PACF2)
 \end{equation}
@@ -229,7 +231,7 @@ Seja $k = 0, 1, ...,p$, obtém-se as seguintes $p+1$ equações de diferenças q
 Para $k>p$ as covariâncias são determinadas de
 
 \begin{equation}
-\gamma_k = \phi_1\gamma_{k-1} + \phi_2\gamma_{k-2}+...+ \phi_p\gamma_{k-p}
+\gamma_k = \phi_1\gamma_{k-1} + \phi_2\gamma_{k-2}+...+ \phi_p\gamma_{k-p}.
 (\#eq:PACF3)
 \end{equation}
 
@@ -239,7 +241,7 @@ Dividindo as equações em \@ref(eq:PACF2) por $\gamma_0$, pode-se derivar um co
 \begin{matrix}
   \rho_1 =\phi_1 + \phi_2\rho_1+...+\phi_p\rho_{p-1} \\ 
 \\ ...............................................
-\\\rho_p =\phi_1\rho_{p-1} + \phi_2\rho_{p-2}+...+\phi_p
+\\\rho_p =\phi_1\rho_{p-1} + \phi_2\rho_{p-2}+...+\phi_p.
 \end{matrix}
 (\#eq:PACF4)
 \end{equation}
@@ -247,14 +249,14 @@ Dividindo as equações em \@ref(eq:PACF2) por $\gamma_0$, pode-se derivar um co
 Para $k>p$, da equação \@ref(eq:PACF3), temos que:
 
 \begin{equation}
-\rho_k =\phi_1\rho_{k-1} + \phi_2\rho_{k-2}+...+\phi_p\rho_{k-p}
+\rho_k =\phi_1\rho_{k-1} + \phi_2\rho_{k-2}+...+\phi_p\rho_{k-p}.
 \end{equation}
 
 As equações em \@ref(eq:PACF4) são chamadas **Equações de Yule-Walker**. Se $\rho_1, \rho_2,...,\rho_p$ forem conhecidos,  as equações podem ser resolvidas por $\phi_1, \phi_2,...,\phi_p$.
 
-Resolvem-se as equações de Yule-walker, iniciando em $p=0$ e determinando a respetiva estimativa de $\phi_i, i=1,...,p$, digamos $a_i$. Assim para $p=1, 2,...$ obteremos a série $a_1, a_2,...$ que é a *função de autocorrelação parcial (FACP)*
+Resolvem-se as equações de Yule-walker, iniciando em $p=0$ e determinando a respetiva estimativa de $\phi_i, i=1,...,p$, digamos $a_i$. Assim para $p=1, 2,...$ obteremos a série $a_1, a_2,...$ que é a *função de autocorrelação parcial (FACP)*.
 
-### Modelos autoregressivos e médias móveis (ARMA)
+### Modelos autoregressivos de médias móveis (ARMA)
 
 Os modelos autoregressivos e de médias móveis são representados por ARMA(p,q), e é composto pela junção dos modelos autoregressivos (AR) e dos modelos médias móveis (MA).
 
@@ -262,14 +264,14 @@ Os modelos autoregressivos e de médias móveis são representados por ARMA(p,q)
 ```{definition, name= "Modelos ARMA"}
 Uma série temporal $x_t$ com $t \in \mathbb{Z}$ é um **ARMA(p,q)** se for estacionária e se
 \begin{equation}
-x_t = \phi_1 x_{t-1} + \phi_2 x_{t-2} + ...\phi_px_{t-p} + ...+ w_t +\theta_1w_{t-1}+...+\theta_qw_{t-q}
+x_t = \phi_1 x_{t-1} + \phi_2 x_{t-2} + ...\phi_px_{t-p} + ...+ w_t +\theta_1w_{t-1}+...+\theta_qw_{t-q},
 (\#eq:ARMA1)
 \end{equation}
 ```
-com $\phi_p \neq 0, \phi_q \neq 0$ e $\sigma^2_w > 0$. Os parâmetros $p$ e $q$ são chamados ordem autoregressivo e ordem média móvel, respetivamente. Se $x_t$ tiver média não nula $\mu$, estabelecemos $\alpha = \mu(1-\phi_1 - ...-\phi_p)$ e escrevemos o modelo como:
+com $\phi_p \neq 0, \phi_q \neq 0$ e $\sigma^2_w > 0$. Os parâmetros $p$ e $q$ denotam a ordem da componente autoregressiva e a ordem da componente de média móvel, respetivamente. Se $x_t$ tiver média não nula $\mu$, estabelecemos $\alpha = \mu(1-\phi_1 - ...-\phi_p)$ e escrevemos o modelo como:
 
 \begin{equation}
-x_t =\alpha + \phi_1 x_{t-1} + \phi_2 x_{t-2} + ...\phi_px_{t-p} + ...+ w_t +\theta_1w_{t-1}+...+\theta_qw_{t-q}
+x_t =\alpha + \phi_1 x_{t-1} + \phi_2 x_{t-2} + ...\phi_px_{t-p} + ...+ w_t +\theta_1w_{t-1}+...+\theta_qw_{t-q},
 \end{equation}
 
 onde $w_t$ será considerado um ruído branco Gaussiano, a menos que seja especificado de outra forma.
@@ -292,7 +294,7 @@ Na prática, a maioria das séries temporais em economia são *não estacionári
 ```{definition, name= "Modelos ARIMA"}
 Um processo $x_t$ é um modelo $ARIMA(p, d, q)$ se $\triangledown ^dx_t = (1-B)^dx_t$ for um modelo $ARMA(p,q)$. Em geral, escreveremos o modelo como:
 \begin{equation}
-\phi(B)(1-B)^dx_t = \theta(B)w_t
+\phi(B)(1-B)^dx_t = \theta(B)w_t.
 \end{equation}
 ```
 Se $E(\triangledown^dx_t) = \mu$, escrevemos o modelo como:
@@ -305,7 +307,7 @@ onde $\alpha = \mu(1-\phi_1-...-\phi_p)$.
 
 #### Estimação de modelos ARIMA
 
-Usando as funções de autocorrelação e autocorrelação parcial determina-se a ordem $d$ do modelo, ou seja, o número de vezes que a série precisa ser diferenciada. Uma vez determinada a ordem do modelo,  os parâmetros podem ser determinados utilizando:
+Usando as funções de autocorrelação e autocorrelação parcial determina-se a ordem $d$ do modelo, ou seja, o número de vezes que a série precisa de ser diferenciada. Uma vez determinada a ordem do modelo,  os parâmetros podem ser determinados utilizando:
 
  - Método dos momentos;
  - Estimadores de mínimos quadrados;
@@ -313,7 +315,7 @@ Usando as funções de autocorrelação e autocorrelação parcial determina-se 
  
 #### Diagnóstico de modelos ARIMA
 
-Uma vez determinado o grau $d$ e feito a estimação dos parâmetros, deve-se verificar se o modelo está adequado aos dados da série. Essa adequação é verificada recorrendo a análise de resíduos
+Uma vez determinado o grau $d$ e feita a estimação dos parâmetros, deve-se verificar se o modelo está adequado aos dados da série. Essa adequação é verificada recorrendo a análise de resíduos.
 
 Seja o modelo ajustado
 
@@ -325,10 +327,10 @@ Seja o modelo ajustado
 onde $w_t = \triangledown^dx_t$ com $d$ diferenças nas séries, $\phi(B)$ e $\theta(B)$ polinómios do operador $B$. Os resíduos são descritos por:
 
 \begin{equation}
-a_t = \phi^{-1}(B)\phi(B)w_t
+a_t = \phi^{-1}(B)\phi(B)w_t.
 \end{equation}
 
-O modelo será considerado adequado aos dados se os resíduos $\varepsilon_t$ se indetificam com a distribuição $N(0, 1)$. Para se verificar se os resíduos estimados são *não correlacionados* podemos utilizar os testes de $Box - Pierce$ ou o teste de $Ljung - Box$. Para a escolha do modelo ARIMA podem ser utilizados os critérios AIC, BIC e HDC.
+O modelo será considerado adequado aos dados se os resíduos $\varepsilon_t$ se os resíduos apresentam um comportamento aleatório, com média zero e variância constante, compatível com uma distribuição $N(0, 1)$. Para se verificar se os resíduos estimados são *não correlacionados* podemos utilizar os testes de $Box - Pierce$ ou o teste de $Ljung - Box$. Para a escolha do modelo ARIMA podem ser utilizados os critérios AIC, BIC e HDC.
 
 ##### Testes de Box-Pierce e Ljung-Box
 
@@ -347,11 +349,11 @@ Para amostras grandes, a estatística $Q$ distribui-se segundo uma distribuiçã
 O teste de $Ljung-Box$ é uma generalização do teste de $Box-Pierce$ e apresenta melhores resultados [@xavier2016analise].
 
 \begin{equation}
-LB = N(N+2)\sum_{k=1}^{m}\left ( \frac{\hat{r}^2_k}{N-K} \right )
+LB = N(N+2)\sum_{k=1}^{m}\left ( \frac{\hat{r}^2_k}{N-K} \right ).
 (\#eq:LjungBox)
 \end{equation}
 
-Para os dois testes acima, a hipótese nula considera a não existência de autocorrelação conjunta dos resíduos. $H_0$ será rejeitado se o valor da estatística de teste for superior ao valor crítico da distribuição qui-quadrado para um determinado nível de significância $\alpha$ e grau de liberdade $gl = m$, isto é, as autocorrelações para um determinado número de $lags$ poderão ser significativamente diferentes de zero, mostrando que os valores não são aleatórios e independentes ao longo do tempo.
+Para os dois testes acima, a hipótese nula considera a não existência de autocorrelação conjunta dos resíduos. $H_0$ será rejeitada se o valor da estatística de teste for superior ao valor crítico da distribuição qui-quadrado para um determinado nível de significância $\alpha$ e graus de liberdade $gl = m$, isto é, as autocorrelações para um determinado número de $lags$ poderão ser significativamente diferentes de zero, mostrando que os valores não são aleatórios e independentes ao longo do tempo.
 
 #### Critério de escolha dos modelos
 
@@ -371,18 +373,18 @@ Após ser estimado e escolhido o modelo, este pode ser utilizado para fazer prev
 
 As previsões podem ser calculadas seguindo os seguintes passos [@hyndman2018forecasting]:
 
-1. Expandir a equação ARIMA tal que $y_t$ fique do lado esquerdo da equação e todos os restantes termos do lado direito
-2. Substituir na equação $t$ por $T+h$
+1. Expandir a equação ARIMA tal que $y_t$ fique do lado esquerdo da equação e todos os restantes termos do lado direito;
+2. Substituir na equação $t$ por $T+h$;
 3. No lado direito da equação, substituir as observações futuras pelas respetivas previsões, erros futuros por zero e erros passados pelos resíduos correspondentes.
 
 Iniciando com $h=1$, esses passos são repetidos para $h = 2, 3, ...$ até todas as previsões forem calculadas.
 
 Uma vez determinado o modelo $ARIMA(p,d,q)$, estacionário, invertível e com parâmetros conhecidos, pode-se utilizar uma das seguintes fórmulas para fazer a previsão.
 
-1. Fórmula de equação de diferenças:
+1. Fórmula de equação de diferenças
 
 \begin{equation}
-X_{t+h} = \phi X_{t+h-1}+...+\phi_{p+d}X_{t+h-p-d}-\theta_1\varepsilon_{t+h-1}-...-\theta_q\varepsilon_{t+h-q}+\varepsilon_{t+h}
+X_{t+h} = \phi X_{t+h-1}+...+\phi_{p+d}X_{t+h-p-d}-\theta_1\varepsilon_{t+h-1}-...-\theta_q\varepsilon_{t+h-q}+\varepsilon_{t+h}.
 \end{equation}
 
 2. Fórmula de choques aleatórios
@@ -391,7 +393,7 @@ X_{t+h} = \phi X_{t+h-1}+...+\phi_{p+d}X_{t+h-p-d}-\theta_1\varepsilon_{t+h-1}-.
 X_{t+h}=\sum_{j=-\infty}^{t+h}\psi_{t+h-j}\varepsilon_j =\sum_{j=0}^{\infty} \psi\varepsilon_{t+h-j}
 \end{equation}
 
-com $\psi_0=1$ e os outros pesos obtidos pela resolução do sistema de operadores $\theta(B)=\phi(B)\psi(B)$
+com $\psi_0=1$ e os outros pesos obtidos pela resolução do sistema de operadores $\theta(B)=\phi(B)\psi(B)$.
 
 3. Fórmula invertida
 
@@ -399,7 +401,7 @@ com $\psi_0=1$ e os outros pesos obtidos pela resolução do sistema de operador
 X_{t+h}=\sum_{j=1}^{\infty}\pi_jX_{t+h-j} + \varepsilon_{t+h} 
 \end{equation}
 
-com os $\pi_j$ obtidos pela resolução do sistema de operadores $\phi(B)=\theta(B)\pi(B)$
+com os $\pi_j$ obtidos pela resolução do sistema de operadores $\phi(B)=\theta(B)\pi(B)$.
 
 No ajustamento de um modelo ARIMA a um conjunto de dados em forma de série temporal (não sazonal), podemos então utilizar os seguintes passos [@hyndman2018forecasting]:
 
@@ -424,9 +426,9 @@ Os modelos SARIMA são dados por:
 
 com $W_t = \triangledown ^d_s\triangledown ^dX_t$ e com os seguintes operadores
 
-- Autoregressivo não sazonal - $\phi(B) = (1-\alpha_1B-...-\alpha_pB^p)$
-- Autoregressivo sazonal - $\Phi(B^s) =(1-\phi_sB^s-...-\phi_pB^{P_s}$
-- Média móvel não sazonal - $\theta(B) = (1+\beta_1B+...+\beta_qB^q)$
-- Média móvel sazonal - $\Theta(B^s) = (1+\theta_sB^s-...-\theta_pB^{Q_s})$
-- $\triangledown ^d$ - operador diferença não sazonal de ordem $d$
-- $\triangledown ^d_s$ - operador diferença sazonal de ordem $D$
+- Autoregressivo não sazonal - $\phi(B) = (1-\alpha_1B-...-\alpha_pB^p)$;
+- Autoregressivo sazonal - $\Phi(B^s) =(1-\phi_sB^s-...-\phi_pB^{P_s}$;
+- Média móvel não sazonal - $\theta(B) = (1+\beta_1B+...+\beta_qB^q)$;
+- Média móvel sazonal - $\Theta(B^s) = (1+\theta_sB^s-...-\theta_pB^{Q_s})$;
+- $\triangledown ^d$ - operador diferença não sazonal de ordem $d$;
+- $\triangledown ^d_s$ - operador diferença sazonal de ordem $D$.

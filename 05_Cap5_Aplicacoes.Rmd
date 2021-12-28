@@ -1,12 +1,12 @@
-# Uma aplicação a dados da economia Cabo-verdiana
+# Uma aplicação a dados da economia Cabo-Verdiana
 
 ## Produto interno bruto de Cabo Verde 
 
-O Produto interno bruto (PIB) representa a soma em unidades monetárias de todos os bens e serviços produzidos num determinado país ou região, durante um determinado período. O PIB é um indicador macroeconómico muito utilizado na economia, para analisar a "saúde económica" de um país ou região. O PIB é composto de bens e serviços produzidos para venda no mercado e também inclui produção não destinada ao mercado, tais como educação ou serviços da defesa de um país fornecidos pelo governo. Um conceito alternativo é o produto nacional bruto (PNB), que soma toda a produção dos residentes de um país. Por exemplo, se uma empresa com dono Cabo-verdiano tiver uma fábrica no Senegal, a produção dessa fábrica será contabilizada como PIB do Senegal e como PNB de Cabo Verde [@callen2012gross].
+O Produto interno bruto (PIB) representa a soma em unidades monetárias de todos os bens e serviços produzidos num determinado país ou região, durante um determinado período. O PIB é um indicador macroeconómico muito utilizado na economia, para analisar a "saúde económica" de um país ou região. O PIB é composto de bens e serviços produzidos para venda no mercado e também inclui produção não destinada ao mercado, tais como educação ou serviços da defesa de um país fornecidos pelo governo. Um conceito alternativo é o produto nacional bruto (PNB), que soma toda a produção dos residentes de um país. Por exemplo, se uma empresa com dono Cabo-Verdiano tiver uma fábrica no Senegal, a produção dessa fábrica será contabilizada como PIB do Senegal e como PNB de Cabo Verde [@callen2012gross].
 
 ### Breve enquadramento da economia cabo-verdiana
 
-A Economia Cabo-verdiana é norteada pelo turismo, que representa cerca de 25% do PIB. Apesar dos desafios relacionados com a pequena economia insular, Cabo Verde tem tido um progresso económico notável desde 1990, influenciado principalmente pelo rápido desenvolvimento do turismo.
+A Economia Cabo-Verdiana é norteada pelo turismo, que representa cerca de 25% do PIB. Apesar dos desafios relacionados com a pequena economia insular, Cabo Verde tem tido um progresso económico notável desde 1990, influenciado principalmente pelo rápido desenvolvimento do turismo.
 
 Antes da pandemia da COVID-19, Cabo Verde experimentava um crescimento económico robusto direcionado por um forte setor turístico e por reformas estruturais firmes. Entre 2016 e 2019 o crescimento médio do PIB foi de 4.7%. Condições globais favoráveis e fortes reformas estruturais, principalmente no setor das empresas do estado, contribuíram para o crescimento. O crescimento robusto e sustentável levou a uma diminuição da pobreza de 24.5% em 2015 para 11.5% em 2019 [@TheWorldBank].
 
@@ -59,7 +59,7 @@ Vamos primeiramente verificar se a série original é estacionária ou não, apl
 
 A *função de autocorrelação(ACF)* e *autocorrelação parcial (PACF)*, podem também nos ajudar na análise da estacionaridade. Como podemos verificar na Figura \@ref(fig:serie6), a ACF decresce lentamente para zero a cada passo (*lag*), enquanto que o PACF "cai" rapidamente para zero no primeiro *lag*, indicando que a série é não estacionária, ou seja, precisa ser diferenciada pelo menos uma vez $(d=1)$.
 
-```{r echo =FALSE, label = 'serie6',fig.cap='ACF e PACF do PIB de Cabo Verde DE 1980 a 2018',fig.align= 'center', out.width='80%'}
+```{r echo =FALSE, label = 'serie6',fig.cap='ACF e PACF do PIB de Cabo Verde de 1980 a 2018',fig.align= 'center', out.width='80%'}
 knitr::include_graphics("img/Rplot07.png")
 ```
 
@@ -76,9 +76,9 @@ knitr::include_graphics("img/Rplot08.png")
 
 Aplicando o teste `adf`, encontramos um *p-value* $p = 0.48 > 0.05$, isto é, com um nível de significância de $0.05$ continuamos a não rejeitar a hipótese inicial de que a série é não estacionária, ou seja a primeira diferença não foi suficiente para transformar a série numa estacionária. 
 
-Ao aplicar mais uma diferença à nossa série $(d=2)$, e repetir o teste *adf* encontramos um *p-value* $p = 0.01 < 0.05$, ou seja, com um nível de significância de $0.05$, rejeitamos a hipótese inicial de que a nossa série é não estacionária. 
+Ao aplicar mais uma diferença à nossa série $(d=2)$, e repetindo o teste *ADF* encontramos um *p-value* $p = 0.01 < 0.05$, ou seja, com um nível de significância de $0.05$, rejeitamos a hipótese inicial de que a série é não estacionária. 
 
-No `R`, o *package* `forecast` dispõe da função `ndiffs()` que permite identificar qual a ordem de diferenciação precisa-se aplicar numa determinada série, para a transformar numa série estacionária. No nosso caso ao aplicar o `ndiffs()` encontramos $2$, ou seja, a nossa série precisa de duas diferenciações para ser transformada numa série estacionária.
+No `R`, o *package* `forecast` dispõe da função `ndiffs()` que permite identificar qual a ordem de diferenciação necessária para aplicar numa determinada série, para a transformar numa série estacionária. No nosso caso ao aplicar o `ndiffs()` encontramos $2$, ou seja, a nossa série precisa de duas diferenciações para ser transformada numa série estacionária.
 
 ### Identificação do Modelo
 
@@ -96,26 +96,26 @@ knitr::kable(modelo_selection, 'pipe',longtable = TRUE, booktabs = TRUE,
 ```
 
 
-Assim o modelo $ARIMA(1,2,1)$ e os seus respetivos parâmetros encontram-se resumidos na tabela abaixo. Podemos também observar que o $p-value$ dos coeficientes $AR(1)$ e $MA(1)$ são pequenos (menores que o nível de significância de $0.05$), ou seja, os coeficientes são significativamente diferentes de zero. 
+Assim o modelo $ARIMA(1,2,1)$ e os seus respetivos parâmetros encontram-se resumidos na tabela abaixo. Podemos também observar que os valores do $p-value$ realtivo à significância dos coeficientes $AR(1)$ e $MA(1)$ são pequenos (menores do que o nível de significância de $0.05$), ou seja, os coeficientes são significativamente diferentes de zero. 
 
-Assim sendo, teremos agora de analisar se os resíduos são correlacionados ou não antes de usar o modelo para fazer previsões.
+Assim sendo, teremos agora de analisar se os resíduos são correlacionados ou não, antes de usar o modelo para fazer previsões.
 
 ```{r echo=FALSE, label = 'tabela3', strip.white = TRUE}
 library(readxl)
 modeloarima <- read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/MestradoMatematica/Tese/Documentos/Dados/MODEL_SELECTON.xlsx", sheet = "arima(1,1,0)")
 knitr::kable(modeloarima, 'pipe',longtable = TRUE, booktabs = TRUE,
-  caption = ' Estimativa do modelo ARIMA(1,2,1).')
+  caption = ' Estimativas com modelo ARIMA(1,2,1).')
 ```
 
 ### Análise dos resíduos
 
-Uma vez identificado o melhor modelo, o próximo passo será a verificação das funções $ACF$ e $PACF$ dos resíduos. Na Figura \@ref(fig:serie7), encontra-se a representação gráfica dos resíduos. Para que o modelo produza bons resultados, temos de confirmar que os resíduos são não correlacionados, ou seja, que não existe informação útil nos resíduos que poderiam ser usados para melhorar o modelo.
+Uma vez identificado o melhor modelo, o próximo passo será a verificação das funções $ACF$ e $PACF$ dos resíduos. Na Figura \@ref(fig:serie7), encontra-se a representação gráfica dos resíduos. Para que o modelo produza bons resultados, temos de confirmar que os resíduos são não correlacionados.
 
 ```{r echo =FALSE, label = 'serie7',fig.cap='Representação gráfica dos resíduos',fig.align= 'center', out.width='80%'}
 knitr::include_graphics("img/Rplot09.png")
 ```
 
-Na Figura \@ref(fig:serie8) encontra-se a representação das funções $ACF$ e $PACF$ dos resíduos. Pode-se ver que não existe autocorrelação dos resíduos, dado que se encontram dentro dos limites de confiabilidade (linha tracejada azul). Além disso, aplicando o teste de *Box-Pierce* ou *Ljung-Box* encontrou-se um $p-value$ muito alto, o que indica que os resíduos comportam-se como ruído branco. Conclui-se então que o nosso modelo é apropriado para fazer as previsões.
+Na Figura \@ref(fig:serie8) encontra-se a representação das funções $ACF$ e $PACF$ dos resíduos. Pode-se ver que não existe autocorrelação dos resíduos, dado que se encontram dentro dos limites de confiabilidade (linha tracejada azul). Além disso, aplicando o teste de *Box-Pierce* ou *Ljung-Box* encontrou-se um $p-value$ muito alto, o que indica que os resíduos se comportam como ruído branco. Conclui-se então que o nosso modelo é apropriado para fazer as previsões.
 
 
 ```{r echo =FALSE, label = 'serie8',fig.cap='Funções ACF e PACF dos resíduos',fig.align= 'center', out.width='80%'}
@@ -125,7 +125,7 @@ knitr::include_graphics("img/Rplot10.png")
 
 ### Previsão
 
-Dado que a análise dos resíduos mostrou-se adequada a validação do modelo, pode-se agora realizar previsões com base na amostra. Na Figura \@ref(fig:serie9) estão representados os valores efetivos de 1980 a 2018 e os valores obtidos através do nosso modelo no mesmo período. Pode-se observar que o modelo ajustado converge para a série original.
+Dado que a análise dos resíduos se mostrou adequada para validação do modelo, este pode ser usado para realizar previsões com base na amostra. Na Figura \@ref(fig:serie9) estão representados os valores efetivos de 1980 a 2018 e os valores obtidos através do nosso modelo no mesmo período. Pode-se observar que o modelo ajustado converge para a série original.
 
 ```{r echo =FALSE, label = 'serie9',fig.cap='Representação gráfica da série original e série ajustada',fig.align= 'center', out.width='80%'}
 knitr::include_graphics("img/Rplot11.png")
@@ -137,7 +137,7 @@ A Figura \@ref(fig:serie10) apresenta os dados reais de 1980 a 2020  e as previs
 knitr::include_graphics("img/Rplot12.png")
 ```
 
-Na Tabela \@ref(tab:tabela4), está representada a variação entre o valor previsto e o valor real. Podemos observar que para todos os anos apresentados, os valores previstos estão próximos dos valores reais com exceção do ano 2020, que como explicado anteriormente, foi um ano atípico devido àa pandemia da COVID-19 que afetou todas as projeções de crescimento das economias mundiais desafiando praticamente todos os métodos de previsão.
+Na Tabela \@ref(tab:tabela4), está representada a variação entre o valor previsto e o valor real. Podemos observar que para todos os anos apresentados, os valores previstos estão próximos dos valores reais com exceção do ano 2020, que como explicado anteriormente, foi um ano atípico devido à pandemia da COVID-19 que afetou todas as projeções de crescimento das economias mundiais, desafiando praticamente todos os métodos de previsão.
 
 ```{r echo=FALSE, label = 'tabela4', strip.white = TRUE}
 suppressMessages(library(readxl))
@@ -145,24 +145,33 @@ modeloarima <-  read_excel("C:/Users/USER/OneDrive - Universidade de Cabo Verde/
     sheet = "tabela", col_types = c("numeric", 
         "numeric", "numeric", "text"))
 knitr::kable(modeloarima, 'pipe',longtable = TRUE, booktabs = TRUE,
-  caption = ' Previsão do modelo ARIMA(1,2,1).'
+  caption = ' Previsões com o modelo ARIMA(1,2,1).'
 )
 ```
 
 ### Considerações finais
 
-Dos resultados obtidos, é percetível que o modelo $ARIMA$ é muito potente na análise e previsão de séries temporais, obtendo valores muito próximos dos valores reais. Também identificamos uma das fraquezas no modelo ARIMA que é a previsão de *outliers*, principalmente quando não houver um histórico frequente de *outliers* nos dados. Na nossa aplicação notamos que o modelo não foi capaz de prever a queda do PIB que aconteceu em 2020, devido à pandemia da COVID-19. De modo geral, o modelo é muito potente e capaz de oferecer boas previsões para dados em forma de séries temporais, quando não ocorrerem acontecimentos raros que podem afetar significativamente os *outcomes* futuros.
+Dos resultados obtidos, é percetível que o modelo $ARIMA$ é muito potente na análise e previsão de séries temporais, obtendo valores muito próximos dos valores reais. Também identificamos uma das fraquezas no modelo ARIMA que é a previsão de *outliers*, principalmente quando não houver um histórico frequente de *outliers* nos dados. Na nossa aplicação notamos que o modelo não foi capaz de prever a queda do PIB que aconteceu em 2020, devido à pandemia da COVID-19. De um modo geral, o modelo é muito potente e capaz de oferecer boas previsões para dados em forma de séries temporais, quando não ocorrerem acontecimentos raros que podem afetar significativamente os *outcomes* futuros.
 
-Por definição *outliers* são observações inesperadas que afasta significativamente das observações esperadas e normalmente correspondem a acontecimentos atípicos. A predição da ocorrência futura de *outliers* é muito desafiadora, pois são valores que não se observam frequentemente [@Reunanen2020].  Com o avanço da computacional, existem agora alguns métodos aplicados para a previsão de ocorrência de *outiliers*.  Modelos que usam o *Machine Learning*, têm sido aplicados com o objetivo de prever *outliers*, mas é desafiador também para esses modelos, pois normalmente não existem dados  suficientes para treinar esses modelos de forma a identificarem os *ouliers*. Para mais informações sobre métodos de previsão de *outliers* consultar Reunanen [@Reunanen2020] ou Gerogiadis [@georgiadis2013continuous].
+Por definição, *outliers* ou observações atípicas, são observações inesperadas que se afastam significativamente das observações esperadas e normalmente correspondem a acontecimentos raros. A predição da ocorrência futura de *outliers* é muito desafiadora, pois são valores que não se observam frequentemente [@Reunanen2020].  Com o avanço da computacional, existem agora alguns métodos aplicados para a previsão de ocorrência de *outiliers*.  Modelos que usam o *Machine Learning*, têm sido aplicados com o objetivo de prever *outliers*, mas é desafiador também para esses modelos, pois normalmente não existem dados  suficientes para treinar esses modelos de forma a identificarem os *ouliers*. Para mais informações sobre métodos de previsão de *outliers* consultar Reunanen [@Reunanen2020] ou Gerogiadis [@georgiadis2013continuous].
 
 # Conclusão
 
 Uma grande parte das observações de fenómenos económico-financeiros podem ser representados em forma de séries temporais. Essas séries, caracterizadas por pontos observados com igual espaçamento temporal podem ser analisadas e utilizadas para fazer previsões sobre valores futuros. Existem vários métodos usados na análise e previsão de séries temporais, sendo que a maioria usa valores passados da série para criar um modelo usado para representação e previsão da série.
 
-Dentre os métodos utilizados na análise de séries temporais, destaca-se o $ARIMA(p,d,q)$, que é a combinação dos modelos autoregressivos de ordem $p$ $(AR(p))$ e dos modelos médias-móveis de ordem $q$ $(MA(q))$ onde é aplicado a diferenciação de ordem $d$ na série original para a transformar numa série estacionária. Esse método é muito utilizado na análise de séries económicas e financeiras.
+De entre os métodos utilizados na análise de séries temporais, destaca-se o $ARIMA(p,d,q)$, que é a combinação dos modelos autoregressivos de ordem $p$ $(AR(p))$ e dos modelos médias-móveis de ordem $q$ $(MA(q))$ onde é aplicada a diferenciação de ordem $d$ na série original para a transformar numa série estacionária. Esse método é muito utilizado na análise de séries económicas e financeiras.
 
-Nesse trabalho, foi utilizado o modelo $ARIMA(1,2,1)$ na análise e previsão do Produto Interno Bruto (PIB) de Cabo Verde com dados de 1980 a 2018. A série ajustada obtido produziu valores muito próximos dos valores reais e conseguiu obter previsões muito próximos dos valores reais para o ano 2019. Entretanto, a previsão obtida para o ano 2020 ficou muito longe dos valores efetivos. O ano 2020 foi marcado pela queda da economia mundial devido à pandemia da COVID-19, fazendo com que o PIB da maioria dos países caíssem para valores pouco frequentes. Em 2019 a previsão feita pelo Fundo Monetário Internacional[@Internacional2020] era de que o PIB de Cabo Verde cresceria em torno dos 5% em 2020, entretanto houve uma recessão de 14,8% contrariando todas as previsões feitas, incluindo as produzidas pelo $ARIMA$.
+Neste trabalho, foi utilizado o modelo $ARIMA(1,2,1)$ na análise e previsão do Produto Interno Bruto (PIB) de Cabo Verde com dados de 1980 a 2018. A série ajustada obtida produziu valores muito próximas dos valores reais e conseguiu obter previsões muito próximos dos valores reais para o ano 2019. Entretanto, a previsão obtida para o ano 2020 ficou muito longe dos valores efetivos. O ano 2020 foi marcado pela queda da economia mundial devido à pandemia da COVID-19, fazendo com que o PIB da maioria dos países caíssem para valores pouco frequentes. Em 2019 a previsão feita pelo Fundo Monetário Internacional[@Internacional2020] era de que o PIB de Cabo Verde cresceria em torno dos 5% em 2020, entretanto houve uma recessão de 14,8%, contrariando todas as previsões feitas, incluindo as produzidas pelo $ARIMA$.
 
 Um dos pontos fracos do modelo ARIMA e da maioria dos métodos de previsão é justamente a previsão de *outliers* quando não forem frequentemente observadas outros *outliers* semelhantes nos dados históricos (como foi o caso do PIB de Cabo Verde em 2020). Para mitigar esse problema, pode-se... 
 
-Pela aplicação prática, verifica-se que o modelo ARIMA ajusta-se de forma muito eficientes a dados económico-financeiras, produzindo previsões robustos e podendo ser aplicado a outros dados financeiros da economia Cabo-verdiana, obtendo assim previsões úteis na tomada de decisão, mas com a ressalva de que a mesma não é muito eficiente na previsão de *outliers* que afastam muito dos valores históricos.
+Pela aplicação prática, verifica-se que o modelo ARIMA ajusta-se de forma muito eficientes a dados económico-financeiras, produzindo previsões robustos e podendo ser aplicado a outros dados financeiros da economia Cabo-Verdiana, obtendo assim previsões úteis na tomada de decisão, mas com a ressalva de que a mesma não é muito eficiente na previsão de *outliers* que afastam muito dos valores históricos.
+
+Para mitigar esse problema há que investigar, procurando modelos que, por um lado traduzam fidedignamente a realidade das restantes observações, modelos robustos, mas que, por outro lado, sejam capazes de prever a ocorrência de tais observações, eventualmente, passando pela aplicação da inteligência artificial e dados históricos.
+
+Neste trabalho foi possível constatar que o modelo ARIMA se ajusta de forma muito adequada aos dados económico-financeiros analisados, produzindo previsões realistas. A possibilidade de ser aplicado a outros dados financeiros da economia Cabo-Verdiana, obtendo assim previsões úteis na tomada de
+decisão, constitui uma das direções possíveis para trabalho futuro. A previsível ocorrência de futuras observações atípicas cujas causas são múltiplas e variadas é alvo de preocupação na comunidade académica e profissional. Motiva, por isso, o interesse e a procura de modelos mais apropriados.
+
+
+
+
